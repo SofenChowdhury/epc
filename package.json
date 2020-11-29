@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "axios": "^0.18.1",
+        "bootstrap": "^4.5.0",
+        "cross-env": "^5.2.1",
+        "deepmerge": "^4.2.2",
+        "fibers": "^4.0.3",
+        "jquery": "^3.5.1",
+        "laravel-mix": "^4.1.4",
+        "lodash": "^4.17.15",
+        "popper.js": "^1.16.1",
+        "resolve-url-loader": "^2.3.1",
+        "sass": "^1.26.9",
+        "sass-loader": "^7.3.1",
+        "vue": "^2.6.11",
+        "vue-template-compiler": "^2.6.11"
+    },
+    "dependencies": {
+        "@alfsnd/vue-bootstrap-select": "^0.4.4",
+        "build": "^0.1.4",
+        "cron": "^1.8.2",
+        "cron-job-manager": "^2.1.2",
+        "print-js": "^1.0.63",
+        "select-typeahead-vue": "0.0.6",
+        "vue-material": "^1.0.0-beta-14",
+        "vue-multiselect": "^2.1.6",
+        "vue-select": "^3.10.5",
+        "vue-simple-search-dropdown": "^1.0.1",
+        "vuetify": "^2.3.2"
+    }
+}

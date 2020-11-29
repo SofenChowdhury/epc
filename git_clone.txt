@@ -1,0 +1,10 @@
+. >>git clone <Git_repository_link>
+. >>cd <Project_name>
+. >>compooser update 
+. import database in localhost (faisal_epc.sql file in the repo)
+. copy .env.example and rename to .env
+. give database name, username and password in .env file
+	HERE,   DB_DATABASE=faisal_epc
+		DB_USERNAME=root
+		DB_PASSWORD=
+. >>npm run (for vue.js files)
