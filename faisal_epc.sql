@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 25, 2020 at 10:59 AM
+-- Generation Time: Nov 30, 2020 at 10:53 AM
 -- Server version: 5.6.41-84.1
 -- PHP Version: 7.3.6
 
@@ -4010,7 +4010,7 @@ INSERT INTO `erp_employee_salaries` (`id`, `employee_id`, `basic_percentage`, `b
 (82, 85, 40, 16000, 92, NULL, NULL, 2500, 10, 1600, 0, 0, NULL, 0, 0, NULL, 40000, NULL, 8, 8, '2020-02-26 09:44:41', '2020-02-26 10:02:21'),
 (83, 86, 40, 3680, 21, NULL, NULL, 2500, 10, 368, 0, 0, NULL, 0, 0, NULL, 9200, NULL, 8, NULL, '2020-03-01 09:17:21', '2020-07-04 23:19:45'),
 (84, 87, 40, 20000, 0, NULL, NULL, 2500, 10, 2000, 0, 0, NULL, 124, 99, NULL, 50000, NULL, 8, 1, '2020-03-03 06:15:52', '2020-10-17 10:59:11'),
-(85, 88, 40, 80000, 462, NULL, NULL, 2500, 10, 8000, 0, 0, NULL, 6167, 4933, NULL, 200000, NULL, 1, 1, '2020-07-03 00:55:00', '2020-11-23 16:34:44'),
+(85, 88, 40, 80000, 462, NULL, NULL, 2500, 10, 8000, 0, 0, NULL, 6167, 4933, NULL, 200000, NULL, 1, 1, '2020-07-03 00:55:00', '2020-11-30 15:13:56'),
 (86, 28, 40, 84000, 485, NULL, NULL, 2500, 10, 8400, 0, 0, NULL, 7877, 6301, 100000, 210000, '2020-07-01', NULL, 1, '2020-07-04 01:19:55', '2020-08-09 19:44:43'),
 (87, 89, 40, 8000, 0, NULL, NULL, 2500, 10, 800, 0, 0, NULL, 0, 0, NULL, 20000, NULL, 1, 1, '2020-07-25 02:20:48', '2020-07-25 02:28:19'),
 (88, 90, 40, 6000, 0, NULL, NULL, 2500, 10, 600, 0, 0, NULL, 0, 0, NULL, 15000, NULL, 1, 1, '2020-07-25 02:24:15', '2020-07-25 02:27:51'),
@@ -8530,7 +8530,74 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 (64, 'App\\User', 25),
 (65, 'App\\User', 25),
 (66, 'App\\User', 25),
-(67, 'App\\User', 25);
+(67, 'App\\User', 25),
+(36, 'App\\User', 26),
+(46, 'App\\User', 26),
+(1, 'App\\User', 27),
+(2, 'App\\User', 27),
+(3, 'App\\User', 27),
+(4, 'App\\User', 27),
+(5, 'App\\User', 27),
+(6, 'App\\User', 27),
+(7, 'App\\User', 27),
+(8, 'App\\User', 27),
+(9, 'App\\User', 27),
+(10, 'App\\User', 27),
+(11, 'App\\User', 27),
+(12, 'App\\User', 27),
+(13, 'App\\User', 27),
+(14, 'App\\User', 27),
+(15, 'App\\User', 27),
+(16, 'App\\User', 27),
+(17, 'App\\User', 27),
+(18, 'App\\User', 27),
+(19, 'App\\User', 27),
+(20, 'App\\User', 27),
+(21, 'App\\User', 27),
+(22, 'App\\User', 27),
+(23, 'App\\User', 27),
+(24, 'App\\User', 27),
+(25, 'App\\User', 27),
+(26, 'App\\User', 27),
+(27, 'App\\User', 27),
+(28, 'App\\User', 27),
+(29, 'App\\User', 27),
+(30, 'App\\User', 27),
+(31, 'App\\User', 27),
+(32, 'App\\User', 27),
+(33, 'App\\User', 27),
+(34, 'App\\User', 27),
+(35, 'App\\User', 27),
+(36, 'App\\User', 27),
+(39, 'App\\User', 27),
+(40, 'App\\User', 27),
+(41, 'App\\User', 27),
+(42, 'App\\User', 27),
+(43, 'App\\User', 27),
+(44, 'App\\User', 27),
+(45, 'App\\User', 27),
+(46, 'App\\User', 27),
+(47, 'App\\User', 27),
+(48, 'App\\User', 27),
+(49, 'App\\User', 27),
+(50, 'App\\User', 27),
+(51, 'App\\User', 27),
+(52, 'App\\User', 27),
+(53, 'App\\User', 27),
+(54, 'App\\User', 27),
+(55, 'App\\User', 27),
+(56, 'App\\User', 27),
+(57, 'App\\User', 27),
+(58, 'App\\User', 27),
+(59, 'App\\User', 27),
+(60, 'App\\User', 27),
+(61, 'App\\User', 27),
+(62, 'App\\User', 27),
+(63, 'App\\User', 27),
+(64, 'App\\User', 27),
+(65, 'App\\User', 27),
+(66, 'App\\User', 27),
+(67, 'App\\User', 27);
 
 -- --------------------------------------------------------
 
@@ -8563,7 +8630,9 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (2, 'App\\User', 22),
 (9, 'App\\User', 23),
 (6, 'App\\User', 24),
-(5, 'App\\User', 25);
+(5, 'App\\User', 25),
+(2, 'App\\User', 26),
+(2, 'App\\User', 27);
 
 -- --------------------------------------------------------
 
@@ -9084,6 +9153,7 @@ INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `
 ('e0c6cc0b-733b-4327-b67c-4af0d5a3d988', 'App\\Notifications\\ProjectDeadline', 'App\\User', 1, '{\"title\":\"Project Deadline Reminder\",\"data\":\"The \\\"CTG Metropolitan MP (2020-41)\\\" project is due in 07 day(s).\",\"id\":14,\"route\":\"project.show\"}', '2020-07-15 20:06:38', '2020-07-15 20:06:36', '2020-07-15 20:06:38'),
 ('e0e1afbf-4034-445f-9ec8-c95814c86453', 'App\\Notifications\\InventoryShortage', 'App\\User', 1, '{\"title\":\"Inventory Minimum Stock Notification\",\"data\":\"Inventory 72 item(s) low in stock. \",\"url\":\"inventory\"}', '2020-09-14 12:49:18', '2020-09-14 12:49:16', '2020-09-14 12:49:18'),
 ('e17ed180-405d-49f1-952c-cf01af6f0253', 'App\\Notifications\\InventoryRequired', 'App\\User', 15, '{\"title\":\"New Materials Required for Project\",\"data\":\"10 new Packing Paper required for Hydro & Morpho - RHD Narayanganj\",\"id\":10,\"route\":\"project.show\"}', NULL, '2020-06-25 13:38:05', '2020-06-25 13:38:05'),
+('e1edcc30-9ec9-4c58-b3e9-0315f76004bc', 'App\\Notifications\\InventoryShortage', 'App\\User', 1, '{\"title\":\"Inventory Minimum Stock Notification\",\"data\":\"Inventory 72 item(s) low in stock. \",\"url\":\"inventory\"}', '2020-11-26 11:40:19', '2020-11-26 11:40:17', '2020-11-26 11:40:19'),
 ('e228b7aa-15f2-47c6-a432-e9ae510000a7', 'App\\Notifications\\InventoryRequired', 'App\\User', 17, '{\"title\":\"New Materials Required for Project\",\"data\":\"10 new Packing Paper required for Hydro & Morpho - RHD Narayanganj\",\"id\":10,\"route\":\"project.show\"}', NULL, '2020-06-25 13:38:05', '2020-06-25 13:38:05'),
 ('e2c3be5f-a973-4090-b460-8d99b88c11b9', 'App\\Notifications\\EmployeeMaterialIndent', 'App\\User', 1, '{\"title\":\"New Employee Materials Indent\",\"data\":\"Tahrat Tazrin requires 1 Tissue Box. Requested by Md Admin\",\"id\":\"3\"}', '2020-03-04 05:42:56', '2020-03-04 05:42:55', '2020-03-04 05:42:56'),
 ('e2d14dd8-2087-4620-9881-baeb7132228e', 'App\\Notifications\\EmployeeAdded', 'App\\User', 8, '{\"title\":\"New Employee Added\",\"data\":\"A new Employee, Md. Mizanur Rahman, has been added in the HR records.\",\"id\":93}', '2020-08-09 17:19:40', '2020-07-25 02:44:01', '2020-08-09 17:19:40'),
@@ -9290,9 +9360,7 @@ CREATE TABLE `role_has_permissions` (
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (17, 2),
 (18, 2),
-(34, 2),
 (36, 2),
-(40, 2),
 (46, 2),
 (46, 3),
 (2, 4),
@@ -9413,20 +9481,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `employee_id`, `email_verified_at`, `password`, `active_status`, `last_login_at`, `last_login_ip`, `remember_token`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 'Md Admin', 'admin@whitepaper.tech', 1, NULL, '$2y$10$qSFl96CKQrKq16yebt.r8.u6ASQSK4MyyrWs.knC10dunf30AJVyK', 1, '2020-11-23 15:51:52', '103.239.254.187', 'UV10soTYyX1iOF4nNHyfLwCpUl9PZZC2rmokvBuyh6M2HxRyfTbOXSJpiuzR', 0, NULL, '2019-08-26 11:40:51', '2020-11-23 15:51:52'),
-(5, 'Sana Islam', 'fatima@gmail.com', 2, NULL, '$2y$10$0sUAUJX4.TWMjOJe3daYBuVlIl6V36xsoPhNxD0p/PH4UtKOkGgA.', 1, '2020-10-18 13:22:21', '103.60.175.112', 'yOF5785UMNtRczKENfWgrI1HU2i7pDz3HyApSSEt7MIgszuH0StGgXKp0cYJ', 1, 8, '2019-06-10 23:09:21', '2020-10-18 13:22:21'),
-(8, 'Tahrat Tazrin', 'hr_admin@gmail.com', 3, NULL, '$2y$10$MrgyBLRIE6N8pQs2gLDSF.2Q2aCnq3iCjFyo15Yv6riTR07QAf1AS', 1, '2020-11-08 14:40:19', '118.179.60.210', 'q40drR8FxtiDLgpQ2A3Y5YmiPBzbyc6ymDpkj9YAUT9EPjxmmSQ3SiR7vubm', 1, 1, '2019-06-10 23:15:22', '2020-11-08 14:40:19'),
-(9, 'Aura Iqbal', 'pm_admin@gmail.com', 4, NULL, '$2y$10$3wX3S57i6fQzGpgYqcLkT.6oogHCqiD3Q2D2zM9ACt70rYNmUYfeG', 1, '2020-09-25 00:54:36', '116.58.205.71', 'NqD38Az7ifGEOWIbjIDkwqZwXVzY92sw44b21dNumahiZcBgtyaUFBKDcbDg', 1, 1, '2019-06-13 02:38:47', '2020-09-25 00:54:36'),
-(15, 'Md. Abdul Wadud Bhuiyan', 'acc_admin@gmail.com', 28, NULL, '$2y$10$5zuk99q5pP7t2EHAWm1cWuCUCJrQ6HTJ3a4kYPuiMGgoS93W3t59q', 0, '2020-01-09 09:42:29', '118.179.60.210', 'zGBZAtfFnL8xpNyCpnuOZdMo2FKY1142ljXdtu3mt0JWI0DvQQhPrHaNaZX8', 1, 1, '2020-01-01 09:08:34', '2020-08-27 00:21:12'),
-(16, 'Al-Helal Mostafijur Rahman', 'ahelal@epc-bd.com', 38, NULL, '$2y$10$UvBQa2864LExspUxzx8mfOy7aYSJsjor8Hbt8/wop9FcLgONM5kze', 1, NULL, NULL, NULL, 1, 1, '2020-01-02 06:50:45', '2020-02-10 09:17:17'),
-(17, 'Samir Chandra Datta', 'admin_02@gmail.com', 37, NULL, '$2y$10$9.PtYYWLBDisHyZAADLkpO36tWWrvJH/YzBZq/7Kjb8R2gXI/kgF6', 1, NULL, NULL, NULL, 1, NULL, '2020-01-02 06:55:44', '2020-01-27 10:45:18'),
-(19, 'Kawser Ahmed', 'kawser.a@gmail.com', 42, NULL, '$2y$10$ptHfA.FbHFujl.ERVBi5SuIe2/ydGvycWk/zgD5GMdxr11K7Fpa9K', 1, '2020-06-08 14:41:20', '103.60.175.91', NULL, 1, NULL, '2020-01-20 15:40:56', '2020-06-08 14:41:20'),
-(20, 'Md. Ali Hossain', 'account_admin@gmail.com', 54, NULL, '$2y$10$hWmUNLoAAoGplIHvRJ52sOmF.FUkOb4J9qp6ZWcRNTDTiL8rbFz.m', 1, '2020-03-05 08:00:14', '118.179.60.210', 'hWiYPbPQjg4j0kLxSHnAM04PHCUF7FpiJCqCjJpaaM7E6Er5RnfovA0LFsar', 1, NULL, '2020-02-10 06:31:47', '2020-03-05 08:00:14'),
-(21, 'Mostak Goni', 'mostak@epc-bd.com', 39, NULL, '$2y$10$1N.h8yfIiQlyrHdr5C.ACOUGA8UFWZqD4YByORKfZwfxrS6f9Q0Ei', 1, NULL, NULL, NULL, 1, NULL, '2020-02-10 09:18:45', '2020-02-10 09:18:45'),
-(22, 'Shameem Ahsan Jaglul', 'shameem65@epc-bd.com', 88, NULL, '$2y$10$VV80EfmnLk7ARz0qU.lUY.1N.xMY90A72Lp6zPJz7VDI8cxDm9nk.', 1, NULL, NULL, NULL, 1, NULL, '2020-07-06 21:59:54', '2020-07-06 21:59:54'),
+(1, 'Md Admin', 'admin@whitepaper.tech', 1, NULL, '$2y$10$qSFl96CKQrKq16yebt.r8.u6ASQSK4MyyrWs.knC10dunf30AJVyK', 1, '2020-11-26 11:40:17', '103.239.254.187', 'UV10soTYyX1iOF4nNHyfLwCpUl9PZZC2rmokvBuyh6M2HxRyfTbOXSJpiuzR', 0, NULL, '2019-08-26 11:40:51', '2020-11-26 11:40:17'),
 (23, 'first person', 'epc-test@whitepaper.tech', 105, NULL, '$2y$10$R0rCYVtbVxWJSKmMwp/RmeVvI79w4nnX.84t5JBEpm2nI0nO6Niba', 1, '2020-11-03 12:15:45', '118.179.60.210', '8gLsbjaWcYz8JihqxPoRiXW3gFyPDO4YRUChSsweqOKU0veMeRJs97LrGgcU', 1, NULL, '2020-08-18 14:59:28', '2020-11-03 12:15:45'),
 (24, 'H. M. Hanif Mahmud', 'hanif@epc-bd.com', 51, NULL, '$2y$10$9PRHXnDclWHZcwkg2mh8Ju7LnwkH//MvtleD.yjiEE05mWGDoLImC', 1, '2020-11-08 15:48:20', '118.179.60.210', 'em2xIFgFj1MooGgoCOplWWcFVKjd1kLCVZdVmvmFiI5xR0QVOmQpoSo81xbL', 1, NULL, '2020-11-08 12:15:02', '2020-11-08 15:48:20'),
-(25, 'Sohel Ahmed', 'sahmed@epc-bd.com', 30, NULL, '$2y$10$DaiFyEKrEWPLAxyD4wcok.cL00z2cZ4vjFoAQWnkIIry9sp.qwQrq', 1, '2020-11-09 17:01:58', '118.179.60.210', 'q0jOlAenscaCIkckG28PmomVGklpyl1gW02HEgwPj8ghbLEUSdwoWlYigLvn', 1, NULL, '2020-11-08 15:24:47', '2020-11-09 17:01:58');
+(25, 'Sohel Ahmed', 'sahmed@epc-bd.com', 30, NULL, '$2y$10$DaiFyEKrEWPLAxyD4wcok.cL00z2cZ4vjFoAQWnkIIry9sp.qwQrq', 1, '2020-11-09 17:01:58', '118.179.60.210', 'q0jOlAenscaCIkckG28PmomVGklpyl1gW02HEgwPj8ghbLEUSdwoWlYigLvn', 1, NULL, '2020-11-08 15:24:47', '2020-11-09 17:01:58'),
+(26, 'Shameem Ahsan Jaglul', 'shameem65@epc-bd.com', 88, NULL, '$2y$10$2SmBU68l8aqvPP.9AVjzYupNVvSSimHgk6.AythFh61WL5NpqIAOi', 1, '2020-11-30 14:43:12', '103.239.254.187', 'A2eda3eXMr8r2Ur9cefOjvMSB0gLmRnHTeQtCb7d3v2WxAEEUhQSLraPlOnD', 1, NULL, '2020-11-30 14:42:15', '2020-11-30 14:43:12'),
+(27, 'Kawser Ahmed', 'ahmed_kawser@hotmail.com', 42, NULL, '$2y$10$Qm2L.y6aAN1fPQcfAf4zB.oTEhtX1ZER5rsUHk/mm.P8U/YnZoHaC', 1, '2020-11-30 16:23:47', '103.239.254.187', NULL, 1, NULL, '2020-11-30 16:22:36', '2020-11-30 16:23:47');
 
 --
 -- Indexes for dumped tables
@@ -10199,7 +10259,7 @@ ALTER TABLE `erp_locations`
 -- AUTO_INCREMENT for table `erp_payslip_authorizes`
 --
 ALTER TABLE `erp_payslip_authorizes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `erp_priorities`
@@ -10433,7 +10493,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables
