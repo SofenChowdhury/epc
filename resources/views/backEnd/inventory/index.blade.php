@@ -424,6 +424,15 @@
                                                                                 </div>
                                                                             @endif
                                                                             <div class="form-group col-md-10">
+                                                                                <label for="indent_no"> Indent Number  </label>
+                                                                                <input type="text" class="form-control {{ $errors->has('indent_no') ? ' is-invalid' : '' }}" value="{{ old('indent_no') }}" name="indent_no"/>
+                                                                                @if ($errors->has('indent_no'))
+                                                                                    <span class="invalid-feedback" role="alert" >
+                                                                                    <span class="messages"><strong>{{ $errors->first('indent_no') }}</strong></span>
+                                                                                </span>
+                                                                                @endif
+                                                                            </div>
+                                                                            <div class="form-group col-md-10">
                                                                                 <label for="quantity"> Quantity  </label>
                                                                                 <input type="number" class="form-control {{ $errors->has('quantity') ? ' is-invalid' : '' }}" value="{{ old('quantity') ? old('quantity') : 1 }}" name="quantity"/>
                                                                                 @if ($errors->has('quantity'))

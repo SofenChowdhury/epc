@@ -1381,7 +1381,7 @@
                                             <th>Asset Number</th>
                                             <th>Product Name</th>
                                             <th>Serial Number</th>
-{{--                                            <th>Indent No</th>--}}
+                                            <th>Indent No</th>
                                             <th>Assigned On</th>
                                             <th>Actions</th>
                                         </tr>
@@ -1407,7 +1407,7 @@
                                                             {{ $material->inventory->serial_no }}
                                                         @endif
                                                     </td>
-{{--                                                    <td>{{ $material->indent_no }}</td>--}}
+                                                    <td>{{ $material->indent_no }}</td>
                                                     <td>{{ date('d-M-Y', strtotime($material->created_at)) }}</td>
                                                     <td>
                                                         @if($material->inventory)
