@@ -46,7 +46,7 @@ class ErpEmployeeSalaryDivisionController extends Controller
             'project_hours' => "required",
             'total_hours' => "required",
         ]);
-    
+        return $request;
         $division = new ErpEmployeeSalaryDivision();
         $division->employee_id = $request->employee_id;
         $division->project_id = $request->project_id;

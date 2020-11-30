@@ -127,7 +127,9 @@
                                                     </td>
                                                     <td>{{ $division->project_hours }} hrs</td>
                                                     <td>{{ $division->total_hours }} hrs</td>
-                                                    <td>{{ $division->creator->name }}</td>
+                                                    <td>{{ $division->creator->name }}
+                                                        (<span>{{ $division->created_by }}</span>)
+                                                    </td>
                                                     <td>
                                                         <a class="modalLink" title="Delete" data-modal-size="modal-md" href="{{url('deleteSalaryDivisionView',$division->id)}}">
                                                             <button type="button" class="btn btn-danger action-icon"><i class="fa fa-trash-o"></i></button>

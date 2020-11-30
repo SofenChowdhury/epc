@@ -90,8 +90,7 @@
                             <thead>
                             <tr>
                                 <th>Serial Number</th>
-{{--                                        edite here--}}
-{{--                                <th>Employee Name</th>--}}
+{{--                        edite here--}}
                                 <th>Employee Name</th>
                                 <th>Actions</th>
                             </tr>
