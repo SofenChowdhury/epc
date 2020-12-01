@@ -160,11 +160,8 @@
             @endif
         </div>
         <div class="">
-            <p>
-                <br>
-                This certificate is generated electronically at the request of the above-mentioned employee. To verify the authenticity of this certificate, please call our number 880-{{ $setup->phone }} between 9 a.m. and 5 p.m. (GMT+6) during EPC working days from Sunday to Thursday
-                and refer to the above-captioned ID No.
-            </p>
+            <br>
+{{--            <p>This certificate is generated electronically at the request of the above-mentioned employee. To verify the authenticity of this certificate, please call our number 880-{{ $setup->phone }} between 9 a.m. and 5 p.m. (GMT+6) during EPC working days from Sunday to Thursday and refer to the above-captioned ID No.</p>--}}
         </div>
     </div>
 </div>
