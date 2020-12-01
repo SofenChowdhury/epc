@@ -327,7 +327,7 @@ class ErpEmployeeController extends Controller
         $products = ErpProduct::all();
 
         $month = Carbon::now()->format('F Y');
-        $setup = ErpSetup::latest()->first();
+//        $setup = ErpSetup::latest()->first();
 
         return view('backEnd.employees.employee.show', compact('editData',
             'genders',
@@ -345,8 +345,8 @@ class ErpEmployeeController extends Controller
             'projects_involved',
             'employees',
             'products',
-            'month',
-            'setup'
+            'month'
+//            'setup'
         ));
     }
 
@@ -366,12 +366,12 @@ class ErpEmployeeController extends Controller
         $genders = ErpBaseSetup::where('base_group_id', '=', 1)->where('active_status','=',1)->get();
         $blood_groups = ErpBaseSetup::where('base_group_id', '=', 2)->where('active_status','=',1)->get();
         $salary = ErpEmployeeSalary::where('employee_id','=',$id)->latest()->first();
-        $setup = ErpSetup::latest()->first();
+//        $setup = ErpSetup::latest()->first();
         $locations = ErpLocation::all();
         $rooms = ErpRoomNo::all();
         $projects = ErpProject::where('active_status', 1)->get();
 
-        return view('backEnd.employees.employee.edit', compact('editData','designations','departments', 'types', 'employee_categories','genders','blood_groups', 'salary', 'setup', 'rooms', 'locations', 'projects'));
+        return view('backEnd.employees.employee.edit', compact('editData','designations','departments', 'types', 'employee_categories','genders','blood_groups', 'salary', 'rooms', 'locations', 'projects'));
     }
 
     /**
@@ -517,8 +517,8 @@ class ErpEmployeeController extends Controller
         $genders = ErpBaseSetup::where('base_group_id', '=', 1)->where('active_status','=',1)->get();
         $blood_groups = ErpBaseSetup::where('base_group_id', '=', 2)->where('active_status','=',1)->get();
         $users = User::all();
-        $setup = ErpSetup::latest()->first();
-        return view('backEnd.employees.printStatement.print', compact('editData', 'genders','blood_groups', 'users', 'setup'));
+//        $setup = ErpSetup::latest()->first();
+        return view('backEnd.employees.printStatement.print', compact('editData', 'genders','blood_groups', 'users'));
     }
 
     public function salaryStatement()
@@ -553,10 +553,10 @@ class ErpEmployeeController extends Controller
         $projects = ErpProject::where('active_status', 1)->get();
         $salaries = ErpEmployeeSalary::whereRaw('id IN (select MAX(id) FROM erp_employee_salaries GROUP BY employee_id)')->get();
         $approver = ErpEmployeeSalaryPrint::whereMonth('salary_month',Carbon::now()->month)->where('project_id', 0)->latest()->first();
-        $setup = ErpSetup::latest()->first();
+//        $setup = ErpSetup::latest()->first();
         $authorizes = ErpPayslipAuthorize::orderBy('serial_no')->get();
 //        dd($authorizes);
-        return view('backEnd.employees.printStatement.index', compact('salary_month', 'employees', 'project_selected', 'projects', 'salaries', 'approver', 'setup', 'authorizes'));
+        return view('backEnd.employees.printStatement.index', compact('salary_month', 'employees', 'project_selected', 'projects', 'salaries', 'approver', 'authorizes'));
     }
 
     public function salaryStatementDate(Request $request)
@@ -598,9 +598,9 @@ class ErpEmployeeController extends Controller
         $projects = ErpProject::where('active_status', 1)->get();
         $salaries = ErpEmployeeSalary::whereRaw('id IN (select MAX(id) FROM erp_employee_salaries GROUP BY employee_id)')->get();
         $approver = ErpEmployeeSalaryPrint::where('salary_month', 'like',  date('Y-m', strtotime($salary_month)) . '%')->where('project_id', $request->project_id)->latest()->first();
-        $setup = ErpSetup::latest()->first();
+//        $setup = ErpSetup::latest()->first();
         $authorizes = ErpPayslipAuthorize::orderBy('serial_no')->get();
-        return view('backEnd.employees.printStatement.index', compact('salary_month', 'employees', 'project_selected', 'projects', 'salaries', 'approver', 'setup', 'authorizes'));
+        return view('backEnd.employees.printStatement.index', compact('salary_month', 'employees', 'project_selected', 'projects', 'salaries', 'approver', 'authorizes'));
     }
 
     public function salaryStatementApprove(Request $request)
@@ -686,9 +686,9 @@ class ErpEmployeeController extends Controller
                 ->get(['erp_employees.*']);
         }
         $salaries = ErpEmployeeSalary::whereRaw('id IN (select MAX(id) FROM erp_employee_salaries GROUP BY employee_id)')->get();
-        $setup = ErpSetup::latest()->first();
+//        $setup = ErpSetup::latest()->first();
         $authorizes = ErpPayslipAuthorize::orderBy('serial_no')->get();
-        return view('backEnd.employees.printStatement.printSalary', compact('salary_month', 'employees', 'project_name', 'project_id', 'salaries', 'setup', 'authorizes'));
+        return view('backEnd.employees.printStatement.printSalary', compact('salary_month', 'employees', 'project_name', 'project_id', 'salaries', 'authorizes'));
     }
 
     public function printSalaryAdvice(Request $request)
@@ -728,9 +728,9 @@ class ErpEmployeeController extends Controller
                 ->get(['erp_employees.*']);
         }
         $salaries = ErpEmployeeSalary::whereRaw('id IN (select MAX(id) FROM erp_employee_salaries GROUP BY employee_id)')->get();
-        $setup = ErpSetup::latest()->first();
+//        $setup = ErpSetup::latest()->first();
         $authorizes = ErpPayslipAuthorize::orderBy('serial_no')->get();
-        return view('backEnd.employees.printStatement.printSalaryBank', compact( 'salary_month', 'project_name', 'project_id', 'employees', 'salaries', 'setup', 'authorizes'));
+        return view('backEnd.employees.printStatement.printSalaryBank', compact( 'salary_month', 'project_name', 'project_id', 'employees', 'salaries', 'authorizes'));
     }
 
     public function printCertificate($id)
@@ -744,21 +744,21 @@ class ErpEmployeeController extends Controller
         Notification::send($user, new EmployeeCertificate($employee));
 
         $salary = ErpEmployeeSalary::where('employee_id','=',$id)->latest()->first();
-        $setup = ErpSetup::latest()->first();
-        return view('backEnd.employees.printStatement.printCertificate', compact('employee', 'salary', 'setup'));
+//        $setup = ErpSetup::latest()->first();
+        return view('backEnd.employees.printStatement.printCertificate', compact('employee', 'salary'));
     }
 
     public function printSalaryIndividual($id)
     {
         $employee = ErpEmployee::find($id);
         $chalans = ErpChalanNo::all();
-        $setup = ErpSetup::latest()->first();
+//        $setup = ErpSetup::latest()->first();
         $month = Carbon::now()->format('F , Y');
         $start_month =  Carbon::now()->format('F, Y');
         $end_month =  Carbon::now()->format('F, Y');
         $result = ErpEmployeeSalary::tax_certificate($id, $start_month, $end_month, 1);
         $authorizes = ErpPayslipAuthorize::orderBy('serial_no')->get();
-        return view('backEnd.employees.printStatement.taxCertificate', compact('employee', 'month', 'result', 'chalans', 'setup', 'authorizes'));
+        return view('backEnd.employees.printStatement.taxCertificate', compact('employee', 'month', 'result', 'chalans', 'authorizes'));
     }
 
     public function printSalaryMonth(Request $request, $id)
@@ -768,9 +768,9 @@ class ErpEmployeeController extends Controller
         $end_month =  date('F, Y', strtotime($request->end_month));
         $result = ErpEmployeeSalary::tax_certificate($id, $start_month, $end_month, 1);
         $chalans = ErpChalanNo::all();
-        $setup = ErpSetup::latest()->first();
+//        $setup = ErpSetup::latest()->first();
         $authorizes = ErpPayslipAuthorize::orderBy('serial_no')->get();
-        return view('backEnd.employees.printStatement.taxCertificate', compact('employee', 'start_month', 'end_month', 'result', 'chalans', 'setup', 'authorizes'));
+        return view('backEnd.employees.printStatement.taxCertificate', compact('employee', 'start_month', 'end_month', 'result', 'chalans', 'authorizes'));
     }
 
     public function leaveRequest(Request $request, $id)

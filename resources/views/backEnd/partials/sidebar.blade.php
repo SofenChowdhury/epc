@@ -340,7 +340,7 @@
                                     <li class="assets">
                                         <a href="{{url('assets')}}" class="waves-effect waves-dark">
                                             <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
-                                            <span class="pcoded-mtext">Assets List</span>
+{{--                                            <span class="pcoded-mtext">Assets List</span>--}}
                                         </a>
                                     </li>
                                 @endcan

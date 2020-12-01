@@ -1545,9 +1545,9 @@
                                                                 <a class="modalLink" title="Return" data-modal-size="modal-md" href="{{url('assignBackView', $material->inventory_id)}}">
                                                                     <button type="button" class="btn btn-danger action-icon"><i class="fa fa-arrow-left"></i></button>
                                                                 </a>
-{{--                                                            <a href="#assignModal" data-toggle="modal" data-target="#assignModal_{{ $material->id}}" data-id="{{$material->id}}" >--}}
-{{--                                                                <button type="button" class="btn btn-success action-icon">Assign </button>--}}
-{{--                                                            </a>--}}
+{{--                                                                <a href="#assignModal" data-toggle="modal" data-target="#assignModal_{{ $material->id}}" data-id="{{$material->id}}" >--}}
+{{--                                                                    <button type="button" class="btn btn-success action-icon">Assign </button>--}}
+{{--                                                                </a>--}}
                                                         @endcan
                                                         <div class="modal fade" id="assignModal_{{ $material->id}}" role="dialog" >
                                                             <div class="modal-dialog modal-lg">
@@ -1983,6 +1983,5 @@
             window.print();
             window.location.href = "/epc/employee/"+employee_id;
         }
-
     </script>
 @endsection
