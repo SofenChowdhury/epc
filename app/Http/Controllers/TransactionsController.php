@@ -129,7 +129,7 @@ class TransactionsController extends Controller
 
         if($transaction->total_transaction > 50000){
             
-            $user = User::find(27);
+            $user = User::find(19);
             
             if ($user)
                 $user->notify(new TransactionApproval($transaction));

@@ -122,8 +122,7 @@
                                                 <a href="{{url('user_assign-permission', $user->id)}}" title="view">
                                                     <button type="button" class="btn btn-success action-icon">Assign Permission </button>
                                                 </a>
-                                                    @endcan
-
+                                                @endcan
                                             </td>
                                         @else
                                             <td>

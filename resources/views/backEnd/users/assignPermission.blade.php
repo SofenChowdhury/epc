@@ -107,7 +107,6 @@
             $('.back_btn').hide();
             $('.logo').show();
             $('.footer').show();
-
             var dt = new Date();
             document.getElementById("datetime1").innerHTML = dt.toLocaleString();
             document.getElementById("save").style.display = "none";
@@ -118,9 +117,7 @@
             document.title=user_name+ ' Permissions List';
             window.print();
             window.location.href = "/epc/user_assign-permission/"+user_id;
-
         }
-
     </script>
 
 @endSection

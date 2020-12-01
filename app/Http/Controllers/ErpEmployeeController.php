@@ -611,8 +611,8 @@ class ErpEmployeeController extends Controller
             $statement->project_id = $request->project_id;
             if ($request->permission == 1){
                 $statement->approval_level = 1;
-                $statement->next_user_id = 21;
-                $user = User::find(21);
+                $statement->next_user_id = 24;
+                $user = User::find(24);
                 Notification::send($user, new SalarySataementApprove($statement));
             }
 
@@ -622,16 +622,16 @@ class ErpEmployeeController extends Controller
             if ($request->permission == 1){
                 $statement->approval_level++;
                 if ($statement->approval_level == 1){
-                    $statement->next_user_id = 21;
-                    $user = User::find(21);
+                    $statement->next_user_id = 24;
+                    $user = User::find(24);
                     Notification::send($user, new SalarySataementApprove($statement));
                 } else if ($statement->approval_level == 2){
-                    $statement->next_user_id = 17;
-                    $user = User::find(17);
+                    $statement->next_user_id = 25;
+                    $user = User::find(25);
                     Notification::send($user, new SalarySataementApprove($statement));
                 } else if ($statement->approval_level == 2){
-                    $statement->next_user_id = 15;
-                    $user = User::find(15);
+                    $statement->next_user_id = 26;
+                    $user = User::find(26);
                     Notification::send($user, new SalarySataementApprove($statement));
                 } else if ($statement->approval_level == 2){
                     $statement->next_user_id = 19;

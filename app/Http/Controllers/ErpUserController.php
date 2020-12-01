@@ -212,7 +212,6 @@ class ErpUserController extends Controller
         $user = User::find($id);
         $user->active_status = 0;
         $result = $user->update();
-
         if($result){
             return redirect()->back()->with('message-success-delete', 'User has been suspended successfully');
         }else{
@@ -221,9 +220,7 @@ class ErpUserController extends Controller
     }
 
     public function activeUserView($id){
-
          return view('backEnd.users.activateUserView', compact('id'));
-
     }
 
     public function activeUser($id){
@@ -257,8 +254,6 @@ class ErpUserController extends Controller
     }
 
     public function userPermissionStore(Request $request){
-
-
         $user=User::find($request->user_id);
         $user->syncPermissions($request->permissions);
         return redirect('user')->with('message-success-assign-user', 'User permission has been assigned successfully');
