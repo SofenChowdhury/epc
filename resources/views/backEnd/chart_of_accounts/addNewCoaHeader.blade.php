@@ -181,7 +181,7 @@
                                             <td>{{$i++}}</td>
                                             <td>{{$value->coa_reference_no}}</td>
                                             <td>{{$value->coa_name}}</td>
-{{--                                            <td>{{$value->header->header_name}}</td>--}}
+                                            <td>{{$value->header->header_name}}</td>
                                             <td>
                                                 <a href="{{url('edit-coa-header/'.$value->id)}}" title="edit"><button type="button" class="btn btn-info action-icon"><i class="fa fa-edit"></i></button></a>
                                             </td>
