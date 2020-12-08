@@ -345,8 +345,8 @@
                                                         <p></p>
                                                     @endif
                                                     <hr>
-                                                    <p class=" ">{{ $authorize->user->name }}</p>
-                                                    <p class=" ">{{ $authorize->user->employee->designation->designation_name }}</p>
+{{--                                                    <p class=" ">{{ $authorize->user->name }}</p>--}}
+{{--                                                    <p class=" ">{{ $authorize->user->employee->designation->designation_name }}</p>--}}
                                                 </div>
                                             @endforeach
                                         @endif

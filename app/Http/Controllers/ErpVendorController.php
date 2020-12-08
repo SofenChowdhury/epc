@@ -127,8 +127,8 @@ class ErpVendorController extends Controller
         $vendor = ErpVendor::find($id);
         $users = User::all();
         $documents = ErpVendorDocument::where('vendor_id', '=', $id)->get();
-        $setup = ErpSetup::latest()->first();
-        return view('backEnd.vendors.show', compact('vendor', 'users', 'documents', 'setup'));
+//        $setup = ErpSetup::latest()->first();
+        return view('backEnd.vendors.show', compact('vendor', 'users', 'documents'));
     }
 
     /**

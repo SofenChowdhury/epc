@@ -297,8 +297,8 @@ class ErpProjectController extends Controller
         $phase_detail = ErpProjectPhaseDetail::where('project_id', '=', $id)->where('project_phase', '=', $editData->project_phase)->latest()->first();
         $distinct_phases = ErpProjectPayment::where('project_id', '=', $id)->distinct('project_phase')->orderBy('project_phase', 'desc')->get(['project_phase']);
 
-        $setup = ErpSetup::latest()->first();
-
+//        $setup = ErpSetup::latest()->first();
+        
         $products = ErpProduct::where('product_type', '=', 0)->get();
         $assets = ErpProduct::where('product_type', '=', 1)->get();
         $distinct_material_phase = ErpProjectMaterial::where('project_id', '=', $id)->distinct('project_phase')->orderBy('project_phase', 'desc')->get(['project_phase']);
@@ -463,7 +463,6 @@ class ErpProjectController extends Controller
             'phases',
             'phase_detail',
             'distinct_phases',
-            'setup',
             'products',
             'assets',
             'distinct_material_phase',
@@ -485,8 +484,6 @@ class ErpProjectController extends Controller
             'maxAmendmentDeliverable',
             'distinct_advance_phase',
             'distinct_progress_phase'
-
-
         ));
     }
 
@@ -1610,13 +1607,12 @@ class ErpProjectController extends Controller
     public function printTask($id)
     {
         $project = ErpProject::find($id);
-        $setup = ErpSetup::latest()->first();
+//        $setup = ErpSetup::latest()->first();
 
         $tasks = ErpTask::where('project_id', '=', $id)->where('active_status', '=', 1)->orderBy('created_at', 'DESC')->get();
         $todos = ErpProjectTodo::where('project_id', '=', $id)->where('active_status', '=', 1)->where('created_by', '=', Auth::user()->id)->orderBy('due_date')->get();
         return view('backEnd.projects.printTask', compact(
             'project',
-            'setup',
             'tasks',
             'todos'
         ));

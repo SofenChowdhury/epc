@@ -20,7 +20,7 @@
     <div class="row" id="logo" style=" margin-bottom: 50px">
         <div class="" style="padding:3% 0 3% 5%; display: table-header-group /*position: fixed; top: 0;*/">
             <img class="img-fluid" src="{{asset('public/assets/images/epc_logo.png')}}" height="10" width="120">
-            <p style="margin-top: 15px; font-size: 14px; font-weight: bold;">{{ $setup->company_name }}</p>
+{{--            <p style="margin-top: 15px; font-size: 14px; font-weight: bold;">{{ $setup->company_name }}</p>--}}
         </div>
         <div class="" style="text-align: center; font-weight: bold; padding:3% 0 3% 20%; /*position: fixed; top: 20px;*/">
             <p style="margin-top: 15px; font-size: 20px; ">Monthly Salary Statement of <br> {{ date('F, Y', strtotime($salary_month)) }}</p>
@@ -266,8 +266,8 @@
             @foreach($authorizes as $authorize)
                 <div class="col">
                     <hr>
-                    <p class=" ">{{ $authorize->user->name }}</p>
-                    <p class=" ">{{ $authorize->user->employee->designation->designation_name }}</p>
+{{--                    <p class=" ">{{ $authorize->user->name }}</p>--}}
+{{--                    <p class=" ">{{ $authorize->user->employee->designation->designation_name }}</p>--}}
                 </div>
             @endforeach
         @endif

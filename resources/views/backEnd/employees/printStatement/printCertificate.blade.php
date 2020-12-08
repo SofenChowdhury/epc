@@ -41,8 +41,8 @@
                     The Engineering and Planning Consultants Limited (EPC) certifies that the above-mentioned employee works as {{ $employee->designation->designation_name }}. {{$employee->first_name.' '.$employee->last_name}}’s in service date is {{ date('F d, Y', strtotime($employee->joining_date)) }}.
                     {{$employee->first_name}}’s gross monthly salary is {{ $salary->total_salary }}.00 BDT. {{$employee->first_name}} resides in {{$employee->current_address}} and {{$employee->first_name}}’s permanent address is {{$employee->permanent_address}}.
                     <br><br>
-                    This certificate is generated electronically at the request of the above-mentioned employee. To verify the authenticity of this certificate, please call our number 880-{{ $setup->phone }} between 9 a.m. and 5 p.m. (GMT+6) during EPC working days from Sunday to Thursday
-                    and refer to the above-captioned Certificate Tracking No.
+{{--                    This certificate is generated electronically at the request of the above-mentioned employee. To verify the authenticity of this certificate, please call our number 880-{{ $setup->phone }} between 9 a.m. and 5 p.m. (GMT+6) during EPC working days from Sunday to Thursday--}}
+{{--                    and refer to the above-captioned Certificate Tracking No.--}}
                 </p>
             </div>
         </div>

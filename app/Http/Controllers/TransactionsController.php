@@ -127,7 +127,7 @@ class TransactionsController extends Controller
             }
         }
 
-        if($transaction->total_transaction > 50000){
+        if($transaction->total_transaction > 100000){
             
             $user = User::find(19);
             

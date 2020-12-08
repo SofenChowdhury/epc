@@ -104,18 +104,18 @@
                                         <td>{{$role->name}}</td>
                                         <td><button type="button" class="btn btn-success btn-sm">Active</button></td>
                                         <td>
-                                            <!-- <a href="" title="view"><button type="button" class="btn btn-success action-icon"><i class="fa fa-eye"></i></button></a> -->
-                                            <!-- @can('Add/Edit Role') -->
+{{--                                            <!-- <a href="" title="view"><button type="button" class="btn btn-success action-icon"><i class="fa fa-eye"></i></button></a> -->--}}
+{{--                                            <!-- @can('Add/Edit Role') -->--}}
 {{--                                            @if(Auth::user()->getRoleNames()->first() == 'Super Admin')--}}
                                             @if( $role->name != 'Super Admin')
-                                            <a href="{{ url('role/'.$role->id.'/edit') }}" title="edit">
-                                                <button type="button" class="btn btn-info action-icon"><i class="fa fa-edit"></i></button>
-                                            </a>
+                                                <a href="{{ url('role/'.$role->id.'/edit') }}" title="edit">
+                                                    <button type="button" class="btn btn-info action-icon"><i class="fa fa-edit"></i></button>
+                                                </a>
+{{--                                                <a class="modalLink" title="Delete" data-modal-size="modal-md" href="{{url('deleteRoleView', $role->id)}}">--}}
+{{--                                                    <button type="button" class="btn btn-danger action-icon"><i class="fa fa-trash-o"></i></button>--}}
+{{--                                                </a>--}}
                                             @endif
-                                            <!-- @endcan -->
-                                        <!-- <a class="modalLink" title="Delete" data-modal-size="modal-md" href="{{url('deleteRoleView', $role->id)}}">
-										<button type="button" class="btn btn-danger action-icon"><i class="fa fa-trash-o"></i></button>
-									</a> -->
+{{--                                            <!-- @endcan -->--}}
                                             @can('Assign Permission by Role')
                                             <a href="{{url('role_assign-permission', $role->id)}}" title="view"><button type="button" class="btn btn-success action-icon">Assign Permission</button></a>
                                             @endcan

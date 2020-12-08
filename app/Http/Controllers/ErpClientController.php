@@ -88,8 +88,8 @@ class ErpClientController extends Controller
         $client = ErpClient::find($id);
         $documents = ErpClientDocument::where('client_id', '=', $id)->get();
         $users = User::all();
-        $setup = ErpSetup::latest()->first();
-        return view('backEnd.clients.show', compact('client', 'documents', 'users', 'setup'));
+//        $setup = ErpSetup::latest()->first();
+        return view('backEnd.clients.show', compact('client', 'documents', 'users'));
     }
 
     /**

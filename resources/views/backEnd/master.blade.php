@@ -71,7 +71,7 @@
 								<div class="row align-items-center">
 									<div class="col-md-8">
 										<div class="page-header-title">
-                                            <a href="{{ URL::previous() }}" style=" padding: 5px 25px; margin-top: 8px; color: white;" class="back_btn btn btn-success"> Back </a>
+{{--                                            <a href="{{ URL::previous() }}" style=" padding: 5px 25px; margin-top: 8px; color: white;" class="back_btn btn btn-success"> Back </a>--}}
 {{--											<h5 class="m-b-10">Dashboard</h5>--}}
 {{--											<p class="m-b-0">Welcome to ERP</p>--}}
 										</div>
