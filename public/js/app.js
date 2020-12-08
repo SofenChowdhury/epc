@@ -1887,7 +1887,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get("/epc/api/employee/salary/".concat(this.employeeId)).then(function (res) {
+    axios.get("/api/employee/salary/".concat(this.employeeId)).then(function (res) {
       return _this.salary = res.data.data;
     })["catch"](function (error) {
       return _this.errors = error.response.data.errors;
@@ -1896,7 +1896,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     create: function create() {
       var jub = this.employeeId;
-      axios.post("/epc/api/employee/salary/".concat(this.employeeId), {
+      axios.post("/api/employee/salary/".concat(this.employeeId), {
         basic_percentage: this.basic_percentage,
         basic: this.basic,
         provident_fund_percentage: this.provident_fund_percentage,
@@ -1910,9 +1910,9 @@ __webpack_require__.r(__webpack_exports__);
         new_salary: this.new_salary,
         increment_date: this.increment_date
       }).then(function (response) {
-        window.location = '/epc/employee/' + jub + '/edit';
+        window.location = '/employee/' + jub + '/edit';
       })["catch"](function (error) {
-        window.location = '/epc/employee/' + jub + '/edit';
+        window.location = '/employee/' + jub + '/edit';
       });
     }
   },
@@ -2120,12 +2120,12 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.getCOAs();
-    axios.get("/epc/api/transaction/project").then(function (res) {
+    axios.get("/api/transaction/project").then(function (res) {
       return _this.projects = res.data.data;
     })["catch"](function (error) {
       return _this.errors = error.response.data.errors;
     });
-    axios.get("/epc/api/transaction/voucher").then(function (res) {
+    axios.get("/api/transaction/voucher").then(function (res) {
       return _this.form.voucher = res.data;
     })["catch"](function (error) {
       return _this.errors = error.response.data.errors;
@@ -2140,7 +2140,7 @@ __webpack_require__.r(__webpack_exports__);
     getCOAs: function getCOAs() {
       var _this2 = this;
 
-      axios.get("/epc/api/transaction/category", {
+      axios.get("/api/transaction/category", {
         params: {
           keywords: this.keywords
         }
@@ -2151,7 +2151,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     create: function create() {
-      axios.post("/epc/api/add_transactions", {
+      axios.post("/api/add_transactions", {
         form: this.form,
         fields: this.fields
       }).then(function (response) {
@@ -38952,7 +38952,7 @@ var render = function() {
             _c(
               "label",
               { staticClass: "col-form-label", attrs: { for: "description" } },
-              [_vm._v("Invoice: ")]
+              [_vm._v("Invoice Data: ")]
             ),
             _vm._v(" "),
             _c("textarea", {

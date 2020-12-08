@@ -21,7 +21,7 @@
 
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label for="description" class="col-form-label">Invoice: </label>
+                    <label for="description" class="col-form-label">Invoice Data: </label>
                     <textarea v-model="form.description" class="form-control" name="description" id="description"></textarea>
                 </div>
             </div>
@@ -164,9 +164,9 @@
         },
         created() {
             this.getCOAs();
-            axios.get("/epc/api/transaction/project").then(res => (this.projects = res.data.data))
+            axios.get("/api/transaction/project").then(res => (this.projects = res.data.data))
                 .catch(error => (this.errors = error.response.data.errors));
-            axios.get("/epc/api/transaction/voucher").then(res => (this.form.voucher = res.data))
+            axios.get("/api/transaction/voucher").then(res => (this.form.voucher = res.data))
                 .catch(error => (this.errors = error.response.data.errors));
         },
         watch: {
@@ -176,12 +176,12 @@
         },
         methods: {
             getCOAs(){
-                axios.get("/epc/api/transaction/category", {params: {keywords: this.keywords}}).then(res => (this.categories = res.data.data))
+                axios.get("/api/transaction/category", {params: {keywords: this.keywords}}).then(res => (this.categories = res.data.data))
                     .catch(error => (this.errors = error.response.data.errors));
             },
             create() {
                 axios
-                    .post("/epc/api/add_transactions",{
+                    .post("/api/add_transactions",{
                         form:this.form,
                         fields: this.fields,
                     }).then(function(response){
