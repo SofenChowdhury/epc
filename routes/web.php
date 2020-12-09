@@ -191,7 +191,7 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
 
 // Product routes
     Route::resource('product', 'ErpProductController');
-    Route::get('assets', 'ErpProductController@assets');
+    Route::get('products', 'ErpProductController@products');
     Route::get('assets/printList', 'ErpProductController@printList');
 
     Route::get('deleteProductView/{id}', 'ErpProductController@deleteProductView');

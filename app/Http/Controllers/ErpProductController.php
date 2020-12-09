@@ -19,7 +19,7 @@ class ErpProductController extends Controller
         return view('backEnd.inventory.product.index', compact('products', 'type'));
     }
 
-    public function assets()
+    public function products()
     {
         $products = ErpProduct::where('product_type', '=', 1)->get();
         $type = 1;
