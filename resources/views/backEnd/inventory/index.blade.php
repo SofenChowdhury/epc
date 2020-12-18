@@ -351,7 +351,7 @@
                                                                         </div>
                                                                         <div class="modal-body" >
                                                                             {{ Form::open(['class' => '', 'files' => true, 'url' => 'inventory/assign/'.$product->id, 'method' => 'POST', 'enctype' => 'multipart/form-data', 'autocomplete' => 'off']) }}
-                                                                            @if($category != 1)
+{{--                                                                            @if($category != 1)--}}
                                                                                 <div class="form-group col-md-10">
                                                                                     <label for="employee_id"> Assign To
                                                                                         Employee</label><br>
@@ -377,7 +377,7 @@
                                                                                         </span>
                                                                                     @endif
                                                                                 </div>
-                                                                            @endif
+{{--                                                                            @endif--}}
                                                                             <div class="form-group col-md-10">
                                                                                 <label for="project_id"> Assign Under
                                                                                     Project</label><br>

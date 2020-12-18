@@ -24,7 +24,7 @@ class ErpInventoryController extends Controller
 {
     public function index()
     {
-        $products = ErpInventory::where('category', '=', 1)->where('quantity', '>', 0)->where('active_status', '=', 1)->get();
+       $products = ErpInventory::where('category', '=', 1)->where('quantity', '>', 0)->where('active_status', '=', 1)->get();
         $users = User::all();
         $employees = ErpEmployee::where('active_status', 1)->get();
         $projects = ErpProject::where('active_status', 1)->get();

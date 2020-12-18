@@ -289,6 +289,7 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
     // Monthly Expense
     Route::get('monthly_expense_date','ReportController@monthlyExpenseDate');
     Route::post('monthly_expense','ReportController@generateMonthlyExpense');
+//    Route::post('daily_expense','ReportController@generateMonthlyExpense');
     // Trial Balance
     Route::get('trial_balance_date','ReportController@trialBalanceDate')->middleware('permission:View Trail Balance');
     Route::post('trial_balance','ReportController@generateTrialBalance')->middleware('permission:View Trail Balance');
