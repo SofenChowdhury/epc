@@ -135,14 +135,14 @@ export default
         }
     },
     created() {
-        axios.get(`/api/employee/salary/${this.employeeId}`).then(res => (this.salary = res.data.data))
+        axios.get(`/epc/api/employee/salary/${this.employeeId}`).then(res => (this.salary = res.data.data))
             .catch(error => (this.errors = error.response.data.errors));
     },
     methods:{
         create() {
             const jub=this.employeeId
             axios
-                .post(`/api/employee/salary/${this.employeeId}`,{
+                .post(`/epc/api/employee/salary/${this.employeeId}`,{
                     basic_percentage:this.basic_percentage,
                     basic:this.basic,
                     provident_fund_percentage:this.provident_fund_percentage,
@@ -160,10 +160,10 @@ export default
                 })
                 .then(function (response) {
 
-                    window.location = '/employee/' + jub + '/edit';
+                    window.location = '/epc/employee/' + jub + '/edit';
                 }).catch(function (error) {
 
-                window.location = '/employee/' + jub + '/edit';
+                window.location = '/epc/employee/' + jub + '/edit';
             });
         },
     },
