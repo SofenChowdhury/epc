@@ -47,7 +47,11 @@
                         </ul>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="statement" role="tabpanel">
+                        @if($activeDiv == 1)
+                            <div class="tab-pane" id="statement" role="tabpanel">
+                        @else
+                            <div class="tab-pane active" id="statement" role="tabpanel">
+                        @endif
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-header-text">Salary Statement</h5>
@@ -345,8 +349,8 @@
                                                         <p></p>
                                                     @endif
                                                     <hr>
-{{--                                                    <p class=" ">{{ $authorize->user->name }}</p>--}}
-{{--                                                    <p class=" ">{{ $authorize->user->employee->designation->designation_name }}</p>--}}
+                                                    <p class=" ">{{ $authorize->user->name }}</p>
+                                                    <p class=" ">{{ $authorize->user->employee->designation->designation_name }}</p>
                                                 </div>
                                             @endforeach
                                         @endif
@@ -354,18 +358,21 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="tab-pane" id="advice" role="tabpanel">
+                        @if($activeDiv == 1)
+                            <div class="tab-pane active" id="advice" role="tabpanel">
+                        @else
+                            <div class="tab-pane" id="advice" role="tabpanel">
+                        @endif
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-header-text">Salary Advice</h5>
-                                    @if(isset($approver) && $approver->approval_level == 5)
+{{--                                    @if(isset($approver) && $approver->approval_level == 5)--}}
                                     {{ Form::open(['class' => '', 'files' => true, 'url' => 'employee/printSalary2', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'autocomplete' => 'off']) }}
                                         <input type="text" name="salary_month" value="{{ $salary_month }}" hidden>
                                         <input type="text" name="project_id" value="{{ isset($project_selected) ? $project_selected : 0 }}" hidden>
                                         <button type="submit" class="btn btn-success m-b-0" style="float: right; padding: 8px; color: white;" formtarget="_blank">Print Salary Advice</button>
                                     {{ Form::close()}}
-                                    @endif
+{{--                                    @endif--}}
                                 </div>
                                 <div class="card-block">
                                     <div class="card">
@@ -390,7 +397,7 @@
                                         {{ Form::close() }}
                                     </div>
                                     <div class="table-responsive">
-                                        @if(isset($approver) && $approver->approval_level == 5)
+{{--                                    @if(isset($approver) && $approver->approval_level == 5)--}}
                                     <table id="advice_table" class="table table-striped table-bordered">
                                         <thead>
                                         <tr>
@@ -447,7 +454,7 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                        @endif
+{{--                                    @endif--}}
                                     </div>
                                 </div>
                             </div>

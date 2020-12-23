@@ -524,7 +524,7 @@ class ErpEmployeeController extends Controller
     public function salaryStatement()
     {
         $salary_month =  Carbon::now()->format('Y-m-d');
-//        {--edite--}
+//        {--edit--}
 //        $employees = ErpEmployee::leftJoin('erp_project_employees as project_emp', function($join) {
 //                $join->on('project_emp.employee_id', '=', 'erp_employees.id')->where('project_emp.project_phase', '<=', 2);
 //            })
@@ -556,7 +556,8 @@ class ErpEmployeeController extends Controller
 //        $setup = ErpSetup::latest()->first();
         $authorizes = ErpPayslipAuthorize::orderBy('serial_no')->get();
 //        dd($authorizes);
-        return view('backEnd.employees.printStatement.index', compact('salary_month', 'employees', 'project_selected', 'projects', 'salaries', 'approver', 'authorizes'));
+        $activeDiv = 0;
+        return view('backEnd.employees.printStatement.index', compact('salary_month', 'employees', 'project_selected', 'projects', 'salaries', 'approver', 'authorizes','activeDiv'));
     }
 
     public function salaryStatementDate(Request $request)
@@ -600,7 +601,8 @@ class ErpEmployeeController extends Controller
         $approver = ErpEmployeeSalaryPrint::where('salary_month', 'like',  date('Y-m', strtotime($salary_month)) . '%')->where('project_id', $request->project_id)->latest()->first();
 //        $setup = ErpSetup::latest()->first();
         $authorizes = ErpPayslipAuthorize::orderBy('serial_no')->get();
-        return view('backEnd.employees.printStatement.index', compact('salary_month', 'employees', 'project_selected', 'projects', 'salaries', 'approver', 'authorizes'));
+        $activeDiv = 1;
+        return view('backEnd.employees.printStatement.index', compact('salary_month', 'employees', 'project_selected', 'projects', 'salaries', 'approver', 'authorizes', 'activeDiv'));
     }
 
     public function salaryStatementApprove(Request $request)
@@ -626,14 +628,18 @@ class ErpEmployeeController extends Controller
                     $user = User::find(24);
                     Notification::send($user, new SalarySataementApprove($statement));
                 } else if ($statement->approval_level == 2){
-                    $statement->next_user_id = 25;
-                    $user = User::find(25);
+                    $statement->next_user_id = 23;
+                    $user = User::find(23);
                     Notification::send($user, new SalarySataementApprove($statement));
-                } else if ($statement->approval_level == 2){
-                    $statement->next_user_id = 26;
-                    $user = User::find(26);
+                } else if ($statement->approval_level == 3){
+                    $statement->next_user_id = 21;
+                    $user = User::find(21);
                     Notification::send($user, new SalarySataementApprove($statement));
-                } else if ($statement->approval_level == 2){
+                }else if ($statement->approval_level == 4){
+                    $statement->next_user_id = 20;
+                    $user = User::find(20);
+                    Notification::send($user, new SalarySataementApprove($statement));
+                } else if ($statement->approval_level == 5){
                     $statement->next_user_id = 19;
                     $user = User::find(19);
                     Notification::send($user, new SalarySataementApprove($statement));

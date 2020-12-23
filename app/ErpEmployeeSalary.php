@@ -70,14 +70,16 @@ class ErpEmployeeSalary extends Model
             $tax_val += $tax;
         }
         
-        $salary = ErpEmployeeSalary::where('employee_id', '=', $id)->latest()->first();
+        $salary = ErpEmployeeSalary::where('employee_id', $id)->latest()->first();
+        if ($salary){
+            $salary->tax_amount=($tax_val/12);
+            $salary->tax_payable = ((80 * $salary->tax_amount)/100);
+            $tax_payable = $salary->tax_payable;
+            $salary->update();
+            return $tax_payable;
+        }
+        return 0;
         
-        $salary->tax_amount=($tax_val/12);
-        $salary->tax_payable = ((80 * $salary->tax_amount)/100);
-        $tax_payable = $salary->tax_payable;
-        $salary->update();
-        
-        return $tax_payable;
     }
     
     public static function hourly_calc($id){
@@ -90,8 +92,8 @@ class ErpEmployeeSalary extends Model
         }
         $hourly = ($basic * 12) / 2080;
 
-//        $salary->hourly_rate=$hourly;
-//        $salary->update();
+        $salary->hourly_rate=$hourly;
+        $salary->update();
         return $hourly;
     }
     
@@ -114,13 +116,16 @@ class ErpEmployeeSalary extends Model
             
             $bonuses = ErpEmployeeBonus::where('employee_id','=',$id)->where('created_at', 'like', date('Y-m', strtotime($sal_month)). '%')->orWhere('every_month', '=', 1)->where('employee_id','=',$id)->get();
 
-//            $bonuses = ErpEmployeeBonus::where('employee_id','=',$id)->where('created_at', 'like', date('Y-m', strtotime($sal_month)). '%')->orWhere('every_month', '=', 1)->get();
+            $bonuses = ErpEmployeeBonus::where('employee_id','=',$id)->where('created_at', 'like', date('Y-m', strtotime($sal_month)). '%')->orWhere('every_month', '=', 1)->get();
           
             $advances = ErpEmployeeAdvance::where('employee_id','=',$id)->whereMonth('from_month', '<=', date('m', strtotime($sal_month)))->whereMonth('to_month', '>=', date('m', strtotime($sal_month)))->get();
             $conveyance_pays = ErpEmployeeConveyance::where('employee_id','=',$id)->where('pay_date', 'like', date('Y-m', strtotime($sal_month)). '%')->get();
             $overtime_pay = ErpEmployeeOvertimePay::where('employee_id','=',$id)->where('pay_date', 'like', date('Y-m', strtotime($sal_month)). '%')->get();
             $attended = ErpEmployeeAttendance::attendance_calc($id, $sal_month);
-            $present_salary += ceil(($weekdays / $weekdays) * $salary->total_salary);
+            if ($salary){
+                $present_salary += ceil(($weekdays / $weekdays) * $salary->total_salary);
+            }
+            
             
             foreach($bonuses as $bonus) {
                 if ($bonus->bonus_title == 'Eid bonus') {
@@ -173,18 +178,23 @@ class ErpEmployeeSalary extends Model
             }
             $ot_time += ceil($overtime->total_overtime);
             $money += ceil($overtime->total_overtime);
-            $provident_fund += $salary->provident_fund;
+            if ($salary){
+                $provident_fund += $salary->provident_fund;
+            }
+            
             
             $sal_month->addMonth(1);
         }
+        
         $basic = $present_salary * 0.4;
         $total_deduction += $provident_fund + $advance_amount;
         $gross += ($present_salary + $money + $amount);
         $tax_payable += ErpEmployeeSalary::tax_calc($id, $gross);
-        $tax_payable = ceil($tax_payable);
-//        $tax_payable += $salary->tax_payable;
-        $net_salary += $gross - $total_deduction - $tax_payable + $conveyance;
-        
+        if ($tax_payable){
+            $tax_payable = ceil($tax_payable);
+            $tax_payable += $salary->tax_payable;
+            $net_salary += $gross - $total_deduction - $tax_payable + $conveyance;
+        }
         $division = ErpEmployeeSalaryDivision::where('employee_id', '=', $id)->where('project_id', '=', $project_id)->latest()->first();
         if ($project_id != 1 && $division){
             $result = array(

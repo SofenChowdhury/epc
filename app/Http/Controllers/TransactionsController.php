@@ -128,13 +128,14 @@ class TransactionsController extends Controller
         }
 
         if($transaction->total_transaction > 100000){
-            
             $user = User::find(19);
-            
+            if ($user)
+                $user->notify(new TransactionApproval($transaction));
+        }else{
+            $user = User::find(21);
             if ($user)
                 $user->notify(new TransactionApproval($transaction));
         }
-
         return ['redirect' => url('/single_transaction/'.$transaction_id)];
     }
 }
