@@ -99,6 +99,12 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
     Route::get('deleteEmployeeCategoryView/{id}', 'ErpEmployeeCategoryController@deleteEmployeeCategoryView');
     Route::get('deleteEmployeeCategory/{id}', 'ErpEmployeeCategoryController@deleteEmployeeCategory');
 
+//Indent
+    Route::get('select', 'IndentController@select');
+    Route::post('insert', 'IndentController@insert');
+    Route::post('update', 'IndentController@update');
+    Route::get('delete', 'IndentController@delete');
+
 // Employee routes
     Route::resource('employee', 'ErpEmployeeController');
     Route::get('employee/print/{id}','ErpEmployeeController@printInfo');
@@ -344,5 +350,8 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
 
     Route::get('allnotifications', 'ErpUserController@allNotifications');
 });
+// Indent route
+
+
 
 

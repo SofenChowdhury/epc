@@ -92,8 +92,8 @@ class ErpEmployeeSalary extends Model
         }
         $hourly = ($basic * 12) / 2080;
 
-        $salary->hourly_rate=$hourly;
-        $salary->update();
+//        $salary->hourly_rate=$hourly;
+//        $salary->update();
         return $hourly;
     }
     
@@ -116,7 +116,7 @@ class ErpEmployeeSalary extends Model
             
             $bonuses = ErpEmployeeBonus::where('employee_id','=',$id)->where('created_at', 'like', date('Y-m', strtotime($sal_month)). '%')->orWhere('every_month', '=', 1)->where('employee_id','=',$id)->get();
 
-            $bonuses = ErpEmployeeBonus::where('employee_id','=',$id)->where('created_at', 'like', date('Y-m', strtotime($sal_month)). '%')->orWhere('every_month', '=', 1)->get();
+//            $bonuses = ErpEmployeeBonus::where('employee_id','=',$id)->where('created_at', 'like', date('Y-m', strtotime($sal_month)). '%')->orWhere('every_month', '=', 1)->get();
           
             $advances = ErpEmployeeAdvance::where('employee_id','=',$id)->whereMonth('from_month', '<=', date('m', strtotime($sal_month)))->whereMonth('to_month', '>=', date('m', strtotime($sal_month)))->get();
             $conveyance_pays = ErpEmployeeConveyance::where('employee_id','=',$id)->where('pay_date', 'like', date('Y-m', strtotime($sal_month)). '%')->get();
@@ -192,7 +192,7 @@ class ErpEmployeeSalary extends Model
         $tax_payable += ErpEmployeeSalary::tax_calc($id, $gross);
         if ($tax_payable){
             $tax_payable = ceil($tax_payable);
-            $tax_payable += $salary->tax_payable;
+//            $tax_payable += $salary->tax_payable;
             $net_salary += $gross - $total_deduction - $tax_payable + $conveyance;
         }
         $division = ErpEmployeeSalaryDivision::where('employee_id', '=', $id)->where('project_id', '=', $project_id)->latest()->first();

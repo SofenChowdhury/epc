@@ -266,8 +266,8 @@
             @foreach($authorizes as $authorize)
                 <div class="col">
                     <hr>
-{{--                    <p class=" ">{{ $authorize->user->name }}</p>--}}
-{{--                    <p class=" ">{{ $authorize->user->employee->designation->designation_name }}</p>--}}
+                    <p class=" ">{{ $authorize->user->name }}</p>
+                    <p class=" ">{{ $authorize->user->employee->designation->designation_name }}</p>
                 </div>
             @endforeach
         @endif
