@@ -28,7 +28,7 @@
             {{--            @endcanany--}}
 
             <li class="pcoded-hasmenu chart_of_accounts">
-                @canany(['Chart of Accounts','view COA','Add Account COA','Add Transaction','Journal Entry','View Category List'])
+                @canany(['Chart of Accounts','view COA','Add Account COA','Add Transaction','Journal Entry','View Category List','Add/Edit Indent'])
                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="ti-layout"></i><b>P</b></span>
                         <span class="pcoded-mtext">Accounts</span>
@@ -73,6 +73,14 @@
                             <a href="{{url('journal_entry')}}" class="waves-effect waves-dark">
                                 <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
                                 <span class="pcoded-mtext">Journal Entry</span>
+                            </a>
+                        </li>
+                    @endcan
+                    @can('Add/Edit Indent')
+                        <li class="account-indent">
+                            <a href="{{url('select')}}" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                                <span class="pcoded-mtext">Indent</span>
                             </a>
                         </li>
                     @endcan
@@ -344,17 +352,19 @@
                                         </a>
                                     </li>
                                 @endcan
-
-{{--                                @can('Add Product')--}}
-{{--                                    <li class="assets">--}}
-{{--                                        <a href="{{url('assets')}}" class="waves-effect waves-dark">--}}
-{{--                                            <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>--}}
-{{--                                            <span class="pcoded-mtext">Assets List</span>--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                @endcan--}}
                             </ul>
                         @endcanany
+
+                    </li>
+                    <li class="pcoded-hasmenu fixed">
+                        @can('Add/Edit Indent')
+                            <li class="account-indent">
+                                <a href="{{url('select')}}" class="waves-effect waves-dark">
+                                    <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                                    <span class="pcoded-mtext">Indent</span>
+                                </a>
+                            </li>
+                        @endcan
                     </li>
                 </ul>
             </li>

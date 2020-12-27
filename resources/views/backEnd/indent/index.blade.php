@@ -32,75 +32,88 @@
                     </button>
                 </div>
             @endif
-            @can('Add/Edit Category')
+            @can('Add/Edit Indent')
                 <div class="card">
                     <div class="card-header">
                         <h5>Add New Indent</h5>
                     </div>
                     <div class="card-block">
-                        {{ Form::open(['class' => '', 'files' => true, 'url' => 'insert',
-                            'method' => 'post', 'enctype' => 'multipart/form-data']) }}
-{{--                        @if(isset($editData))--}}
-{{--                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'url' => 'indent/'.$editData->id, 'method' => 'PUT', 'enctype' => 'multipart/form-data']) }}--}}
-{{--                        @else--}}
-{{--                            {{ Form::open(['class' => '', 'files' => true, 'url' => 'indent',--}}
-{{--                            'method' => 'POST', 'enctype' => 'multipart/form-data']) }}--}}
-{{--                        @endif--}}
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="col-form-label"><span class="important">*</span> Indent ID</label>
-                                        <input type="text" class="form-control" name="vendor" id="vendor" >
-                                        <p style="color: darkred">Maximum 50 characters</p>
-                                    </div>
+                        @if(isset($editData))
+                            {{ Form::open(['class' => 'form-horizontal', 'files' => true, 'url' => 'insert/'.$editData->id, 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+                        @else
+                            {{ Form::open(['class' => '', 'files' => true, 'url' => 'insert',
+                            'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+                        @endif
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-form-label"><span class="important">*</span> Name of Indent/Paid to</label>
+                                    <input type="text" class="form-control {{ $errors->has('vendor') ? ' is-invalid' : '' }}" name="vendor" id="vendor" value="{{isset($editData)? $editData->vendor : old('vendor') }}">
+                                    <p style="color: darkred">Maximum 50 characters</p>
+                                    @if ($errors->has('vendor'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <span class="messages"><strong>{{ $errors->first('vendor') }}</strong></span>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
-
-{{--                        @if(!isset($editData))--}}
-{{--                            <div class="row">--}}
-{{--                                <div class="col-md-12">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label class="col-form-label"><span class="important">*</span> Indent ID</label>--}}
-{{--                                        <input type="text" class="form-control {{ $errors->has('vendor') ? ' is-invalid' : '' }}" name="vendor" id="vendor" value="{{isset($editData)? $editData->given_id : old('vendor') }}">--}}
-{{--                                        <p style="color: darkred">Maximum 50 characters</p>--}}
-{{--                                        @if ($errors->has('vendor'))--}}
-{{--                                            <span class="invalid-feedback" role="alert">--}}
-{{--                                                <span class="messages"><strong>{{ $errors->first('vendor') }}</strong></span>--}}
-{{--                                            </span>--}}
-{{--                                        @endif--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label class="col-form-label"><span class="important">*</span> Employee Category Name</label>--}}
-{{--                                    <input type="text" class="form-control {{ $errors->has('category_name') ? ' is-invalid' : '' }}" name="category_name" id="name" value="{{isset($editData)? $editData->category_name : old('category_name') }}">--}}
-{{--                                    <p style="color: darkred">Maximum 50 characters</p>--}}
-{{--                                    @if ($errors->has('category_name'))--}}
-{{--                                        <span class="invalid-feedback" role="alert">--}}
-{{--                                <span class="messages"><strong>{{ $errors->first('category_name') }}</strong></span>--}}
-{{--                            </span>--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label class="col-form-label">Category Description (optional)</label>--}}
-{{--                                    <textarea class="form-control" name="description">{{ isset($editData)? $editData->description : old('description') }}</textarea>--}}
-{{--                                    <p style="color: darkred">Maximum 350 characters</p>--}}
-{{--                                    @if ($errors->has('description'))--}}
-{{--                                        <span class="invalid-feedback" role="alert">--}}
-{{--                                <span class="messages"><strong>{{ $errors->first('description') }}</strong></span>--}}
-{{--                            </span>--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-form-label"><span class="important">*</span> Purpose of Payment</label>
+                                    <input type="text" class="form-control {{ $errors->has('purpose') ? ' is-invalid' : '' }}" name="purpose" id="purpose" value="{{isset($editData)? $editData->purpose : old('purpose') }}">
+                                    <p style="color: darkred">Maximum 50 characters</p>
+                                    @if ($errors->has('purpose'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <span class="messages"><strong>{{ $errors->first('purpose') }}</strong></span>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-form-label"><span class="important">*</span> Project Exp Code</label>
+                                    <input type="text" class="form-control {{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" id="code" value="{{isset($editData)? $editData->code : old('code') }}">
+                                    <p style="color: darkred">Maximum 50 characters</p>
+                                    @if ($errors->has('code'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <span class="messages"><strong>{{ $errors->first('code') }}</strong></span>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-form-label"><span class="important">*</span> Amount</label>
+                                    <input type="number" class="form-control {{ $errors->has('amount') ? ' is-invalid' : '' }}" name="amount" id="amount" value="{{isset($editData)? $editData->amount : old('amount') }}">
+                                    <p style="color: darkred">Maximum 50 characters</p>
+                                    @if ($errors->has('amount'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <span class="messages"><strong>{{ $errors->first('amount') }}</strong></span>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-form-label"><span class="important"></span> Remark</label>
+                                    <input type="text" class="form-control" name="remark" id="remark" value="{{isset($editData)? $editData->remark : old('remark') }}">
+                                    <p style="color: darkred">Maximum 50 characters</p>
+                                    @if ($errors->has('remark'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <span class="messages"><strong>{{ $errors->first('remark') }}</strong></span>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group row mt-4">
                             <div class="col-sm-12 text-center">
                                 <button type="submit" class="btn btn-primary m-b-0">Submit</button>
@@ -111,54 +124,65 @@
                 </div>
             @endcan
         </div>
-        @can('View Category List')
+        @can('View Indent List')
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Employee Category Lists</h5>
+                        <h5>Indent List</h5>
                     </div>
                     <div class="card-block">
+                        {{ Form::open(['class' => '', 'files' => true, 'url' => 'select',
+                            'method' => 'GET', 'enctype' => 'multipart/form-data']) }}
                         <div class="dt-responsive table-responsive">
                             <table id="basic-btn" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th>SL</th>
-                                    <th>Category ID</th>
-                                    <th>Category Name</th>
-                                    <th>Description</th>
-                                    <th>Actions</th>
+                                    <th>Name of Indent/Paid to</th>
+                                    <th>Purpose of Payment</th>
+                                    <th>Project Exp Code</th>
+                                    <th>Amount</th>
+                                    <th>Remark</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(isset($employee_category))
-                                    @php $i = 1 @endphp
-                                    @foreach($employee_category as $value)
-                                        <tr>
-                                            <td>{{$i++}}</td>
-                                            <td>{{$value->given_id}}</td>
-                                            <td>{{$value->category_name}}</td>
-                                            <td>{{$value->description}}</td>
-                                            <td>
-                                                @can('Add/Edit Category')
-                                                    <a href="{{url('employee-category/'.$value->id.'/edit')}}" title="Edit"><button type="button" class="btn btn-info action-icon"><i class="fa fa-edit"></i></button></a>
-                                                @endcan
+                                    @if(isset($indent_value))
+                                        @php $i = 1 @endphp
+                                        @foreach($indent_value as $value)
+                                            <tr>
+                                                <td>{{$i++}}</td>
+                                                <td>{{$value->vendor}}</td>
+                                                <td>{{$value->purpose}}</td>
+                                                <td>{{$value->code}}</td>
+                                                <td>{{$value->amount}}</td>
+                                                <td>{{$value->remark}}</td>
+                                                <td>
+                                                    @can('Add/Edit Indent')
+                                                        <a href="{{url('select/'.$value->id.'/edit')}}" title="Edit"><button type="button" class="btn btn-info action-icon"><i class="fa fa-edit"></i></button></a>
+                                                    @endcan
 
-                                                @if(Auth::user()->getRoleNames()->first() == 'Super Admin')
-                                                    <a class="modalLink" title="Delete" data-modal-size="modal-md" href="{{url('deleteEmployeeCategoryView', $value->id)}}">
-                                                        <button type="button" class="btn btn-danger action-icon"><i class="fa fa-trash-o"></i></button>
-                                                    </a>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                                                    @if(Auth::user()->getRoleNames()->first() == 'Super Admin')
+                                                        <a class="modalLink" title="Delete" data-modal-size="modal-md" href="{{url('deleteView', $value->id)}}">
+                                                            <button type="button" class="btn btn-danger action-icon"><i class="fa fa-trash-o"></i></button>
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
+                        <div class="form-group row mt-4">
+                            <div class="col-sm-12 text-center">
+                                <button type="submit" class="btn btn-primary m-b-0">Submit</button>
+                            </div>
+                        </div>
+                        {{ Form::close()}}
                     </div>
                 </div>
             </div>
         @endcan
     </div>
-
 @endSection

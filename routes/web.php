@@ -101,9 +101,13 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
 
 //Indent
     Route::get('select', 'IndentController@select');
+    Route::get('select/{id}/edit', 'IndentController@edit');
     Route::post('insert', 'IndentController@insert');
+    Route::post('insert/{id}', 'IndentController@update');
     Route::post('update', 'IndentController@update');
     Route::get('delete', 'IndentController@delete');
+    Route::get('deleteView/{id}', 'IndentController@deleteView');
+    Route::get('delete/{id}', 'IndentController@delete');
 
 // Employee routes
     Route::resource('employee', 'ErpEmployeeController');

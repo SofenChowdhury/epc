@@ -4,28 +4,61 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class IndentController extends Controller
 {
     function select(){
-       DB::table('indents')->get();
-       return view('backEnd.Indent.index');
+       $indent_value = DB::table('indents')->where('active_status', '=', 1)->get();
+       return view('backEnd.Indent.index', compact('indent_value'));
     }
     function insert(Request $request){
-        DB::table('indents')->insert(
-            array('vendor'=>$request->vendor,'purpose'=>'check')
+        $request->validate([
+            'vendor' => "required|string|min:1|max:50",
+            'purpose' => "required|string|min:1|max:50",
+            'code' => "required|string|min:1|max:50",
+            'amount' => "required|integer|min:1|max:50"
+        ]);
+        $results = DB::table('indents')->insert(
+            array('vendor'=>$request->vendor,'purpose'=>$request->purpose,'code'=>$request->code,'amount'=>$request->amount,'remark'=>$request->remark,'created_by'=>Auth::user()->name)
         );
-        return view('backEnd.Indent.index');
+        if($results){
+            return redirect()->back()->with('message-success', 'New Indent has been added successfully');
+        }else{
+            return redirect()->back()->with('message-danger', 'Something went wrong, please try again');
+        }
     }
-    function update(){
-        DB::table('indents')->where('id',3)->update(
-            array('vendor'=>'well','purpose'=>'check')
+    public function edit($id){
+        $editData = DB::table('indents')->find($id);
+        $indent_value = DB::table('indents')->where('active_status', '=', 1)->get();
+        return view('backEnd.Indent.index', compact('editData','indent_value'));
+    }
+    function update(Request $request, $id){
+        $request->validate([
+            'vendor' => "required|string|min:1|max:50",
+            'purpose' => "required|string|min:1|max:50",
+            'code' => "required|string|min:1|max:50",
+            'amount' => "required|integer|min:1|max:50"
+        ]);
+        $results = DB::table('indents')->where('id',$id)->update(
+            array('vendor'=>$request->vendor,'purpose'=>$request->purpose,'code'=>$request->code,'amount'=>$request->amount,'remark'=>$request->remark,'created_by'=>Auth::user()->name)
         );
-        return view('backEnd.Indent.index');
+        if($results){
+            return redirect('select')->with('message-success', 'New Indent has been updated successfully');
+        }else{
+            return redirect()->back()->with('message-danger', 'Something went wrong, please try again');
+        }
     }
-    function delete(){
-        DB::table('indents')->where('id',6)->delete();
-        return view('backEnd.Indent.index');
+    function deleteView($id){
+        return view('backEnd.indent.deleteIndent', compact('id'));
+    }
+    function delete($id){
+        $results = DB::table('indents')->where('id',$id)->delete();
+        if($results){
+            return redirect()->back()->with('message-success', 'New Indent has been deleted successfully');
+        }else{
+            return redirect()->back()->with('message-danger', 'Something went wrong, please try again');
+        }
     }
     
 }
