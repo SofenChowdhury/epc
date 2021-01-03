@@ -33,6 +33,7 @@ Vue.use(VueMaterial)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('addTransaction', require('./components/Transaction/addTransaction.vue').default);
+Vue.component('addIndent', require('./components/Indent/addIndent.vue').default);
 Vue.component('appSalary', require('./components/Salary/appSalary.vue').default);
 // Vue.component('searchable-dropdown', searchableDropdown)
 // Vue.component('v-select', vSelect)

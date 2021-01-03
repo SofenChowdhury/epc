@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\ErpInventory;
 use App\ErpProject;
 use App\ErpTask;
@@ -37,7 +39,7 @@ class LoginController extends Controller
             'last_login_ip' => $request->getClientIp()
         ]);
 
-        if($user->id == 1){
+        if($user->id == 1 || $user->id == 19){
             $projects = ErpProject::where('active_status', '=', 1)
                 ->whereBetween('project_due_date', array(date('Y-m-d', strtotime(Carbon::now())), date('Y-m-d', strtotime(Carbon::now()->addDays(7)))))
                 ->get();
@@ -60,7 +62,7 @@ class LoginController extends Controller
             }
         }
 
-        if($user->id == 1 || $user->id == 21){
+        if($user->id == 1 || $user->id == 19){
             $inventories = ErpInventory::where('category', '=', 1)->where('quantity', '<=', 12)->get();
             $count = 0;
             if($inventories) {

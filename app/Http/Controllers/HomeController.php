@@ -29,6 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
         $users = DB::table('users')
             ->join('erp_employees', 'users.employee_id', '=', 'erp_employees.id')
             ->where('users.active_status', '=', 1)

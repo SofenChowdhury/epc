@@ -130,14 +130,36 @@
                     <div class="card-header">
                         <h5>Indent List</h5>
                     </div>
+{{--                    <div class="col-md-2 md-layout-item">--}}
+{{--                        <label for="voucher_no" class="col-form-label">Voucher No:</label>--}}
+{{--                        <input type="text" class="form-control p-1" required readonly value="{{rand()}}" name="voucher_no" id="voucher_no"/>--}}
+{{--                    </div>--}}
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>SR.Acc</th>
+                            <th>Manager</th>
+                            <th>Ass.Director</th>
+                            <th>Director-2</th>
+                            <th>Director-1</th>
+                            <th>Chairman</th>
+                        </tr>
+                        <tr>
+                            <td><button class="btn btn-primary">Approve</button></td>
+                            <td><button class="btn btn-primary">Approve</button></td>
+                            <td><button class="btn btn-primary">Approve</button></td>
+                            <td><button class="btn btn-primary">Approve</button></td>
+                            <td><button class="btn btn-primary">Approve</button></td>
+                            <td><button class="btn btn-primary">Approve</button></td>
+                        </tr>
+                    </table>
                     <div class="card-block">
                         {{ Form::open(['class' => '', 'files' => true, 'url' => 'select',
-                            'method' => 'GET', 'enctype' => 'multipart/form-data']) }}
+                            'method' => 'GET', 'enctype' => 'multipart/form-data'])}}
                         <div class="dt-responsive table-responsive">
                             <table id="basic-btn" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>SL</th>
+                                    <th>VN {{rand()}}</th>
                                     <th>Name of Indent/Paid to</th>
                                     <th>Purpose of Payment</th>
                                     <th>Project Exp Code</th>
@@ -176,7 +198,7 @@
                         </div>
                         <div class="form-group row mt-4">
                             <div class="col-sm-12 text-center">
-                                <button type="submit" class="btn btn-primary m-b-0">Submit</button>
+                                <button type="submit" class="btn btn-primary m-b-0">Assign</button>
                             </div>
                         </div>
                         {{ Form::close()}}

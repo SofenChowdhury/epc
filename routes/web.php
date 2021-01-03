@@ -108,6 +108,7 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
     Route::get('delete', 'IndentController@delete');
     Route::get('deleteView/{id}', 'IndentController@deleteView');
     Route::get('delete/{id}', 'IndentController@delete');
+    Route::get('history', 'History_LogController@history');
 
 // Employee routes
     Route::resource('employee', 'ErpEmployeeController');
@@ -328,9 +329,8 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
     Route::get('project/task/amendment/create/{id}', 'ErpProjectController@createTaskAmendment');
     Route::get('project/reporting/amendment/create/{id}', 'ErpProjectController@createReportingAmendment');
     Route::get('project/deliverable/amendment/create/{id}', 'ErpProjectController@createDeliverableAmendment');
-
-
-
+    
+    
 // Transactions routes
     Route::get('add_transactions','TransactionsController@index')->middleware('permission:Add Transaction');
     Route::post('add_transactions',[
@@ -354,8 +354,11 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
 
     Route::get('allnotifications', 'ErpUserController@allNotifications');
 });
-// Indent route
 
-
-
+//New Indent Vue routs
+Route::get('add_indents','NewIndentController@create');
+Route::post('insert_indents','NewIndentController@insert');
+Route::get('show_indents','NewIndentController@index');
+Route::get('IndentDeleteView/{id}', 'NewIndentController@deleteView');
+Route::get('IndentDelete/{id}', 'NewIndentController@delete');
 

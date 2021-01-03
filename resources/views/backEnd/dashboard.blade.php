@@ -69,7 +69,7 @@
 </div>
 
 <div class="row">
-	<div class="col-xl-9 col-md-12" >
+	<div class="col-xl-6 col-md-6" >
 		<div class="card">
 			<div class="card-header">
 				<h5>Attendance List</h5>
@@ -127,6 +127,25 @@
                         <h6 class="text-muted m-b-10"> Employees Present Today </h6>
                         <h2 class="m-b-0">{{ $present_employees }}</h2>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-block">
+                <div class="row align-items-center m-l-0">
+                    <div class="col-auto">
+                        <i class="fa fa-users f-30 text-c-black"></i>
+                    </div>
+                    <div class="col-auto">
+                        <h6 class="text-muted m-b-10"> History Log </h6>
+                    </div>
+                    @can('View User List')
+                        <div class="text-center">
+                            <a href="history" class="b-b-primary text-primary">View all History</a>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -264,6 +283,13 @@
 		<div class="card ">
 			<div class="card-header">
 				<h5>Users</h5>
+                @if(isset($users))
+                    @php $i = 0 @endphp
+                    @foreach($users as $user)
+                        @php $i++; $total = $i; @endphp
+                    @endforeach
+                    <h6 class="m-b-0">Total: {{$total}}</h6>
+                @endif
 				<div class="card-header-right">
 					<ul class="list-unstyled card-option">
 						<li><i class="fa fa fa-wrench open-card-option"></i></li>

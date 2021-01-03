@@ -356,7 +356,7 @@
                         @endcanany
 
                     </li>
-                    <li class="pcoded-hasmenu fixed">
+                    <li class="pcoded-hasmenu Indent">
                         @can('Add/Edit Indent')
                             <li class="account-indent">
                                 <a href="{{url('select')}}" class="waves-effect waves-dark">
@@ -437,6 +437,16 @@
                         </li>
                     @endcanany
                 </ul>
+            </li>
+            <li class="pcoded-hasmenu Indent">
+{{--                @can('Add/Edit Indent')--}}
+                    <li class="account-indent">
+                        <a href="{{url('add_indents')}}" class="waves-effect waves-dark">
+                            <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                            <span class="pcoded-mtext">Indent</span>
+                        </a>
+                    </li>
+{{--                @endcan--}}
             </li>
         </ul>
     </div>

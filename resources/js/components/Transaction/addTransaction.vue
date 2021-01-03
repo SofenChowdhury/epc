@@ -2,7 +2,7 @@
     .md-menu-content.md-select-menu {
         width: auto;
         max-width: none;
-        /*min-width: auto;*/
+        min-width: auto;
     }
 </style>
 <template>
@@ -98,7 +98,7 @@
                             <td>
                                 <input type="number" step="0.01" value="0" required class="form-control credit-input input-credit0 mt-3 p-2" v-model="field.credit" name="credit0" :disabled="disabledCredit(field)"/>
                             </td>
-                            <td> <input type="button" @click="dataRemove(index);reduceAmount(field)" required class="btn btn-md btn-danger mt-3"  value="Delete" :disabled="disabledDelete(field)"/></td>
+                            <td> <input type="button" @click="dataRemove(index), reduceAmount(field)" required class="btn btn-md btn-danger mt-3"  value="Delete" :disabled="disabledDelete(field)"/></td>
                         </tr>
                         </tbody>
                         <tfoot>
