@@ -361,4 +361,5 @@ Route::post('insert_indents','NewIndentController@insert');
 Route::get('show_indents','NewIndentController@index');
 Route::get('IndentDeleteView/{id}', 'NewIndentController@deleteView');
 Route::get('IndentDelete/{id}', 'NewIndentController@delete');
-
+Route::post('approvalAction', 'NewIndentController@action');
+Route::get('IndentPrint/{id}', 'NewIndentController@IndentPrint')->name('IndentPrint');

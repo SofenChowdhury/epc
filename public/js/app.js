@@ -2378,6 +2378,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user-id'],
   data: function data() {
@@ -7028,7 +7032,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.md-menu-content.md-select-menu {\n    width: auto;\n    max-width: none;\n    min-width: auto;\n}\n", ""]);
+exports.push([module.i, "\n.md-menu-content.md-select-menu {\n    width: auto;\n    max-width: none;\n    min-width: auto;\n}\n.md-select-menu{\n    margin-left: 21% !important;\n}\n", ""]);
 
 // exports
 

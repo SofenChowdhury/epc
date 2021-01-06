@@ -79,8 +79,6 @@
                             <th scope="col"width="20%">Purpose of Payment</th>
                             <th scope="col"width="20%">Project Exp Code</th>
                             <th scope="col"width="15%">Amount</th>
-                            <th scope="col"width="15%">Remark</th>
-                            <th scope="col"width="10%">Action</th>
                         </tr>
                         </thead>
                         <tbody id="IndentData">
@@ -105,12 +103,6 @@
                                     <input type="number" class="form-control" name="amount[]" placeholder="Amount" />
                                 </div>
                             </td>
-                            <td class="pb-0">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="remark[]" placeholder="Remark" />
-                                </div>
-                            </td>
-                            <td></td>
                         </tr>
                         </tbody>
                         <tfoot>
@@ -120,8 +112,6 @@
                                     <input type="button" onclick="AppendDataRow()" class="btn btn-info mt-3" id="addrow" value="Add New Field" />
                                 </div>
                             </td>
-                            <td></td>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td>
@@ -158,13 +148,6 @@
     "                                <input type=\"number\" class=\"form-control\" name=\"amount[]\" placeholder=\"Amount\" />\n" +
     "                            </div>\n" +
     "                        </td>\n" +
-    "                        <td class=\"pb-0\">\n" +
-    "                            <div class=\"form-group\">\n" +
-    "                                <input type=\"text\" class=\"form-control\" name=\"remark[]\" placeholder=\"Remark\" />\n" +
-    "                            </div>\n" +
-    "                        </td>\n" +
-    "\n" +
-    "                        <td></td>\n" +
     "                    </tr>");
         }
     </script>

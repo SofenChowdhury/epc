@@ -40,8 +40,6 @@
                         <h5>Indent List</h5>
                     </div>
                     <div class="card-block">
-                        {{--                        {{ Form::open(['class' => '', 'files' => true, 'url' => 'select',--}}
-                        {{--                            'method' => 'GET', 'enctype' => 'multipart/form-data'])}}--}}
                         <div class="dt-responsive table-responsive">
                             <table id="basic-btn" class="table table-striped table-bordered">
                                 <thead>
@@ -53,6 +51,16 @@
                                     <th>note</th>
                                     <th>accountant</th>
                                     <th>accountant_remark</th>
+                                    <th>manager</th>
+                                    <th>manager_remark</th>
+                                    <th>associate_director</th>
+                                    <th>associate_director_remark</th>
+                                    <th>director_2</th>
+                                    <th>director_2_remark</th>
+                                    <th>director_1</th>
+                                    <th>director_1_remark</th>
+                                    <th>chairman</th>
+                                    <th>chairman_remark</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -66,80 +74,145 @@
                                             <td>{{$value->indent_no}}</td>
                                             <td>{{$value->date}}</td>
                                             <td>{{$value->note}}</td>
-                                            <td>{{$value->accountant}}</td>
+                                            <td>Prepared by : <br>{{$value->accountant}}</td>
                                             <td>{{$value->accountant_remark}}</td>
                                             <td>
+                                                @if($value->manager_action == 1)
+                                                    Approved
+                                                @elseif($value->manager_action == 2)
+                                                    Rejected
+                                                @else
+                                                    @if(Auth::user()->id == 24)
+                                                        <p onclick="managerAction({{$value->id}},'manager')">
+                                                            <button type="button" class="btn btn-warning" data-dismiss="modal">Action</button>
+                                                        </p>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td>{{$value->manager_remark}}</td>
+                                            <td>
+                                                @if($value->associate_director_action == 1)
+                                                    Approved
+                                                @elseif($value->associate_director_action == 2)
+                                                    Rejected
+                                                @elseif($value->manager_action == 1)
+                                                    @if(Auth::user()->id == 23)
+                                                        <button type="button" class="btn btn-warning" onclick="managerAction({{$value->id}},'associate_director')">Action</button>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td>{{$value->associate_director_remark}}</td>
+                                            <td>
+                                                @if($value->director_2_action == 1)
+                                                    Approved
+                                                @elseif($value->director_2_action == 2)
+                                                    Rejected
+                                                @elseif($value->associate_director_action == 1)
+                                                    @if(Auth::user()->id == 21)
+                                                        <button type="button" class="btn btn-warning" onclick="managerAction({{$value->id}},'director_2')">Action</button>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td>{{$value->director_2_remark}}</td>
+                                            <td>
+                                                @if($value->director_1_action == 1)
+                                                    Approved
+                                                @elseif($value->director_1_action == 2)
+                                                    Rejected
+                                                @elseif($value->director_2_action == 1)
+                                                    @if(Auth::user()->id == 20)
+                                                        <button type="button" class="btn btn-warning" onclick="managerAction({{$value->id}},'director_1')">Action</button>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td>{{$value->director_1_remark}}</td>
+                                            <td>
+                                                @if($value->chairman_action == 1)
+                                                    Approved
+                                                @elseif($value->chairman_action == 2)
+                                                    Rejected
+                                                @elseif($value->director_1_action == 1)
+                                                    @if(Auth::user()->id == 19)
+                                                        <button type="button" class="btn btn-warning" onclick="managerAction({{$value->id}},'chairman')">Action</button>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td>{{$value->chairman_remark}}</td>
+                                            <td>
                                                 @if(Auth::user()->name == $value->accountant)
-                                                    <a class="modalLink m-4" title="Delete" data-modal-size="modal-md" href="{{url('IndentDeleteView', $value->id)}}">
+                                                    <a class="modalLink" title="Delete" data-modal-size="modal-md" href="{{url('IndentDeleteView', $value->id)}}">
                                                         <button type="button" class="btn btn-danger action-icon"><i class="fa fa-trash-o"></i></button>
                                                     </a>
+                                                    @if($value->chairman_action == 1)
+                                                        <a class="" title="print"  href="{{route('IndentPrint',['id' => $value->id])}}" target="_blank">
+                                                            <button type="button" class="btn btn-primary">Print</button>
+                                                        </a>
+                                                    @endif
                                                 @endif
-
                                                 <a href="#myModal" data-toggle="modal" data-target="#myModal_{{ $value->id}}" data-id="{{$value->id}}" >
                                                     <button type="button" class="btn btn-basic action-icon"><i class="fa fa-eye"></i></button>
                                                 </a>
-                                                <!-- Product Details Model -->
                                                 <div class="modal fade" id="myModal_{{ $value->id}}" role="dialog" >
                                                     <div class="modal-dialog modal-lg">
-                                                        <!-- Modal content-->
-                                                        <div class="modal-content">
+                                                        <div class="modal-content" style="width: 100%">
                                                             <div class="modal-header">
                                                                 @if( isset($value->title) )
-                                                                    <h4 class="modal-title" style="color:#000000">{{ $value->title }}-{{$value->indent_no}}({{$value->date}})</h4>
+                                                                    <h3 class="modal-title" style="color:#000000">Engineering & Planning Consultants Ltd.<br><span>7/4,Block-A, Lalmatia,Dhaka-1207</span></h3>
+                                                                    <span><strong>Indent No: {{$value->indent_no}}</strong><br>Date: {{$value->date}}</span><br>
                                                                 @endif
+                                                                    @php
+                                                                        $total = 0;
+                                                                    @endphp
                                                             </div>
                                                             <div class="modal-body" >
                                                                 <div class="table-responsive">
                                                                     <table class="table m-0">
+                                                                        <h5>{{$value->title}}</h5>
                                                                         <tbody>
                                                                         <tr>
-                                                                            <th scope="col">title </th>
-                                                                            <td colspan="3">
-                                                                                @if(isset($value->id))
-                                                                                    {{$value->title}}
-                                                                                @endif
-                                                                            </td>
+                                                                            <th scope="col " colspan="3">Name of vendor/Paid to</th>
+                                                                            <th scope="col" colspan="3">Purpose of Payment</th>
+                                                                            <th scope="col" colspan="3">Project Exp Code</th>
+                                                                            <th scope="col" colspan="3">Amount</th>
                                                                         </tr>
-                                                                        <tr>
-                                                                            <th scope="col">indent_no </th>
-                                                                            <td colspan="3">
-                                                                                @if(isset($value->id))
-                                                                                    {{$value->indent_no}}
-                                                                                @endif
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="col">date </th>
-                                                                            <td colspan="3">
-                                                                                @if(isset($value->id))
-                                                                                    {{$value->date}}
-                                                                                @endif
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="col">note </th>
-                                                                            <td colspan="3">
-                                                                                @if(isset($value->id))
-                                                                                    {{$value->note}}
-                                                                                @endif
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="col">accountant </th>
-                                                                            <td colspan="3">
-                                                                                @if(isset($value->id))
-                                                                                    {{$value->accountant}}
-                                                                                @endif
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="col">accountant_remark </th>
-                                                                            <td colspan="3">
-                                                                                @if(isset($value->id))
-                                                                                    {{$value->accountant_remark}}
-                                                                                @endif
-                                                                            </td>
-                                                                        </tr>
+                                                                        @foreach($indentDataChild as $data)
+                                                                            @if($value->id == $data->master_id)
+                                                                            <tr>
+                                                                                <td colspan="3">
+                                                                                    @if(isset($data->id))
+                                                                                        {{$data->vendor}}
+                                                                                    @endif
+                                                                                </td>
+
+                                                                                <td colspan="3">
+                                                                                    @if(isset($data->id))
+                                                                                        {{$data->purpose}}
+                                                                                    @endif
+                                                                                </td>
+
+                                                                                <td colspan="3">
+                                                                                    @if(isset($data->id))
+                                                                                        {{$data->exp_code}}
+                                                                                    @endif
+                                                                                </td>
+
+                                                                                <td colspan="3">
+                                                                                    @if(isset($data->id))
+                                                                                        {{$data->amount}}
+                                                                                        @php
+                                                                                            $total += $data->amount;
+                                                                                        @endphp
+                                                                                    @endif
+                                                                                </td>
+                                                                            </tr>
+                                                                            @endif
+                                                                        @endforeach
+                                                                            <tr>
+                                                                                <th scope="col " colspan="3"></th>
+                                                                                <th scope="col " colspan="3"></th>
+                                                                                <th scope="col " colspan="3">Total TK =</th>
+                                                                                <th scope="col " colspan="3">{{$total}}</th>
+                                                                            </tr>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -157,15 +230,67 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{--                        <div class="form-group row mt-4">--}}
-                        {{--                            <div class="col-sm-12 text-center">--}}
-                        {{--                                <button type="submit" class="btn btn-primary m-b-0">Assign</button>--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
-                        {{--                        {{ Form::close()}}--}}
                     </div>
                 </div>
             </div>
         @endcan
     </div>
+    <div class="modal fade" id="actionModal" role="dialog" >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="width: 100%">
+                <div class="modal-header">
+                    @if( isset($value->title) )
+                        <h4 class="modal-title" style="color:#000000">{{ $value->title }}-{{$value->indent_no}}({{$value->date}})</h4>
+                    @endif
+                </div>
+                <div class="modal-body" >
+                    <div class="table-responsive">
+                        <form method="post" action="{{url('approvalAction')}}">@csrf
+                            <table class="table m-0">
+                                <tbody>
+                                    <tr>
+                                        <th><b>Remark:</b></th>
+                                        <th>
+                                            <textarea class="form-control" id="remark" name="remark"></textarea>
+                                            <input name="action" id="actionInput" required type="hidden">
+                                            <input name="id" id="indentId" required type="hidden">
+                                            <input name="indentUser" id="indentUser" required type="hidden">
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-success" onclick="AppAction(1)">Approved</button>
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-danger" onclick="AppAction(2)">Reject</button>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th scope="col " colspan="1">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </th>
+                                        <th scope="col " colspan="4">
+                                            <button type="submit" class="btn btn-primary" style="float: right" >Submit</button>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function managerAction(id,id1,id2){
+            $('#actionModal').modal('show');
+            $('#indentId').val(id);
+            $('#indentUser').val(id1);
+            $('#remark').val(id2);
+        }
+        function AppAction(id1){
+            $('#actionInput').val(id1);
+        }
+    </script>
 @endSection

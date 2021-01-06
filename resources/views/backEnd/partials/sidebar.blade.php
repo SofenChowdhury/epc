@@ -76,14 +76,14 @@
                             </a>
                         </li>
                     @endcan
-                    @can('Add/Edit Indent')
-                        <li class="account-indent">
-                            <a href="{{url('select')}}" class="waves-effect waves-dark">
-                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
-                                <span class="pcoded-mtext">Indent</span>
-                            </a>
-                        </li>
-                    @endcan
+{{--                    @can('Add/Edit Indent')--}}
+{{--                        <li class="account-indent">--}}
+{{--                            <a href="{{url('select')}}" class="waves-effect waves-dark">--}}
+{{--                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>--}}
+{{--                                <span class="pcoded-mtext">Indent</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                    @endcan--}}
                 </ul>
             </li>
 
@@ -356,16 +356,16 @@
                         @endcanany
 
                     </li>
-                    <li class="pcoded-hasmenu Indent">
-                        @can('Add/Edit Indent')
-                            <li class="account-indent">
-                                <a href="{{url('select')}}" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
-                                    <span class="pcoded-mtext">Indent</span>
-                                </a>
-                            </li>
-                        @endcan
-                    </li>
+{{--                    <li class="pcoded-hasmenu Indent">--}}
+{{--                        @can('Add/Edit Indent')--}}
+{{--                            <li class="account-indent">--}}
+{{--                                <a href="{{url('select')}}" class="waves-effect waves-dark">--}}
+{{--                                    <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>--}}
+{{--                                    <span class="pcoded-mtext">Indent</span>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
+{{--                    </li>--}}
                 </ul>
             </li>
 
@@ -438,15 +438,32 @@
                     @endcanany
                 </ul>
             </li>
-            <li class="pcoded-hasmenu Indent">
-{{--                @can('Add/Edit Indent')--}}
-                    <li class="account-indent">
-                        <a href="{{url('add_indents')}}" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
-                            <span class="pcoded-mtext">Indent</span>
-                        </a>
-                    </li>
-{{--                @endcan--}}
+            <li class="pcoded-hasmenu indents">
+                @canany(['View Indent List','Add Indent List'])
+                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="ti-settings"></i><b>P</b></span>
+                        <span class="pcoded-mtext">Indents</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                @endcanany
+                <ul class="pcoded-submenu">
+                    @canany(['View Indent List'])
+                        <li class="inventory">
+                            <a href="{{url('show_indents')}}" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                                <span class="pcoded-mtext">View Indents</span>
+                            </a>
+                        </li>
+                    @endcanany
+                    @canany(['Add Indent List'])
+                        <li class="inventory">
+                            <a href="{{url('add_indents')}}" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                                <span class="pcoded-mtext">Add Indents</span>
+                            </a>
+                        </li>
+                    @endcanany
+                </ul>
             </li>
         </ul>
     </div>
