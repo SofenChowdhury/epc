@@ -17,7 +17,7 @@
         border-collapse: collapse;
     }
 </style>
-
+<p class="" style="font-weight: bold; font-size: 13px; line-height: 8px; padding-left: 550px">INDENT NO. {{$indentDataMaster->indent_no}}</p>
 <p class="text-center" style="font-weight: bold; font-size: 16px; line-height: 8px">Engineering & Planning Consultants Ltd.</p>
 <p class="text-center" style="font-weight: bold; font-size: 13px; line-height: 8px">7/4,Block-A, Lalmatia,Dhaka-1207</p>
 <p class="text-center" style="font-weight: bold; font-size: 13px; line-height: 8px">{{$indentDataMaster->title}}</p>
@@ -71,12 +71,12 @@
     </thead>
     <tbody>
     <tr>
-        <td>{{$indentDataMaster->accountant}}</td>
-        <td>{{$indentDataMaster->manager}}</td>
-        <td>{{$indentDataMaster->associate_director}}</td>
-        <td>{{$indentDataMaster->director_2}}</td>
-        <td>{{$indentDataMaster->director_1}}</td>
-        <td>{{$indentDataMaster->chairman}}</td>
+        <td>{{$indentDataMaster->accountant}}<br><span>Prepared</span></td>
+        <td>{{$indentDataMaster->manager}}<br><span>Approved</span></td>
+        <td>{{$indentDataMaster->associate_director}}<br><span>Approved</span></td>
+        <td>{{$indentDataMaster->director_2}}<br><span>Approved</span></td>
+        <td>{{$indentDataMaster->director_1}}<br><span>Approved</span></td>
+        <td>{{$indentDataMaster->chairman}}<br><span>Approved</span></td>
     </tr>
     </tbody>
 </table>

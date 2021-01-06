@@ -139,10 +139,12 @@
                                             </td>
                                             <td>{{$value->chairman_remark}}</td>
                                             <td>
-                                                @if(Auth::user()->name == $value->accountant)
-                                                    <a class="modalLink" title="Delete" data-modal-size="modal-md" href="{{url('IndentDeleteView', $value->id)}}">
-                                                        <button type="button" class="btn btn-danger action-icon"><i class="fa fa-trash-o"></i></button>
-                                                    </a>
+                                                @if(Auth::user()->name == $value->accountant || Auth::user()->name == 'Kawser Ahmed' || Auth::user()->name == 'Md Admin')
+                                                    @if(Auth::user()->name == 'Kawser Ahmed' || Auth::user()->name == 'Md Admin')
+                                                        <a class="modalLink" title="Delete" data-modal-size="modal-md" href="{{url('IndentDeleteView', $value->id)}}">
+                                                            <button type="button" class="btn btn-danger action-icon"><i class="fa fa-trash-o"></i></button>
+                                                        </a>
+                                                    @endif
                                                     @if($value->chairman_action == 1)
                                                         <a class="" title="print"  href="{{route('IndentPrint',['id' => $value->id])}}" target="_blank">
                                                             <button type="button" class="btn btn-primary">Print</button>
