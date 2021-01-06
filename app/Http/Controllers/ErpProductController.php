@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ErpProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpProductController extends Controller
 {
@@ -27,7 +29,6 @@ class ErpProductController extends Controller
     }
     public function printList()
     {
-
         $products = ErpProduct::where('product_type', '=', 1)->get();
 
         $type = 1;
@@ -53,6 +54,9 @@ class ErpProductController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'product_name'=>'required|string|min:1|max:150',
             'unit'=>'min:0|max:100',
@@ -94,6 +98,9 @@ class ErpProductController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpProduct::find($id);
         $products = ErpProduct::all();
         $type = $editData->product_type;
@@ -109,6 +116,9 @@ class ErpProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'product_name'=>'required|string|min:1|max:150',
             'unit'=>'min:0|max:100',
@@ -147,6 +157,9 @@ class ErpProductController extends Controller
     }
 
     public function deleteProduct($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $result = ErpProduct::destroy($id);
         if($result){
             return redirect()->back()->with('message-success-delete', 'Product has been deleted successfully');

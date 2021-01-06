@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ErpConveyanceSchedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpConveyanceController extends Controller
 {
@@ -36,6 +38,9 @@ class ErpConveyanceController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'destination'=>'required|string|min:3|max:200',
             'mode'=>'min:0|max:100',
@@ -74,6 +79,9 @@ class ErpConveyanceController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpConveyanceSchedule::find($id);
         $conveyances = ErpConveyanceSchedule::all();
         return view('backEnd.employees.conveyance.index', compact('editData', 'conveyances'));
@@ -88,6 +96,9 @@ class ErpConveyanceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'destination'=>'required|string|min:3|max:200',
             'mode'=>'min:0|max:100',
@@ -133,6 +144,9 @@ class ErpConveyanceController extends Controller
     }
     
     public function deleteConveyance($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $conveyance = ErpConveyanceSchedule::find($id);
         $results = $conveyance->delete();
         

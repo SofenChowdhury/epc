@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ErpModule;
 use App\ErpModuleLinks;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpModuleLinksController extends Controller
 {
@@ -39,6 +40,9 @@ class ErpModuleLinksController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'module_id'=>'required',
             'name'=>'required'
@@ -77,6 +81,9 @@ class ErpModuleLinksController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpModuleLinks::find($id);
         $module_links = ErpModuleLinks::where('active_status', '=', 1)->get();
         $modules = ErpModule::where('active_status', '=', 1)->get();
@@ -92,6 +99,9 @@ class ErpModuleLinksController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'module_id'=>'required',
             'name'=>'required'
@@ -122,6 +132,9 @@ class ErpModuleLinksController extends Controller
     }
 
     public function deleteModuleLink($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $module_link = ErpModuleLinks::find($id);
         $module_link->active_status = 0;
         $results = $module_link->update();

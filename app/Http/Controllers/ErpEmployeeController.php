@@ -41,6 +41,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Notification;
 use Spatie\Permission\Models\Role;
@@ -74,6 +75,9 @@ class ErpEmployeeController extends Controller
      */
     public function create()
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $departments = ErpDepartment::all();
         $designations = ErpDesignation::all();
         $types = ErpEmployeeType::all();
@@ -94,7 +98,10 @@ class ErpEmployeeController extends Controller
      */
     public function store(Request $request)
     {
-       
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
+            
             $request->validate([
             'first_name' => 'required|string|min:1|max:150',
             'last_name' => 'required',
@@ -358,6 +365,9 @@ class ErpEmployeeController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpEmployee::find($id);
         $designations = ErpDesignation::where('active_status','=',1)->get();
         $departments = ErpDepartment::where('active_status','=',1)->get();
@@ -383,7 +393,9 @@ class ErpEmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -500,6 +512,9 @@ class ErpEmployeeController extends Controller
     }
 
     public function deleteEmployee($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $employee = ErpEmployee::find($id);
         $employee->active_status = 0;
         $results = $employee->update();
@@ -513,6 +528,9 @@ class ErpEmployeeController extends Controller
 
     public function printInfo($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $editData = ErpEmployee::find($id);
         $genders = ErpBaseSetup::where('base_group_id', '=', 1)->where('active_status','=',1)->get();
         $blood_groups = ErpBaseSetup::where('base_group_id', '=', 2)->where('active_status','=',1)->get();
@@ -655,6 +673,9 @@ class ErpEmployeeController extends Controller
 
     public function printSalaryStatement(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $salary_month =  date('d-m-Y', strtotime($request->salary_month));
 
         $project = ErpProject::find($request->project_id);
@@ -699,6 +720,9 @@ class ErpEmployeeController extends Controller
 
     public function printSalaryAdvice(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $salary_month =  date('d-m-Y', strtotime($request->salary_month));
         $project = ErpProject::find($request->project_id);
         if ($project){
@@ -741,6 +765,9 @@ class ErpEmployeeController extends Controller
 
     public function printCertificate($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $employee = ErpEmployee::find($id);
         $max = ErpEmployee::max('emp_certificate');
         $employee->emp_certificate = $max+1;
@@ -756,6 +783,9 @@ class ErpEmployeeController extends Controller
 
     public function printSalaryIndividual($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $employee = ErpEmployee::find($id);
         $chalans = ErpChalanNo::all();
 //        $setup = ErpSetup::latest()->first();
@@ -769,6 +799,9 @@ class ErpEmployeeController extends Controller
 
     public function printSalaryMonth(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $employee = ErpEmployee::find($id);
         $start_month =  date('F, Y', strtotime($request->start_month));
         $end_month =  date('F, Y', strtotime($request->end_month));
@@ -781,6 +814,9 @@ class ErpEmployeeController extends Controller
 
     public function leaveRequest(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'leaved','path'=>url()->current())
+        );
         $request->validate([
             'type_of_leave'=>'required',
             'start_date'=> 'required',
@@ -915,6 +951,9 @@ class ErpEmployeeController extends Controller
 
     public function addAttendance(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $request->validate([
             'attendance_date'=>'required',
             'in_time'=> 'required',
@@ -963,6 +1002,9 @@ class ErpEmployeeController extends Controller
 
     public function assignMaterial(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'assigned','path'=>url()->current())
+        );
         $request->validate([
             'employee_id' => 'required',
             'quantity' => 'required',

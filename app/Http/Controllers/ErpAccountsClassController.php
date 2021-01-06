@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ErpAccountsClass;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpAccountsClassController extends Controller
 {
@@ -37,6 +38,9 @@ class ErpAccountsClassController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'class_name' => "required"
         ]);
@@ -50,7 +54,7 @@ class ErpAccountsClassController extends Controller
        $account_class->unit_description = $request->unit_description;
        $account_class->created_by = Auth::user()->id;
        $results = $account_class->save();
-
+       
        if($results){
            return redirect()->back()->with('message-success', 'New Account Class has been added successfully');
        }else{
@@ -77,6 +81,9 @@ class ErpAccountsClassController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpAccountsClass::find($id);
         $account_class = ErpAccountsClass::all();
         return view('backEnd.chart_of_accounts.account_class.index', compact('editData', 'account_class'));
@@ -91,6 +98,9 @@ class ErpAccountsClassController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'class_name' => "required"
         ]);

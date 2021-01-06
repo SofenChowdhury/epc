@@ -7,6 +7,8 @@ use App\ErpTransactionDetails;
 use App\ErpChartOfAccounts;
 use App\ErpProject;
 use App\ErpProjectPayment;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Notification;
 use App\Notifications\TransactionApproval;
 use App\User;
@@ -21,7 +23,9 @@ class TransactionsController extends Controller
     }
 
     public function addTransactions(Request $request) {
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted Transactions','path'=>url()->current())
+        );
         $transaction=new ErpTransaction;
         $transaction->transaction_date=$request->form['date'];
         $transaction->description=$request->form['description'];

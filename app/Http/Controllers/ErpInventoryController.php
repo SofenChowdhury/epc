@@ -19,6 +19,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpInventoryController extends Controller
 {
@@ -95,6 +96,9 @@ class ErpInventoryController extends Controller
     }
     public function create($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $employees = ErpEmployee::where('active_status', '=', '1')->get();
         $projects = ErpProject::all();
         $locations = ErpLocation::all();
@@ -126,6 +130,9 @@ class ErpInventoryController extends Controller
     
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
 //            'product_name'=>'required',
             'min_amount'=>'numeric|min:0|max:12',
@@ -298,6 +305,9 @@ class ErpInventoryController extends Controller
     
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         
         $product        = ErpInventory::find($id);
         $product_lists  = ErpProduct::all();
@@ -308,6 +318,9 @@ class ErpInventoryController extends Controller
     }
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'serial_no'=>'min:0|max:200',
             'brand_name'=>'min:0|max:200',
@@ -391,6 +404,9 @@ class ErpInventoryController extends Controller
     }
     public function assign(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'assigned','path'=>url()->current())
+        );
         $request->validate([
             'quantity' => 'required'
         ]);
@@ -466,6 +482,9 @@ class ErpInventoryController extends Controller
         return view('backEnd.inventory.assignBackView', compact('id'));
     }
     public function assignBack($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'assigned back','path'=>url()->current())
+        );
         $product = ErpInventory::find($id);
         $product->room_no = null;
         $product->quantity++;
@@ -487,6 +506,9 @@ class ErpInventoryController extends Controller
     }
     public function printList($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         if ($id == 2) {
             $products = ErpInventory::where('category', '=', 2)->where('quantity', '>', 0)->where('active_status', '=', 1)->get();
             $category = 2;
@@ -505,6 +527,9 @@ class ErpInventoryController extends Controller
     }
     public function printAssignedList($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         if ($id == 2) {
             $products = ErpInventory::where('category', '=', 2)
                 ->where('quantity', '=', 0)
@@ -533,6 +558,9 @@ class ErpInventoryController extends Controller
         return view('backEnd.showDeleteModal', compact('id','module'));
     }
     public function deleteInventory($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $product = ErpInventory::find($id);
         $product->active_status = 0;
 

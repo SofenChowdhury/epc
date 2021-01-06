@@ -6,6 +6,7 @@ use App\ErpProject;
 use App\ErpProjectAdvances;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpProjectAdvancesController extends Controller
 {
@@ -26,6 +27,9 @@ class ErpProjectAdvancesController extends Controller
      */
     public function create($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         $advances=ErpProjectAdvances::where('project_id', '=', $id)->where('project_phase', '=', $project->project_phase)->get();
         $maxAmendmentAdvance = 0;
@@ -48,6 +52,9 @@ class ErpProjectAdvancesController extends Controller
 
     public function amendmentCreate(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
 
         $request->validate([
             'amount' => 'required',
@@ -105,8 +112,9 @@ class ErpProjectAdvancesController extends Controller
 
     public function store(Request $request)
     {
-
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'amount' => 'required',
             'bank_name' => 'min:0|max:200',
@@ -176,6 +184,9 @@ class ErpProjectAdvancesController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
 
         $editData = ErpProjectAdvances::find($id);
 
@@ -200,6 +211,9 @@ class ErpProjectAdvancesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'amount' => 'required',
             'bank_name'=>'min:0|max:200',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ErpRole;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -48,6 +49,9 @@ class ErpRoleController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'role_name'=>'required'
         ]);
@@ -75,6 +79,9 @@ class ErpRoleController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $role = Role::find($id);
         return view('backEnd.roles.edit', compact('role'));
     }
@@ -88,6 +95,9 @@ class ErpRoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'name'=>'required'
         ]);
@@ -110,6 +120,9 @@ class ErpRoleController extends Controller
     }
 
     public function deleteRole($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $result = ErpRole::destroy($id);
         if($result){
             return redirect()->back()->with('message-success-delete', 'Role has been deleted successfully');
@@ -119,6 +132,9 @@ class ErpRoleController extends Controller
     }
 
     public function assignPermission($role_id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'assigned','path'=>url()->current())
+        );
         $role=Role::findById($role_id);
         if(Auth::user()->hasRole('Super Admin'))
             $permissions=Permission::orderBy('Module_name')->get();
@@ -136,6 +152,9 @@ class ErpRoleController extends Controller
     }
 
     public function rolePermissionStore(Request $request){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $role=Role::findById($request->role_id);
         $role->syncPermissions($request->permissions);
         return redirect('role')->with('message-success-assign-role', 'Role permission has been assigned successfully');

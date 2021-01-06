@@ -10,6 +10,7 @@ use App\ErpVendorBank;
 use App\ErpChartOfAccounts;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpVendorController extends Controller
 {
@@ -31,6 +32,9 @@ class ErpVendorController extends Controller
      */
     public function create()
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         return view('backEnd.vendors.create');
     }
 
@@ -42,6 +46,9 @@ class ErpVendorController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'vendor_name'=>'required|string|min:3|max:200',
             'phone_number'=>'required|string|min:3|max:100',
@@ -139,6 +146,9 @@ class ErpVendorController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $vendor = ErpVendor::find($id);
         return view('backEnd.vendors.edit', compact('vendor'));
     }
@@ -152,6 +162,9 @@ class ErpVendorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'vendor_name'=>'required|string|min:3|max:200',
             'phone_number'=>'required|string|min:3|max:100',
@@ -220,6 +233,9 @@ class ErpVendorController extends Controller
     }
 
     public function deleteVendor($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $vendor = ErpVendor::find($id);
         $vendor->active_status = 0;
 

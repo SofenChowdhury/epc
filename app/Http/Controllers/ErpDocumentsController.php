@@ -14,6 +14,7 @@ use App\ErpProjectDocument;
 use App\ErpVendorDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class ErpDocumentsController extends Controller
@@ -25,6 +26,9 @@ class ErpDocumentsController extends Controller
     }
 
     public function store(Request $request){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'document_name'=>'required|string|min:1|max:100',
             'upload_document'=> 'required|mimes:pdf,xls,xlsx,csv,zip,png,jpg,jpeg'
@@ -52,6 +56,9 @@ class ErpDocumentsController extends Controller
     }
 
     public function documentPdf($id) {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $document = ErpDocument::find($id);
         $file=$document->upload_document;
         $pathToFile = public_path().$file;
@@ -63,6 +70,9 @@ class ErpDocumentsController extends Controller
 
     public function uploadEmployeeDocument(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'document_name'=>'required|string|min:1|max:100',
             'upload_document'=> 'required|mimes:pdf,xls,xlsx,csv,zip,png,jpg,jpeg'
@@ -90,6 +100,9 @@ class ErpDocumentsController extends Controller
     }
 
     public function employeePdf($id) {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $employee = ErpEmployee::find($id);
         $file=$employee->joining_letter;
         $pathToFile = public_path().$file;
@@ -101,6 +114,9 @@ class ErpDocumentsController extends Controller
     }
 
     public function employeeDocumentPdf($id) {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $document = ErpEmployeeDocument::find($id);
         $file=$document->upload_document;
         $pathToFile = public_path().$file;
@@ -112,6 +128,9 @@ class ErpDocumentsController extends Controller
     }
 
     public function employeeEducationPdf($id) {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $document = ErpEmployeeEducation::find($id);
         $file=$document->upload_document;
         $pathToFile = public_path().$file;
@@ -123,6 +142,9 @@ class ErpDocumentsController extends Controller
     }
 
     public function employeeWorkExperiencePdf($id) {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $document = ErpEmployeeWorkExperience::find($id);
         $file=$document->upload_document;
         $pathToFile = public_path().$file;
@@ -135,6 +157,9 @@ class ErpDocumentsController extends Controller
 
     public function uploadProjectDocument(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'uploaded','path'=>url()->current())
+        );
         $request->validate([
             'document_name'=>'required|string|min:1|max:100',
             'upload_document'=> 'required|mimes:pdf,xls,xlsx,csv,png,jpg,jpeg',
@@ -166,6 +191,9 @@ class ErpDocumentsController extends Controller
     }
 
     public function projectPdf($id) {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $document = ErpProjectDocument::find($id);
         $file=$document->upload_document;
         $pathToFile = public_path().$file;
@@ -177,6 +205,9 @@ class ErpDocumentsController extends Controller
 
     public function uploadClientDocument(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'uploaded','path'=>url()->current())
+        );
         $request->validate([
             'document_name'=>'required|string|min:1|max:100',
             'upload_document'=> 'required|mimes:pdf,xls,xlsx,csv,zip,png,jpg,jpeg',
@@ -205,6 +236,9 @@ class ErpDocumentsController extends Controller
     }
 
     public function clientPdf($id) {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $document = ErpClientDocument::find($id);
         $file=$document->upload_document;
         $pathToFile = public_path().$file;
@@ -216,6 +250,9 @@ class ErpDocumentsController extends Controller
 
     public function uploadVendorDocument(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'uploaded','path'=>url()->current())
+        );
         $request->validate([
             'document_name'=>'required|string|min:1|max:100',
             'upload_document'=> 'required|mimes:pdf,xls,xlsx,csv,zip,png,jpg,jpeg',
@@ -244,6 +281,9 @@ class ErpDocumentsController extends Controller
     }
 
     public function vendorPdf($id) {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $document = ErpVendorDocument::find($id);
         $file=$document->upload_document;
         $pathToFile = public_path().$file;
@@ -255,6 +295,9 @@ class ErpDocumentsController extends Controller
 
     public function inventoryPdf($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $document = ErpInventory::find($id);
         $file = $document->upload_document;
         $pathToFile = public_path() . $file;
@@ -272,6 +315,9 @@ class ErpDocumentsController extends Controller
 
     public function deleteDocument($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $documentk = ErpDocument::find($id);
         $documentk->delete();
         $documents = ErpDocument::all();

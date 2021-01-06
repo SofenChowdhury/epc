@@ -14,6 +14,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Notification;
 
 class ErpTaskController extends Controller
@@ -35,7 +36,9 @@ class ErpTaskController extends Controller
      */
     public function create($id)
     {
-        //
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $tasks = ErpTask::where('project_id', '=', $id)->get();
         $maxAmendment = 0;
         foreach ($tasks as $task) {
@@ -44,8 +47,6 @@ class ErpTaskController extends Controller
                 $maxAmendment = $task->amendment;
             }
         }
-
-
         $project = ErpProject::find($id);
         $parents = ErpTask::select('id', 'task_id')->get();
         return view('backEnd.tasks.create', compact('project', 'parents','maxAmendment'));
@@ -59,6 +60,9 @@ class ErpTaskController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'task_id' => 'required|string|min:1|max:20',
             'task_name' =>'required|string|min:3|max:200',
@@ -136,7 +140,9 @@ class ErpTaskController extends Controller
      */
     public function edit($id)
     {
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpTask::find($id);
         $parents = ErpTask::select('id', 'task_id')->get();
         $users = User::all();
@@ -161,6 +167,9 @@ class ErpTaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'task_id' => 'required|string|min:1|max:20',
             'task_name' =>'required|string|min:3|max:200',
@@ -211,6 +220,9 @@ class ErpTaskController extends Controller
     }
 
     public function submitTask($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'submited','path'=>url()->current())
+        );
         $task = ErpTask::find($id);
         $task->task_status = 'waiting';
         $result = $task->update();
@@ -230,6 +242,9 @@ class ErpTaskController extends Controller
     }
 
     public function confirmTask($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'confirmed','path'=>url()->current())
+        );
         $task = ErpTask::find($id);
         $task->task_status = 'completed';
         $task->completed_on = Carbon::now()->toDateString();
@@ -252,6 +267,9 @@ class ErpTaskController extends Controller
     }
 
     public function reassignTask($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'reassigned','path'=>url()->current())
+        );
         $task = ErpTask::find($id);
         $task->task_status = 'reassigned';
         $task->updated_by = Auth::user()->id;
@@ -272,6 +290,9 @@ class ErpTaskController extends Controller
     }
 
     public function deleteTask($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $task = ErpTask::find($id);
         $task->task_status = 'cancelled';
         $task->active_status = 0;
@@ -285,7 +306,9 @@ class ErpTaskController extends Controller
     }
 
     public function addToDo($id) {
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         return view('backEnd.tasks.addToDo', [
             'project' => $project,
@@ -295,6 +318,9 @@ class ErpTaskController extends Controller
 
     public function saveToDo(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'project_phase' =>'required',
             'status'=> 'required',
@@ -325,6 +351,9 @@ class ErpTaskController extends Controller
 
     public function editToDo($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpProjectTodo::find($id);
         $phases = ErpProjectPhase::where('required', 1)->orderBy('defined_id')->get();
         return view('backEnd.tasks.addToDo', compact('editData', 'phases'));
@@ -332,6 +361,9 @@ class ErpTaskController extends Controller
 
     public function updateToDo(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'project_phase' =>'required',
             'status'=> 'required',
@@ -364,6 +396,9 @@ class ErpTaskController extends Controller
     }
 
     public function deleteToDo($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $todo = ErpProjectTodo::find($id);
         $todo->active_status = 0;
         $result = $todo->update();

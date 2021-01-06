@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ErpBaseGroup;
 use App\ErpBaseSetup;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpBaseSetupController extends Controller
 {
@@ -39,6 +40,9 @@ class ErpBaseSetupController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'base_group_id'=>'required',
             'base_setup_name'=>'required'
@@ -76,6 +80,9 @@ class ErpBaseSetupController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpBaseSetup::find($id);
         $base_setups = ErpBaseSetup::all();
         $base_groups = ErpBaseGroup::all();
@@ -91,6 +98,9 @@ class ErpBaseSetupController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'base_group_id'=>'required',
             'base_setup_name'=>'required'

@@ -8,6 +8,7 @@ use App\ErpAccountsCategory;
 use App\ErpChartOfAccounts;
 use App\ErpProject;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpChartOfAccountsController extends Controller
 {
@@ -23,16 +24,18 @@ class ErpChartOfAccountsController extends Controller
     }
 
     public function addNewCoaHeader(){
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $category = ErpCoaHeader::all();
         $coas = ErpChartOfAccounts::where('active_status', 1)->get();
-
-
         return view('backEnd.chart_of_accounts.addNewCoaHeader', compact('category', 'coas'));
     }
 
     public function saveCoaHeader(Request $request){
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
 //            'coa_reference_no' => 'required | unique:erp_chart_of_accounts,coa_reference_no,'.$request->get('coa_reference_no'),
             'coa_name' => "required|string|min:1|max:150",
@@ -75,6 +78,9 @@ class ErpChartOfAccountsController extends Controller
 
     public function editCoaHeader($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpChartOfAccounts::find($id);
         $category = ErpCoaHeader::all();
         $coas = ErpChartOfAccounts::all();
@@ -83,6 +89,9 @@ class ErpChartOfAccountsController extends Controller
 
     public function updateCoaHeader(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'coa_name' => "required|string|min:1|max:150",
         ]);
@@ -124,7 +133,9 @@ class ErpChartOfAccountsController extends Controller
     }
 
     public function storeCOA(Request $request){
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'coa_parent' => "required",
 //            'coa_reference_no' => 'required | unique:erp_chart_of_accounts,coa_reference_no,'.$request->get('coa_reference_no'),
@@ -176,6 +187,9 @@ class ErpChartOfAccountsController extends Controller
 
     public function editCOA($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpChartOfAccounts::find($id);
         $coas = ErpChartOfAccounts::where('active_status', 1)->get();
         $coa_self = ErpChartOfAccounts::where('coa_parent', '!=', null)->where('active_status', 1)->get();
@@ -185,6 +199,9 @@ class ErpChartOfAccountsController extends Controller
 
     public function updateCOA(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'coa_name' => "required|string|min:1|max:150",
         ]);
@@ -219,7 +236,6 @@ class ErpChartOfAccountsController extends Controller
     }
 
    public function showAddAccountModal($parentId = null) {
-
         return view('backEnd.addAccountModal', [
             'parentId' => $parentId,
             'categories' => ErpAccountsCategory::all(),

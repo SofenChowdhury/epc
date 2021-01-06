@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ErpDesignation;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpDesignationController extends Controller
 {
@@ -37,6 +38,9 @@ class ErpDesignationController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'designation_name'=>'required|string|min:1|max:150',
         ]);
@@ -72,6 +76,9 @@ class ErpDesignationController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpDesignation::find($id);
         return view('backEnd.employees.designation.index', compact('editData'));
     }
@@ -85,6 +92,9 @@ class ErpDesignationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             // 'department_name'=>'required',
             'designation_name'=>'required|string|min:1|max:150',
@@ -114,6 +124,9 @@ class ErpDesignationController extends Controller
     }
 
     public function deleteDesignation($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $designation = ErpDesignation::find($id);
         $designation->active_status = 0;
 

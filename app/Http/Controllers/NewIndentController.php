@@ -102,6 +102,9 @@ class NewIndentController extends Controller
         return redirect()->back();
     }
     public function IndentPrint($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $indentDataChild = DB::table('new_indent_child')->where('master_id',$id)->get();
         $indentDataMaster = DB::table('new_indent_master')->where('id',$id)->first();
         $data = [

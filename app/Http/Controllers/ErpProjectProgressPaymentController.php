@@ -6,6 +6,7 @@ use App\ErpProject;
 use App\ErpProjectProgressPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpProjectProgressPaymentController extends Controller
 {
@@ -26,7 +27,9 @@ class ErpProjectProgressPaymentController extends Controller
      */
     public function create($id)
     {
-        //
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         $progresses = ErpProjectProgressPayment::where('project_id', '=', $id)->where('project_phase', '=', $project->project_phase)->get();
         $maxAmendmentProgress = 0;
@@ -36,10 +39,7 @@ class ErpProjectProgressPaymentController extends Controller
                 $maxAmendmentProgress = $progress->amendment;
             }
         }
-
         return view('backEnd.project_progressPayment.create', compact('project', 'maxAmendmentProgress'));
-
-
     }
 
     /**
@@ -50,23 +50,18 @@ class ErpProjectProgressPaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'p_payment_month' => 'required',
             'invoice_date' => 'required',
             'invoice_amount' => 'required',
-
-
+            
         ]);
-
-
-
         $project_id = $request->project_id;
         $project = ErpProject::find($project_id);
         $payments = ErpProjectProgressPayment::where('project_id', '=', $project_id)->get();
-
         foreach ($payments as $payment) {
             if ($payment->p_payment_no == $request->p_payment_no) {
 
@@ -75,8 +70,6 @@ class ErpProjectProgressPaymentController extends Controller
                 ]);
             }
         }
-
-
         $progress = new ErpProjectProgressPayment();
         $progress->project_id = $project_id;
         $progress->project_phase = $project->project_phase;
@@ -116,7 +109,6 @@ class ErpProjectProgressPaymentController extends Controller
         } else {
             return redirect('/project/' . $project_id)->with('message-danger', 'Something went wrong. Please try again.');
         }
-
     }
 
     /**
@@ -138,7 +130,9 @@ class ErpProjectProgressPaymentController extends Controller
      */
     public function edit($id)
     {
-        //
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpProjectProgressPayment::find($id);
         $project = ErpProject::find($editData->project_id);
         $maxAmendmentProgress = 0;
@@ -161,16 +155,15 @@ class ErpProjectProgressPaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        //
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'p_payment_no' => 'required',
             'p_payment_month' => 'required',
             'invoice_date' => 'required',
             'invoice_amount' => 'required',
-
-
+            
         ]);
         $progress=ErpProjectProgressPayment::find($id);
         $progress->p_payment_no = $request->p_payment_no;

@@ -6,6 +6,8 @@ use App\ErpEmployee;
 use App\ErpEmployeeSalary;
 use App\Http\Resources\salaryResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ApiSalaryController extends Controller
 {
@@ -16,6 +18,9 @@ class ApiSalaryController extends Controller
     }
 
     public function store(Request $request,$id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $salary=new ErpEmployeeSalary();
         $salary->employee_id=$id;
         $salary->total_salary=$request->new_salary;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ErpDepartment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpDepartmentController extends Controller
 {
@@ -37,6 +38,9 @@ class ErpDepartmentController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'department_name'=>'required|string|min:1|max:150'
         ]);
@@ -72,6 +76,9 @@ class ErpDepartmentController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpDepartment::find($id);
         return view('backEnd.employees.department.index', compact('editData'));
     }
@@ -85,6 +92,9 @@ class ErpDepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'department_name'=>'required|string|min:1|max:150'
         ]);
@@ -113,6 +123,9 @@ class ErpDepartmentController extends Controller
     }
 
     public function deleteDepartment($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $department = ErpDepartment::find($id);
         $department->active_status = 0;
 

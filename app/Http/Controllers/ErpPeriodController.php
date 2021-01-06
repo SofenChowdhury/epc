@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ErpPeriod;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpPeriodController extends Controller
 {
@@ -37,7 +38,9 @@ class ErpPeriodController extends Controller
      */
     public function store(Request $request)
     {
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'period_name' => "required",
             'period_starts' => "required",
@@ -90,6 +93,9 @@ class ErpPeriodController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpPeriod::find($id);
         $periods = ErpPeriod::all();
         return view('backEnd.chart_of_accounts.period.index', compact('editData', 'periods'));
@@ -104,6 +110,9 @@ class ErpPeriodController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'period_name' => "required",
             'period_starts' => "required",
@@ -148,6 +157,9 @@ class ErpPeriodController extends Controller
     }
 
     public function deletePeriod($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $result = ErpPeriod::destroy($id);
         if($result){
             return redirect()->back()->with('message-success-delete', 'Period has been deleted successfully');

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\ErpProject;
 use App\ErpProjectReporting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpProjectReportingController extends Controller
 {
@@ -25,6 +27,9 @@ class ErpProjectReportingController extends Controller
      */
     public function create($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $reporting = ErpProjectReporting::where('project_id', '=', $id)->get();
         $maxAmendmentReporting = 0;
         foreach ($reporting as $report) {
@@ -45,6 +50,9 @@ class ErpProjectReportingController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'report_name' => 'required|string|min:1|max:200',
         ]);
@@ -99,6 +107,9 @@ class ErpProjectReportingController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpProjectReporting::find($id);
 
         $reporting = ErpProjectReporting::where('project_id', '=', $editData->project_id)->get();
@@ -122,6 +133,9 @@ class ErpProjectReportingController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'report_name' => 'required|string|min:1|max:200',
         ]);

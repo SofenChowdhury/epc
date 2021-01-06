@@ -7,6 +7,7 @@ use App\ErpEmployeeSalaryDivision;
 use App\ErpProject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpEmployeeSalaryDivisionController extends Controller
 {
@@ -41,6 +42,9 @@ class ErpEmployeeSalaryDivisionController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'employee_id' => "required",
             'project_hours' => "required",
@@ -114,6 +118,9 @@ class ErpEmployeeSalaryDivisionController extends Controller
     }
     
     public function deleteSalaryDivision($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $division = ErpEmployeeSalaryDivision::find($id)->delete();
         
         if($division){

@@ -15,6 +15,7 @@ use App\ErpSalaryIncentive;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpSalaryIncentiveController extends Controller
 {
@@ -59,6 +60,9 @@ class ErpSalaryIncentiveController extends Controller
      */
     public function addBonus(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $request->validate([
            'employee_id' => 'required',
            'amount' => 'required',
@@ -86,6 +90,9 @@ class ErpSalaryIncentiveController extends Controller
     }
     
     public function deleteBonus($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $bonus = ErpEmployeeBonus::find($id);
         $result = $bonus->delete();
         
@@ -98,7 +105,9 @@ class ErpSalaryIncentiveController extends Controller
 
     public function addAdvance(Request $request)
     {
-//        dd($request);
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $request->validate([
             'employee_id' => 'required',
             'amount' => 'required',
@@ -126,6 +135,9 @@ class ErpSalaryIncentiveController extends Controller
     }
     
     public function deleteAdvance($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $advance = ErpEmployeeAdvance::find($id);
         $result = $advance->delete();
         
@@ -138,6 +150,9 @@ class ErpSalaryIncentiveController extends Controller
 
     public function addOvertimePay(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $request->validate([
             'employee_id' => 'required',
             'amount' => 'required',
@@ -163,6 +178,9 @@ class ErpSalaryIncentiveController extends Controller
     }
     
     public function deleteOvertime($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $overtime = ErpEmployeeOvertimePay::find($id);
         $result = $overtime->delete();
         
@@ -175,6 +193,9 @@ class ErpSalaryIncentiveController extends Controller
     
     public function addConveyancePay(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $request->validate([
             'employee_id' => 'required',
             'conveyance_id' => 'required',
@@ -201,6 +222,9 @@ class ErpSalaryIncentiveController extends Controller
     }
     
     public function deleteConveyance($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $conveyance = ErpEmployeeConveyance::find($id);
         $result = $conveyance->delete();
         
@@ -224,6 +248,9 @@ class ErpSalaryIncentiveController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'incentive_name'=>'required'
         ]);
@@ -258,6 +285,9 @@ class ErpSalaryIncentiveController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpSalaryIncentive::find($id);
         return view('backEnd.employees.incentive.index', compact('editData'));
     }
@@ -271,6 +301,9 @@ class ErpSalaryIncentiveController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'incentive_name'=>'required'
         ]);
@@ -303,6 +336,9 @@ class ErpSalaryIncentiveController extends Controller
     }
 
     public function deleteIncentive($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $incentive = ErpSalaryIncentive::find($id);
         $incentive->active_status = 0;
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\ErpClient;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpClientController extends Controller
 {
@@ -36,6 +37,9 @@ class ErpClientController extends Controller
      */
     public function create()
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         return view('backEnd.clients.create');
     }
 
@@ -47,6 +51,9 @@ class ErpClientController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'client_name'=>'required|string|min:3|max:150',
             'abbreviation'=>'min:0|max:50',
@@ -100,6 +107,9 @@ class ErpClientController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $client = ErpClient::find($id);
         return view('backEnd.clients.edit', compact('client'));
     }
@@ -113,6 +123,9 @@ class ErpClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'client_name'=>'required|string|min:3|max:150',
             'abbreviation'=>'min:0|max:50',
@@ -154,6 +167,9 @@ class ErpClientController extends Controller
     }
 
     public function deleteClient($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $client = ErpClient::find($id);
         $client->active_status = 0;
 

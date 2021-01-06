@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ErpChalanNo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpChalanNoController extends Controller
 {
@@ -15,6 +17,9 @@ class ErpChalanNoController extends Controller
 
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'chalan_no'=>'required|string|min:1|max:100',
             'bank_name'=>'min:0|max:100'
@@ -40,6 +45,9 @@ class ErpChalanNoController extends Controller
 
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpChalanNo::find($id);
         $chalans = ErpChalanNo::all();
         return view('backEnd.employees.chalanNo.index', compact('editData', 'chalans'));
@@ -47,6 +55,9 @@ class ErpChalanNoController extends Controller
 
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'chalan_no'=>'required|string|min:1|max:100',
             'bank_name'=>'min:0|max:100'

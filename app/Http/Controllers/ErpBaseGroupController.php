@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ErpBaseGroup;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpBaseGroupController extends Controller
 {
@@ -37,6 +38,9 @@ class ErpBaseGroupController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'name'=>'required'
         ]);
@@ -72,6 +76,9 @@ class ErpBaseGroupController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpBaseGroup::find($id);
         $base_groups = ErpBaseGroup::all();
         return view('backEnd.base_group.index', compact('editData', 'base_groups'));
@@ -86,6 +93,9 @@ class ErpBaseGroupController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
            'name' => "required"
         ]);

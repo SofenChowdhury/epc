@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ErpEmployeeCategory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpEmployeeCategoryController extends Controller
 {
@@ -37,6 +38,9 @@ class ErpEmployeeCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'category_name' => "required|string|min:1|max:50",
             'category_given_id' => "required|unique:erp_employee_categories,given_id,".$request->category_given_id."|string|min:3|max:50",
@@ -75,6 +79,9 @@ class ErpEmployeeCategoryController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpEmployeeCategory::find($id);
         $employee_category = ErpEmployeeCategory::where('active_status', '=', 1)->get();
         return view('backEnd.employees.category.index', compact('editData', 'employee_category'));
@@ -89,11 +96,12 @@ class ErpEmployeeCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
          $request->validate([
             'category_name' => "required|string|min:1|max:50",
         ]);
-
-
        $category = ErpEmployeeCategory::find($id);
        $category->category_name = $request->category_name;
        $category->description = $request->description;
@@ -119,6 +127,9 @@ class ErpEmployeeCategoryController extends Controller
     }
 
     public function deleteEmployeeCategory($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $category = ErpEmployeeCategory::find($id);
         $category->active_status = 0;
 

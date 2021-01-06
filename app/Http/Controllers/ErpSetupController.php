@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\ErpSetup;
 use App\Http\Requests\SetupRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpSetupController extends Controller
 {
@@ -21,6 +23,9 @@ class ErpSetupController extends Controller
 
     public function store(SetupRequest $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $setup = new ErpSetup;
         if ($request->hasFile('logo')) {
             $file = $request->logo;
@@ -38,10 +43,16 @@ class ErpSetupController extends Controller
 
     }
     public function edit(){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $profile=ErpSetup::first();
         return view('backEnd.setup.edit',compact('profile'));
     }
     public function update(Request $request, $id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $setup=ErpSetup::find($id);
         if ($request->hasFile('logo')) {
             $file = $request->logo;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\ErpEmployee;
@@ -40,6 +41,9 @@ class ErpUserController extends Controller
      */
     public function create($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $employee = ErpEmployee::find($id);
         $users = User::where('id', '!=', '5')->get();
         $roles = Role::all();
@@ -54,6 +58,9 @@ class ErpUserController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         // get all user employee_id
         $all_employee_id = User::get()->pluck('employee_id');
 
@@ -108,6 +115,9 @@ class ErpUserController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = User::find($id);
         $roles = Role::all();
         return view('backEnd.users.edit', compact('editData', 'roles'));
@@ -122,6 +132,9 @@ class ErpUserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         //get user hashed password
         $hashed_pass = User::find($id)->password;
 
@@ -161,6 +174,9 @@ class ErpUserController extends Controller
 
     public function editPassword($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = User::find($id);
         $roles = Role::all();
         return view('backEnd.users.changePassword', compact('editData', 'roles'));
@@ -168,6 +184,9 @@ class ErpUserController extends Controller
 
     public function changePassword(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'changed','path'=>url()->current())
+        );
         //get user hashed password
         $hashed_pass = User::find($id)->password;
 
@@ -209,6 +228,9 @@ class ErpUserController extends Controller
     }
 
     public function deleteUser($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $user = User::find($id);
         $user->active_status = 0;
         $result = $user->update();
@@ -237,7 +259,9 @@ class ErpUserController extends Controller
     }
 
     public function assignPermission($user_id){
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'assigned','path'=>url()->current())
+        );
         $user=User::find($user_id);
         if(Auth::user()->hasRole('Super Admin'))
             $permissions=Permission::orderBy('Module_name')->get();
@@ -254,6 +278,9 @@ class ErpUserController extends Controller
     }
 
     public function userPermissionStore(Request $request){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $user=User::find($request->user_id);
         $user->syncPermissions($request->permissions);
         return redirect('user')->with('message-success-assign-user', 'User permission has been assigned successfully');

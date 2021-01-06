@@ -10,6 +10,7 @@ use App\ErpUser;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpLocationController extends Controller
 {
@@ -42,6 +43,9 @@ class ErpLocationController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'room_no'=>'required'
         ]);
@@ -77,6 +81,9 @@ class ErpLocationController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpRoomNo::find($id);
         $rooms = ErpRoomNo::all();
         return view('backEnd.employees.location.index', compact('editData', 'rooms'));
@@ -91,6 +98,9 @@ class ErpLocationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'room_no'=>'required'
         ]);

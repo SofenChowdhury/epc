@@ -9,6 +9,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpProjectDeliverableController extends Controller
 {
@@ -29,6 +30,9 @@ class ErpProjectDeliverableController extends Controller
      */
     public function create($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         $reports = ErpProjectReporting::where('project_id', $id)->get();
         $maxAmendmentDeliverable = 0;
@@ -49,6 +53,9 @@ class ErpProjectDeliverableController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'report_name' => 'required|string|min:1|max:200',
         ]);
@@ -121,6 +128,9 @@ class ErpProjectDeliverableController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpProjectDeliverable::find($id);
         $reports = ErpProjectReporting::where('project_id', $editData->project_id)->get();
         $project = ErpProject::find($editData->project_id);
@@ -143,6 +153,9 @@ class ErpProjectDeliverableController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'report_name' => 'required|string|min:1|max:200',
         ]);

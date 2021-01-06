@@ -34,6 +34,7 @@ use App\Notifications\InventoryRequired;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpProjectController extends Controller
 {
@@ -99,6 +100,9 @@ class ErpProjectController extends Controller
      */
     public function create()
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $phases = ErpProjectPhase::where('required', '=', 1)->orderBy('defined_id')->get();
         $clients = ErpClient::where('active_status', '=', '1')->get();
         $users = User::where('active_status', '=', '1')->where('id', '!=', '5')->get();
@@ -116,7 +120,9 @@ class ErpProjectController extends Controller
      */
     public function store(Request $request)
     {
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'project_code' => 'required',
             'project_phase' => 'required',
@@ -284,8 +290,6 @@ class ErpProjectController extends Controller
      */
     public function show($id)
     {
-
-
         $editData = ErpProject::find($id);
         $clients = ErpClient::where('active_status', '=', '1')->get();
         $employees= ErpEmployee::where('active_status', '=', '1')->get();
@@ -495,6 +499,9 @@ class ErpProjectController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpProject::find($id);
         $clients = ErpClient::where('active_status', '=', '1')->get();
         $users = User::where('active_status', '=', '1')->where('id', '!=', '5')->get();
@@ -516,6 +523,9 @@ class ErpProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'project_full_name' => 'required',
             'contact_person'=> 'required|string|min:3|max:100',
@@ -669,6 +679,9 @@ class ErpProjectController extends Controller
 
     public function updatePhase(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'project_phase' =>'required',
             'proposal_validity' =>'min:0|max:150',
@@ -767,12 +780,18 @@ class ErpProjectController extends Controller
 
     public function createJointVenture($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         return view('backEnd.projects.createJV', compact('project'));
     }
 
     public function storeJointVenture(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'jv_name' =>'required|string|min:1|max:200',
             'jv_leading' =>'required',
@@ -812,6 +831,9 @@ class ErpProjectController extends Controller
 
     public function editJointVenture($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpProjectJointVenture::find($id);
         // dd($editData);
         return view('backEnd.projects.createJV', compact('editData'));
@@ -819,6 +841,9 @@ class ErpProjectController extends Controller
 
     public function updateJointVenture(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'jv_name' =>'required|string|min:1|max:200',
             'jv_leading' =>'required',
@@ -850,8 +875,9 @@ class ErpProjectController extends Controller
 
     public function addProjectEmployee(Request $request, $id)
     {
-
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $request->validate([
             'title'=>'min:0|max:100',
 
@@ -1004,7 +1030,9 @@ class ErpProjectController extends Controller
 
     public function editProjectEmployee(Request $request, $id)
     {
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $request->validate([
             'title'=>'min:0|max:100',
         ]);
@@ -1042,6 +1070,9 @@ class ErpProjectController extends Controller
 
     public function reassignProjectEmployee(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'reassigned','path'=>url()->current())
+        );
         $request->validate([
 //            'quantity' => 'required',
         ]);
@@ -1068,6 +1099,9 @@ class ErpProjectController extends Controller
     }
 
     public function deleteProjectEmployee($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $result = ErpProjectEmployee::destroy($id);
         if($result){
             return redirect()->back()->with('message-success-delete', 'Employee has been removed successfully');
@@ -1078,6 +1112,9 @@ class ErpProjectController extends Controller
 
     public function addProjectMaterial(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $request->validate([
             'product' =>'required',
         ]);
@@ -1217,6 +1254,9 @@ class ErpProjectController extends Controller
 
     public function updateProjectMaterial(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'quantity' =>'required',
         ]);
@@ -1273,6 +1313,9 @@ class ErpProjectController extends Controller
 
     public function reassignProjectMaterial(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'reassigned','path'=>url()->current())
+        );
         $request->validate([
 //            'quantity' => 'required',
         ]);
@@ -1318,6 +1361,9 @@ class ErpProjectController extends Controller
     }
 
     public function deleteProjectMaterial($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $material = ErpProjectMaterial::find($id);
         $results = $material->delete();
 
@@ -1330,8 +1376,9 @@ class ErpProjectController extends Controller
 
     public function addProjectBudget(Request $request, $id)
     {
-
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $request->validate([
             'expense_name' => 'required|string|max:200',
             'unit_cost' => 'required|string|min:1|max:100',
@@ -1457,6 +1504,9 @@ class ErpProjectController extends Controller
 
     public function updateProjectBudget(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'expense_name' =>'required|string|min:3|max:200',
             'unit_cost' =>'required|string|min:1|max:100',
@@ -1494,6 +1544,9 @@ class ErpProjectController extends Controller
     }
     public function deleteProjectBudget(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $budget = ErpProjectBudget::destroy($id);
 
         if($budget){
@@ -1587,6 +1640,9 @@ class ErpProjectController extends Controller
     }
 
     public function deleteProject($id){
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         $project->active_status = 0;
 
@@ -1606,6 +1662,9 @@ class ErpProjectController extends Controller
 
     public function printTask($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'printed','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
 //        $setup = ErpSetup::latest()->first();
 
@@ -1621,6 +1680,9 @@ class ErpProjectController extends Controller
     //amnedment
     public function createRemunerationAmendment($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $editData = ErpProject::find($id);
         $project_employees = ErpProjectEmployee::where('project_id', '=', $id)->where('project_phase', '=', $editData->project_phase)->get();
 
@@ -1639,6 +1701,9 @@ class ErpProjectController extends Controller
 
     public function createReimbursableAmendment($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $editData = ErpProject::find($id);
         $budgets = ErpProjectBudget::where('project_id', '=', $id)->where('project_phase', '=', $editData->project_phase)->get();
         $maxAmendment = 0;
@@ -1654,6 +1719,9 @@ class ErpProjectController extends Controller
 
     public function createAdvanceAmendment($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         $advances = ErpProjectAdvances::where('project_id', '=', $id)->where('project_phase', '=', $project->project_phase)->get();
         $maxAmendmentAdvance = 0;
@@ -1669,6 +1737,9 @@ class ErpProjectController extends Controller
 
     public function createProgressAmendment($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         $progresses = ErpProjectProgressPayment::where('project_id', '=', $id)->where('project_phase', '=', $project->project_phase)->get();
         $maxAmendmentProgress = 0;
@@ -1685,6 +1756,9 @@ class ErpProjectController extends Controller
 
     public function createTaskAmendment($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         $tasks = ErpTask::where('project_id', '=', $id)->where('active_status', '=', 1)->orderBy('task_id')->get();
         $parents = ErpTask::select('id', 'task_id')->get();
@@ -1695,13 +1769,14 @@ class ErpProjectController extends Controller
                 $maxAmendment = $task->amendment;
             }
         }
-
-
         return view('backEnd.amendment.task', compact('project', 'parents', 'maxAmendment'));
     }
 
     public function createReportingAmendment($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         $reporting = ErpProjectReporting::where('project_id', '=', $id)->get();
         $maxAmendmentReporting = 0;
@@ -1711,14 +1786,14 @@ class ErpProjectController extends Controller
                 $maxAmendmentReporting = $report->amendment;
             }
         }
-
-
         return view('backEnd.amendment.reporting', compact('project', 'maxAmendmentReporting'));
     }
 
     public function createDeliverableAmendment($id)
     {
-
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
+        );
         $project = ErpProject::find($id);
         $reports = ErpProjectReporting::where('project_id', $id)->get();
         $deliverables = ErpProjectDeliverable::where('project_id', $id)->get();
@@ -1729,10 +1804,6 @@ class ErpProjectController extends Controller
                 $maxAmendmentDeliverable = $deliverable->amendment;
             }
         }
-
-
         return view('backEnd.amendment.deliverable', compact('project', 'reports', 'maxAmendmentDeliverable'));
     }
-
-
 }

@@ -6,6 +6,8 @@ use App\ErpEmployee;
 use App\ErpPayslipAuthorize;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ErpPayslipAuthorizeController extends Controller
 {
@@ -42,6 +44,9 @@ class ErpPayslipAuthorizeController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
+        );
         $request->validate([
             'serial_no' => 'required',
             'user_id' => 'required',
@@ -77,6 +82,9 @@ class ErpPayslipAuthorizeController extends Controller
      */
     public function edit($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'edited','path'=>url()->current())
+        );
         $editData = ErpPayslipAuthorize::find($id);
         $authorizes = ErpPayslipAuthorize::all();
         $users = User::where('active_status', '=', 1)->where('id', '!=', '5')->get();
@@ -92,6 +100,9 @@ class ErpPayslipAuthorizeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
         $request->validate([
             'serial_no' => 'required',
             'user_id' => 'required',
@@ -116,6 +127,9 @@ class ErpPayslipAuthorizeController extends Controller
      */
     public function deleteAuthorize($id)
     {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'deleted','path'=>url()->current())
+        );
         $authorise = ErpPayslipAuthorize::findOrFail($id)->delete();
     
         if ($authorise)
