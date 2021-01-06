@@ -169,7 +169,7 @@
                                                             <div class="modal-body" >
                                                                 <div class="table-responsive">
                                                                     <table class="table m-0">
-                                                                        <h5>{{$value->title}}</h5>
+                                                                        <h5 class="text-center">Indent Title: {{$value->title}}</h5>
                                                                         <tbody>
                                                                         <tr>
                                                                             <th scope="col " colspan="3">Name of vendor/Paid to</th>
@@ -241,9 +241,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="width: 100%">
                 <div class="modal-header">
-                    @if( isset($value->title) )
-                        <h4 class="modal-title" style="color:#000000">{{ $value->title }}-{{$value->indent_no}}({{$value->date}})</h4>
-                    @endif
+                    <h4 class="modal-title" style="color:#000000">Permission</h4>
                 </div>
                 <div class="modal-body" >
                     <div class="table-responsive">

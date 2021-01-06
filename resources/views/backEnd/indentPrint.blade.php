@@ -17,7 +17,7 @@
         border-collapse: collapse;
     }
 </style>
-<p class="" style="font-weight: bold; font-size: 13px; line-height: 8px; padding-left: 550px">INDENT NO. {{$indentDataMaster->indent_no}}</p>
+<p style="font-weight: bold; font-size: 13px; line-height: 8px; padding-left: 550px">INDENT NO. {{$indentDataMaster->indent_no}}</p>
 <p class="text-center" style="font-weight: bold; font-size: 16px; line-height: 8px">Engineering & Planning Consultants Ltd.</p>
 <p class="text-center" style="font-weight: bold; font-size: 13px; line-height: 8px">7/4,Block-A, Lalmatia,Dhaka-1207</p>
 <p class="text-center" style="font-weight: bold; font-size: 13px; line-height: 8px">{{$indentDataMaster->title}}</p>
