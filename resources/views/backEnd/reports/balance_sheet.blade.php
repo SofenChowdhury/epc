@@ -581,7 +581,7 @@
                             <tr class="" style="font-weight: bold;">
                                 <td colspan="2" class="pt-3" style="color: darkred">Total Liabilities and Equity</td>
                                 <td class="pt-3" style="color: darkred">
-                                    @php $all_equity_liability = $total_liability + $total_equity @endphp
+                                    @php $all_equity_liability = $total_equity + $total_liability @endphp
                                     @if($all_equity_liability<0)
                                         ( {{ number_format(abs($all_equity_liability),2,".",",") }} )
                                     @else

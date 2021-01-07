@@ -131,25 +131,33 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card">
-            <div class="card-block">
-                <div class="row align-items-center m-l-0">
-                    <div class="col-auto">
-                        <i class="fa fa-users f-30 text-c-black"></i>
-                    </div>
-                    <div class="col-auto">
-                        <h6 class="text-muted m-b-10"> History Log </h6>
-                    </div>
-                    @can('View User List')
-                        <div class="text-center">
-                            <a href="history" class="b-b-primary text-primary">View all History</a>
-                        </div>
-                    @endcan
-                </div>
-            </div>
-        </div>
-    </div>
+
+
+{{--    <div class="col-xl-3 col-md-6">--}}
+{{--        <div class="card">--}}
+{{--            <div class="card-block">--}}
+{{--                <div class="row align-items-center m-l-0">--}}
+{{--                    <div class="col-auto">--}}
+{{--                        <i class="fa fa-users f-30 text-c-black"></i>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-auto">--}}
+{{--                        <h6 class="text-muted m-b-10"> History Log </h6>--}}
+{{--                    </div>--}}
+{{--                    @can('View User List')--}}
+{{--                        <div class="text-center">--}}
+{{--                            <a href="history" class="b-b-primary text-primary">View all History</a>--}}
+{{--                        </div>--}}
+{{--                    @endcan--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
+
+
+{{--    hide part start--}}
+
+
 {{--	<div class="col-xl-4 col-md-12">--}}
 {{--		<div class="card">--}}
 {{--			<div class="card-block">--}}
@@ -186,6 +194,12 @@
 {{--			</div>--}}
 {{--		</div>--}}
 {{--	</div>--}}
+
+
+{{--hide field end--}}
+
+
+
 
 
 	<div class="col-xl-8 col-md-12">
