@@ -18,9 +18,6 @@ class ApiSalaryController extends Controller
     }
 
     public function store(Request $request,$id){
-        DB::table('history_log')->insert(
-            array('user'=>Auth::user()->name,'history_type'=>'stored','path'=>url()->current())
-        );
         $salary=new ErpEmployeeSalary();
         $salary->employee_id=$id;
         $salary->total_salary=$request->new_salary;

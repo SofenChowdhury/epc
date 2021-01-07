@@ -441,7 +441,7 @@
             <li class="pcoded-hasmenu indents">
                 @canany(['View Indent List','Add Indent List'])
                     <a href="javascript:void(0)" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="ti-settings"></i><b>P</b></span>
+                        <span class="pcoded-micon"><i class="ti-layout"></i><b>P</b></span>
                         <span class="pcoded-mtext">Indents</span>
                         <span class="pcoded-mcaret"></span>
                     </a>

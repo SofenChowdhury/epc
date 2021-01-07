@@ -2,7 +2,10 @@
     .md-menu-content.md-select-menu {
         width: auto;
         max-width: none;
-        /*min-width: auto;*/
+        min-width: auto;
+    }
+    .md-select-menu{
+        margin-left: 21% !important;
     }
 </style>
 <template>
