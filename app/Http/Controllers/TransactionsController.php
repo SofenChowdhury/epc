@@ -28,7 +28,7 @@ class TransactionsController extends Controller
         $transaction->description=$request->form['description'];
         $transaction->voucher_no=$request->form['voucher'];
         $transaction->total_transaction=$request->form['allDebit'];
-//        $transaction->project_id=$request->form['project'];
+        $transaction->project_id=$request->form['project'];
         $transaction->active_status=1;
         $transaction->created_by=$request->form['auth_id'];
         $transaction->save();
