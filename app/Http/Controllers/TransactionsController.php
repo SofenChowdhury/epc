@@ -23,19 +23,17 @@ class TransactionsController extends Controller
     }
 
     public function addTransactions(Request $request) {
+
         $transaction=new ErpTransaction;
         $transaction->transaction_date=$request->form['date'];
         $transaction->description=$request->form['description'];
         $transaction->voucher_no=$request->form['voucher'];
         $transaction->total_transaction=$request->form['allDebit'];
-        $transaction->project_id=$request->form['project'];
         $transaction->active_status=1;
         $transaction->created_by=$request->form['auth_id'];
         $transaction->save();
-
-//        $transaction_id=ErpTransaction::latest()->first();
+        
         $transaction_id=$transaction->id;
-
         $transaction_details=new ErpTransactionDetails;
         $transaction_details->transaction_id=$transaction_id;
         $transaction_details->coa_id=$request->form['type1'];

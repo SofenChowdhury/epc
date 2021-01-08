@@ -1,6 +1,10 @@
 @extends('backEnd.master')
 
 @section('mainContent')
+    @php
+        $sub_total_debit = 0;
+        $sub_total_credit = 0;
+    @endphp
     <div class="card">
         <div class="card-header">
             <h5>Trial Balance</h5>
@@ -123,6 +127,7 @@
                                                         $opening_credit = $ending_credit = $child->opening_credit_amount;
                                                     @endphp
                                                     <td>
+
                                                         @if($child->account_type == 'debit' && $opening_credit > 0)
                                                             @php $opening_debit -= $opening_credit; $ending_debit = $opening_debit; $ending_credit = $opening_credit = null; @endphp
                                                         @endif
@@ -161,9 +166,13 @@
                                                             @endif
                                                         @endforeach
                                                     @endforeach
-                                                    <td>
+                                                    <td style="background-color: darkblue;color:white;">
+                                                        {{--  Dabit--}}
                                                         @if($child->account_type == 'debit' && $credit > 0)
-                                                            @php $debit -= $credit; $credit = null @endphp
+                                                            @php
+                                                                $debit -= $credit;
+                                                                $credit = null
+                                                            @endphp
                                                         @elseif($child->account_type == 'debit' && $credit < 0)
                                                             @php $debit += $credit; $credit = null @endphp
                                                         @endif
@@ -174,9 +183,13 @@
                                                                 {{ $debit }}
                                                             @endif
                                                         @endif
-                                                        @php $ending_debit += $debit @endphp
+                                                        @php
+                                                            $ending_debit += $debit;
+                                                            $sub_total_debit += $debit;
+                                                        @endphp
                                                     </td>
                                                     <td>
+                                                        {{--  credit--}}
                                                         @if($child->account_type == 'credit' && $debit > 0)
                                                             @php $credit -= $debit; $debit = null; @endphp
                                                         @elseif($child->account_type == 'credit' && $debit < 0)
@@ -189,7 +202,10 @@
                                                                 {{ $credit }}
                                                             @endif
                                                         @endif
-                                                        @php $ending_credit += $credit @endphp
+                                                        @php
+                                                            $ending_credit += $credit;
+                                                            $sub_total_credit += $credit;
+                                                        @endphp
                                                     </td>
                                                     <td>
                                                         @if($coa->account_type == 'debit')
@@ -215,6 +231,7 @@
                                                 <td style="text-align: center">{{ $coa->coa_reference_no }}</td>
                                                 <td style="text-align: left"><a href="{{ url('single_account', $coa->id) }}">{{ $coa->coa_name }}</a></td>
                                                 <td>
+
                                                     @if($coa->account_type == 'debit' && $opening_credit > 0)
                                                         @php $opening_debit -= $opening_credit; $ending_debit = $opening_debit; $ending_credit = $opening_credit = null; @endphp
                                                     @endif
@@ -238,7 +255,9 @@
                                                         @endif
                                                     @endif
                                                 </td>
+
                                                 @foreach($transactions as $transaction)
+
                                                     @foreach($transaction->transactionDetail as $detail)
                                                         @if($detail->coa_id == $coa->id)
                                                             @if($detail->type == 'D')
@@ -252,12 +271,19 @@
                                                             @endif
                                                         @endif
                                                     @endforeach
+
                                                 @endforeach
-                                                <td>
+                                                <td style="background-color: tomato;color: white;">
                                                     @if($coa->account_type == 'debit' && $credit > 0)
-                                                        @php $debit -= $credit; $credit = null @endphp
+                                                        @php
+                                                            $debit -= $credit;
+                                                            $credit = null
+                                                        @endphp
                                                     @elseif($coa->account_type == 'debit' && $credit < 0)
-                                                        @php $debit += $credit; $credit = null @endphp
+                                                        @php
+                                                            $debit += $credit;
+                                                            $credit = null
+                                                        @endphp
                                                     @endif
                                                     @if($coa->account_type == 'debit')
                                                         @if($debit < 0)
@@ -266,7 +292,11 @@
                                                             {{ $debit }}
                                                         @endif
                                                     @endif
-                                                    @php $ending_debit += $debit @endphp
+                                                    @php
+                                                        $ending_debit += $debit;
+                                                        $sub_total_debit += $debit;
+                                                    @endphp
+
                                                 </td>
                                                 <td>
                                                     @if($coa->account_type == 'credit' && $debit > 0)
@@ -281,7 +311,10 @@
                                                             {{ $credit }}
                                                         @endif
                                                     @endif
-                                                    @php $ending_credit += $credit @endphp
+                                                    @php
+                                                        $ending_credit += $credit;
+                                                        $sub_total_credit += $credit;
+                                                    @endphp
                                                 </td>
                                                 <td>
                                                     @if($coa->account_type == 'debit')
@@ -299,7 +332,9 @@
                                                         @else {{ $ending_credit }}
                                                         @endif
                                                     @endif
-                                                    @php $total_credit += $ending_credit @endphp
+                                                    @php
+                                                        $total_credit += $ending_credit;
+                                                    @endphp
                                                 </td>
                                                 @endif
                                             </tr>
@@ -308,7 +343,9 @@
                                             @endforeach
                                             <tr class="table-bordered" style="font-weight: bold;">
                                                 <td></td>
-                                                <td colspan="5" class="pt-3">Total</td>
+                                                <td colspan="3" class="pt-3">Total</td>
+                                                <td class="pt-3">{{$sub_total_debit}}</td>
+                                                <td class="pt-3">{{$sub_total_credit}}</td>
                                                 <td class="pt-3" style="text-align: right">
                                                     @if($total_debit<0) ( {{ number_format(abs($total_debit),2,".",",") }} )
                                                     @else {{ number_format($total_debit,2,".",",") }}
