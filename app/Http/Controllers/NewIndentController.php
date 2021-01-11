@@ -81,7 +81,7 @@ class NewIndentController extends Controller
     public function update(Request $request, $id)
     {
         DB::table('history_log')->insert(
-            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+            array('user'=>Auth::user()->name,'history_type'=>'indent permission','path'=>url()->current())
         );
         DB::table('new_indent_child')->where('master_id',$id)->delete();
         for($i = 0; $i < count($request->vendor); $i++){

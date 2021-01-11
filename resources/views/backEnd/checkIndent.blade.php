@@ -66,9 +66,6 @@
                                             <td>{{$value->note}}</td>
                                             <td>
                                                 @if(Auth::user()->name == $value->accountant && $value->manager_action != 1)
-                                                    <a class="" title="print"  href="{{route('IndentPrint',['id' => $value->id])}}" target="_blank">
-                                                        <button type="button" class="btn btn-primary">Print</button>
-                                                    </a>
                                                     <a class="" title="edit"  href="{{route('IndentEdit',['id' => $value->id])}}" target="_blank">
                                                         <button type="button" class="btn btn-primary">Edit</button>
                                                     </a>

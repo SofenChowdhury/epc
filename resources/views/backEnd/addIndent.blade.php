@@ -1,11 +1,8 @@
 @extends('backEnd.master')
-
 @section('styles')
     <link rel="stylesheet" href="{{asset('public/assets/css/addTransaction.css')}}">
 @endsection
-
 @section('mainContent')
-
     <div class="card">
         @if(session()->has('message-success'))
             <div class="alert alert-success mb-3 background-success" role="alert">
@@ -47,30 +44,24 @@
                 <h5>Add Indent</h5>
             </div>
         </div>
-
         <form action="{{url('insert_indents')}}" method="post">@csrf
             <div class="row md-layout md-gutter">
-
                 <div class="col-md-3 md-layout-item">
                     <label for="" class="col-form-label">Indent Title:</label>
                     <input type="text" class="form-control p-2" value="" name="title" id=""/>
                 </div>
-
                 <div class="col-md-3 md-layout-item">
                     <label for="" class="col-form-label">Project</label>
                     <input type="text" class="form-control p-2" value="" name="project" id=""/>
                 </div>
-
                 <div class="col-md-3">
                     <label for="date" class="col-form-label">Indent date:</label>
                     <input type="date" id="date" name="date">
                 </div>
-
                 <div class="col-md-3 md-layout-item">
                     <label for="voucher_no" class="col-form-label">Voucher No:</label>
                     <input type="text" class="form-control p-2" required readonly value="{{rand()}}" name="voucher_no" id="voucher_no"/>
                 </div>
-
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
