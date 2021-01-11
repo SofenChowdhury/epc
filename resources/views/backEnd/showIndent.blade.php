@@ -45,22 +45,23 @@
                                 <thead>
                                 <tr>
                                     <th>SL</th>
-                                    <th>title</th>
-                                    <th>indent_no</th>
-                                    <th>date</th>
-                                    <th>note</th>
-                                    <th>accountant</th>
-                                    <th>accountant_remark</th>
-                                    <th>manager</th>
-                                    <th>manager_remark</th>
-                                    <th>associate_director</th>
-                                    <th>associate_director_remark</th>
-                                    <th>director_2</th>
-                                    <th>director_2_remark</th>
-                                    <th>director_1</th>
-                                    <th>director_1_remark</th>
-                                    <th>chairman</th>
-                                    <th>chairman_remark</th>
+                                    <th>Title</th>
+                                    <th>Project</th>
+                                    <th>Indent_no</th>
+                                    <th>Date</th>
+                                    <th>Note</th>
+                                    <th>Initiator</th>
+                                    <th>Initiator_remark</th>
+                                    <th>Manager</th>
+                                    <th>Manager_remark</th>
+                                    <th>Associate_director</th>
+                                    <th>Associate_director_remark</th>
+                                    <th>Director_2</th>
+                                    <th>Director_2_remark</th>
+{{--                                    <th>Director_1</th>--}}
+{{--                                    <th>Director_1_remark</th>--}}
+                                    <th>Chairman</th>
+                                    <th>Chairman_remark</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -71,6 +72,7 @@
                                         <tr>
                                             <td>{{$i++}}</td>
                                             <td>{{$value->title}}</td>
+                                            <td>{{$value->project}}</td>
                                             <td>{{$value->indent_no}}</td>
                                             <td>{{$value->date}}</td>
                                             <td>{{$value->note}}</td>
@@ -82,7 +84,7 @@
                                                 @elseif($value->manager_action == 2)
                                                     Rejected
                                                 @else
-                                                    @if(Auth::user()->id == 24)
+                                                    @if(Auth::user()->id == 24 && $value->confirm == 1)
                                                         <p onclick="managerAction({{$value->id}},'manager')">
                                                             <button type="button" class="btn btn-warning" data-dismiss="modal">Action</button>
                                                         </p>
@@ -114,24 +116,24 @@
                                                 @endif
                                             </td>
                                             <td>{{$value->director_2_remark}}</td>
-                                            <td>
-                                                @if($value->director_1_action == 1)
-                                                    Approved
-                                                @elseif($value->director_1_action == 2)
-                                                    Rejected
-                                                @elseif($value->director_2_action == 1)
-                                                    @if(Auth::user()->id == 20)
-                                                        <button type="button" class="btn btn-warning" onclick="managerAction({{$value->id}},'director_1')">Action</button>
-                                                    @endif
-                                                @endif
-                                            </td>
-                                            <td>{{$value->director_1_remark}}</td>
+{{--                                            <td>--}}
+{{--                                                @if($value->director_1_action == 1)--}}
+{{--                                                    Approved--}}
+{{--                                                @elseif($value->director_1_action == 2)--}}
+{{--                                                    Rejected--}}
+{{--                                                @elseif($value->director_2_action == 1)--}}
+{{--                                                    @if(Auth::user()->id == 20)--}}
+{{--                                                        <button type="button" class="btn btn-warning" onclick="managerAction({{$value->id}},'director_1')">Action</button>--}}
+{{--                                                    @endif--}}
+{{--                                                @endif--}}
+{{--                                            </td>--}}
+{{--                                            <td>{{$value->director_1_remark}}</td>--}}
                                             <td>
                                                 @if($value->chairman_action == 1)
                                                     Approved
                                                 @elseif($value->chairman_action == 2)
                                                     Rejected
-                                                @elseif($value->director_1_action == 1)
+                                                @elseif($value->director_2_action == 1)
                                                     @if(Auth::user()->id == 19)
                                                         <button type="button" class="btn btn-warning" onclick="managerAction({{$value->id}},'chairman')">Action</button>
                                                     @endif
@@ -139,7 +141,7 @@
                                             </td>
                                             <td>{{$value->chairman_remark}}</td>
                                             <td>
-                                                @if(Auth::user()->name == $value->accountant || Auth::user()->name == 'Kawser Ahmed' || Auth::user()->name == 'Md Admin')
+                                                @if(Auth::user()->name == $value->accountant || Auth::user()->name == 'Kawser Ahmed' || Auth::user()->name == 'Md Admin' || Auth::user()->name == 'Taher Mohammad Niaz')
                                                     @if(Auth::user()->name == 'Kawser Ahmed' || Auth::user()->name == 'Md Admin')
                                                         <a class="modalLink" title="Delete" data-modal-size="modal-md" href="{{url('IndentDeleteView', $value->id)}}">
                                                             <button type="button" class="btn btn-danger action-icon"><i class="fa fa-trash-o"></i></button>

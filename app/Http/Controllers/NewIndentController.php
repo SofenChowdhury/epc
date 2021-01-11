@@ -27,8 +27,9 @@ class NewIndentController extends Controller
         $create = DB::table('new_indent_master')
                     ->insert([
                         'title' => $request->title,
-                        'indent_no' => $request->voucher_no,
+                        'project' => $request->project,
                         'date' => $request->date,
+                        'indent_no' => $request->voucher_no,
                         'note' => $request->note,
                         'accountant' => Auth::user()->name,
                         'accountant_remark' => $request->remarks
@@ -36,7 +37,7 @@ class NewIndentController extends Controller
         $last_inserted_id = DB::table('new_indent_master')
             ->where('indent_no', $request->voucher_no)->first();
         for($i = 0; $i < count($request->vendor); $i++){
-            $childcreate = DB::table('new_indent_child')
+            DB::table('new_indent_child')
                 ->insert([
                     'master_id' => $last_inserted_id->id,
                     'vendor' => $request->vendor[$i],
@@ -45,7 +46,7 @@ class NewIndentController extends Controller
                     'amount' => $request->amount[$i]
                 ]);
         }
-        return redirect('show_indents')->with('message','Indent data inserted successfully');
+        return redirect('check_indents')->with('message','Indent data inserted successfully');
     }
     function deleteView($id){
         return view('backEnd.deleteIndent', compact('id'));
@@ -65,6 +66,38 @@ class NewIndentController extends Controller
         }else{
             return redirect()->back()->with('message-danger', 'Something went wrong, please try again');
         }
+    }
+    public function check(Request $request)
+    {
+        $indentDataChild = DB::table('new_indent_child')->get();
+        $indentDataMaster = DB::table('new_indent_master')->get();
+        return view('backEnd.checkIndent',compact('indentDataMaster','indentDataChild'));
+    }
+    public function edit($id)
+    {
+        $indentDataChild = DB::table('new_indent_child')->where('master_id', '=', $id)->get();
+        return view('backEnd.editIndent', compact('indentDataChild','id'));
+    }
+    public function update(Request $request, $id)
+    {
+        DB::table('history_log')->insert(
+            array('user'=>Auth::user()->name,'history_type'=>'updated','path'=>url()->current())
+        );
+        DB::table('new_indent_child')->where('master_id',$id)->delete();
+        for($i = 0; $i < count($request->vendor); $i++){
+             DB::table('new_indent_child')
+                ->insert([
+                    'master_id' => $id,
+                    'vendor' => $request->vendor[$i],
+                    'purpose' => $request->purpose[$i],
+                    'exp_code' => $request->exp_code[$i],
+                    'amount' => $request->amount[$i]
+                ]);
+        }
+        DB::table('new_indent_master')->where('id',$id)->update([
+           'confirm' => 1
+        ]);
+        return redirect('show_indents');
     }
     function action(Request $request){
         if ($request->indentUser == 'manager'){
@@ -97,7 +130,6 @@ class NewIndentController extends Controller
                 'chairman_action' => $request->action,
                 'chairman_remark' => $request->remark.' by '.Auth::user()->name
             ]);
-            return redirect('add_indents');
         }
         return redirect()->back();
     }

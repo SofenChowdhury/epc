@@ -37,15 +37,33 @@
                 </button>
             </div>
         @endif
-
         <div class="card-header">
-            <h5>Add Indent</h5>
+            <div class="text-right">
+                <a href="{{route('check_indents')}}" >
+                    <input type="button"  class="btn btn-info mt-3"  value="Previous Indent Check"/>
+                </a>
+            </div>
+            <div class="text-left">
+                <h5>Add Indent</h5>
+            </div>
         </div>
+
         <form action="{{url('insert_indents')}}" method="post">@csrf
             <div class="row md-layout md-gutter">
+
                 <div class="col-md-3 md-layout-item">
                     <label for="" class="col-form-label">Indent Title:</label>
                     <input type="text" class="form-control p-2" value="" name="title" id=""/>
+                </div>
+
+                <div class="col-md-3 md-layout-item">
+                    <label for="" class="col-form-label">Project</label>
+                    <input type="text" class="form-control p-2" value="" name="project" id=""/>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="date" class="col-form-label">Indent date:</label>
+                    <input type="date" id="date" name="date">
                 </div>
 
                 <div class="col-md-3 md-layout-item">
@@ -53,10 +71,6 @@
                     <input type="text" class="form-control p-2" required readonly value="{{rand()}}" name="voucher_no" id="voucher_no"/>
                 </div>
 
-                <div class="col-md-3">
-                    <label for="date" class="col-form-label">Indent date:</label>
-                    <input type="date" id="date" name="date">
-                </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
@@ -115,7 +129,9 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <input type="submit"  class="btn btn-info mt-3"  value="Save Indent"/>
+                                <div class="text-right">
+                                    <input type="submit"  class="btn btn-info mt-3"  value="Save Indent"/>
+                                </div>
                             </td>
                         </tr>
                         </tfoot>

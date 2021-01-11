@@ -20,7 +20,7 @@
 <p style="font-weight: bold; font-size: 13px; line-height: 8px; padding-left: 550px">INDENT NO. {{$indentDataMaster->indent_no}}</p>
 <p class="text-center" style="font-weight: bold; font-size: 16px; line-height: 8px">Engineering & Planning Consultants Ltd.</p>
 <p class="text-center" style="font-weight: bold; font-size: 13px; line-height: 8px">7/4,Block-A, Lalmatia,Dhaka-1207</p>
-<p class="text-center" style="font-weight: bold; font-size: 13px; line-height: 8px">{{$indentDataMaster->title}}</p>
+<p class="text-center" style="font-weight: bold; font-size: 13px; line-height: 8px">{{$indentDataMaster->title}}</p><span>Date: {{$indentDataMaster->date}}</span>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -61,22 +61,42 @@
 <table>
     <thead>
     <tr>
-        <th>Accountant</th>
+        <th>Initiator</th>
         <th>Manager (HR & Admin)</th>
         <th>Associate Director</th>
         <th>Director-2</th>
-        <th>Director-1</th>
+{{--        <th>Director-1</th>--}}
         <th>Chairman</th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <td>{{$indentDataMaster->accountant}}<br><span>Prepared</span></td>
-        <td>{{$indentDataMaster->manager}}<br><span>Approved</span></td>
-        <td>{{$indentDataMaster->associate_director}}<br><span>Approved</span></td>
-        <td>{{$indentDataMaster->director_2}}<br><span>Approved</span></td>
-        <td>{{$indentDataMaster->director_1}}<br><span>Approved</span></td>
-        <td>{{$indentDataMaster->chairman}}<br><span>Approved</span></td>
+        <td>{{$indentDataMaster->manager}}<br>
+            @if($indentDataMaster->manager)
+                <span>Approved</span>
+            @endif
+        </td>
+        <td>{{$indentDataMaster->associate_director}}<br>
+            @if($indentDataMaster->associate_director)
+                <span>Approved</span>
+            @endif
+        </td>
+        <td>{{$indentDataMaster->director_2}}<br>
+            @if($indentDataMaster->director_2)
+                <span>Approved</span>
+            @endif
+        </td>
+{{--        <td>{{$indentDataMaster->director_1}}<br>--}}
+{{--            @if($indentDataMaster->director_1)--}}
+{{--                <span>Approved</span>--}}
+{{--            @endif--}}
+{{--        </td>--}}
+        <td>{{$indentDataMaster->chairman}}<br>
+            @if($indentDataMaster->chairman)
+                <span>Approved</span>
+            @endif
+        </td>
     </tr>
     </tbody>
 </table>
