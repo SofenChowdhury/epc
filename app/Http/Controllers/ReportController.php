@@ -16,23 +16,47 @@ use Illuminate\Support\Facades\DB;
 class ReportController extends Controller
 {
     public function singleAccountTransactions($id) {
-
+    
         $coa = ErpChartOfAccounts::find($id);
 
         if($coa->child == 1){
             $children = ErpChartOfAccounts::where('coa_parent', '=', $coa->coa_reference_no)->get();
-            $transactions = ErpTransactionDetails::all();
+            $transactions = ErpTransactionDetails::get();
         }else{
             $children = '';
-            $transactions = ErpTransactionDetails::where('coa_id', $id)->get();
+            $transactions = ErpTransactionDetails::where('erp_transaction_details.coa_id', $id)
+                ->get();
         }
         $setup = ErpSetup::latest()->first();
 
-        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup'));
+        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id'));
     }
-
+    public function single_account_date_range(Request $request) {
+        $id = $request->id;
+        $form_date  = $request->start_date;
+        $to_date    = $request->end_date;
+        
+        $coa = ErpChartOfAccounts::find($id);
+        
+        if($coa->child == 1){
+            $children = ErpChartOfAccounts::where('coa_parent', '=', $coa->coa_reference_no)->get();
+            $transactions = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
+                ->whereBetween('transaction_date',array($form_date,$to_date))
+                ->get();
+        }else{
+            $children = '';
+            $transactions = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
+                ->whereBetween('transaction_date',array($form_date,$to_date))
+                ->where('erp_transaction_details.coa_id', $id)
+                ->get();
+        }
+        $setup = ErpSetup::latest()->first();
+        
+        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id'));
+    }
+    
     public function singleTransaction(Request $request, $id) {
-
+    
         $transaction = ErpTransaction::find($id);
         $setup = ErpSetup::latest()->first();
         $users = User::all();

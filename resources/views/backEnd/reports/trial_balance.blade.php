@@ -119,7 +119,9 @@
                                             @foreach($coa->children as $child)
                                                 <tr class="table-bordered" style="text-align: right">
                                                     <td style="text-align: center">{{ $child->coa_reference_no }}</td>
-                                                    <td style="text-align: left"><a href="{{ url('single_account', $child->id) }}">{{ $child->coa_name }}</a></td>
+                                                    <td style="text-align: left">
+                                                        <a href="{{route('single_account',['id'=>$coa->id] )}}">{{ $child->coa_name }}</a>
+                                                    </td>
                                                     @php
                                                         $debit = null;
                                                         $credit = null;
@@ -166,7 +168,7 @@
                                                             @endif
                                                         @endforeach
                                                     @endforeach
-                                                    <td style="background-color: darkblue;color:white;">
+                                                    <td>
                                                         {{--  Dabit--}}
                                                         @if($child->account_type == 'debit' && $credit > 0)
                                                             @php
@@ -229,7 +231,9 @@
                                         @else
                                             <tr class="table-bordered" style="text-align: right">
                                                 <td style="text-align: center">{{ $coa->coa_reference_no }}</td>
-                                                <td style="text-align: left"><a href="{{ url('single_account', $coa->id) }}">{{ $coa->coa_name }}</a></td>
+                                                <td style="text-align: left">
+                                                    <a href="{{route('single_account',['id'=>$coa->id] )}}">{{ $coa->coa_name }}</a>
+                                                </td>
                                                 <td>
 
                                                     @if($coa->account_type == 'debit' && $opening_credit > 0)
@@ -273,7 +277,7 @@
                                                     @endforeach
 
                                                 @endforeach
-                                                <td style="background-color: tomato;color: white;">
+                                                <td>
                                                     @if($coa->account_type == 'debit' && $credit > 0)
                                                         @php
                                                             $debit -= $credit;
@@ -296,7 +300,6 @@
                                                         $ending_debit += $debit;
                                                         $sub_total_debit += $debit;
                                                     @endphp
-
                                                 </td>
                                                 <td>
                                                     @if($coa->account_type == 'credit' && $debit > 0)

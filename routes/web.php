@@ -312,9 +312,9 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
     Route::get('balance_sheet_date','ReportController@balanceSheetDate')->middleware('permission:View Balance Sheet');
     Route::post('balance_sheet','ReportController@generateBalanceSheet')->middleware('permission:View Balance Sheet');
 
-    Route::get('single_account/{id}','ReportController@singleAccountTransactions');
+    Route::get('single_account/{id}','ReportController@singleAccountTransactions')->name('single_account');
     Route::get('single_transaction/{id}','ReportController@singleTransaction');
-
+    Route::get('single_account_date_range','ReportController@single_account_date_range')->name('single_account_date_range');
 // Role route
     Route::resource('role', 'ErpRoleController');
     Route::get('deleteRoleView/{id}', 'ErpRoleController@deleteRoleView');
@@ -359,8 +359,12 @@ Route::group(['middleware' => ['revalidate','auth']], function(){
 //New Indent Vue routs
 Route::get('add_indents','NewIndentController@create');
 Route::post('insert_indents','NewIndentController@insert');
-Route::get('show_indents','NewIndentController@index');
+Route::post('update_indents','NewIndentController@update');
+Route::get('show_indents','NewIndentController@index')->name('showIndent');
+Route::get('check_indents','NewIndentController@check')->name('check_indents');
 Route::get('IndentDeleteView/{id}', 'NewIndentController@deleteView');
 Route::get('IndentDelete/{id}', 'NewIndentController@delete');
 Route::post('approvalAction', 'NewIndentController@action');
 Route::get('IndentPrint/{id}', 'NewIndentController@IndentPrint')->name('IndentPrint');
+Route::get('IndentEdit/{id}', 'NewIndentController@edit')->name('IndentEdit');
+Route::post('IndentUpdate/{id}', 'NewIndentController@update')->name('IndentUpdate');

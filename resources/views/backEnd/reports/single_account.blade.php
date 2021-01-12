@@ -1,12 +1,37 @@
 @extends('backEnd.master')
 
 @section('mainContent')
+
 <div class="row">
     <div class=" col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5 style="font-size: larger">{{ $coa->coa_reference_no }} . {{ $coa->coa_name }}</h5>
-                <button class="btn btn-success" onclick="printDiv('printTransaction')" style="float: right; padding: 6px 50px;">Print</button>
+                <div class="row">
+                    <div class="col-md-2">
+                        <h5 style="font-size: larger">{{ $coa->coa_reference_no }} . {{ $coa->coa_name }}</h5>
+                    </div>
+                    <div class="col-md-9">
+                        <form method="get" action="{{route('single_account_date_range')}}">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label>Start Date</label>
+                                    <input type="date" class="form-control" name="start_date">
+                                    <input type="hidden" class="form-control" name="id" value="{{$id}}">
+                                </div>
+                                <div class="col-md-5">
+                                    <label>End Date</label>
+                                    <input type="date" class="form-control" name="end_date">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 24px;">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-primary" onclick="printDiv('printTransaction')" style="float: right; padding: 6px 50px;">Print</button>
+                    </div>
+                </div>
             </div>
             <div class="card-block" id="printTransaction">
                 <div class="row logo" id="logo" style="display:none;">
@@ -18,9 +43,8 @@
                         <p style="font-size: 22px; ">{{ $coa->coa_reference_no }} . {{ $coa->coa_name }}</p>
                     </div>
                 </div>
-                <br>
-                <div class="table table-responsive">
-                    <table class="table" id="transaction_table">
+                <div>
+                    <table class="table"> {{--id="example"  class="table table-responsive"  --}}
                         <thead>
                             <tr>
                                 <th scope="col">Account</th>
@@ -28,32 +52,83 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">Debit</th>
                                 <th scope="col">Credit</th>
+                                <th scope="col">Balance</th>
                             </tr>
                         </thead>
                         <tbody>
 {{--                        @dd($coa);--}}
+                        @php
+                            $balence = 0;
+                        @endphp
                         @if($children != '')
                             @foreach( $children as $child)
                                 @foreach($transactions as $transaction)
+                                    @php
+                                        $get_transection    = DB::table('erp_transaction_details')
+                                            ->leftjoin('erp_chart_of_accounts','erp_chart_of_accounts.id','erp_transaction_details.coa_id')
+                                            ->where('transaction_id',$transaction->transaction_id)
+                                            ->select('erp_chart_of_accounts.coa_name')
+                                            ->get();
+                                        $close = DB::table('erp_transactions')
+                                            ->leftJoin('erp_transaction_details','erp_transaction_details.transaction_id','erp_transactions.id')
+                                            ->where('erp_transaction_details.coa_id',183)
+                                            ->where('erp_transactions.id',$transaction->transaction_id+1)
+                                            ->select('credit_amount','debit_amount','transaction_date','total_transaction')
+                                            ->get($loop->index+1);
+
+                                    @endphp
                                     @if($transaction->coa_id == $child->id)
                                         <tr>
-                                            <td><a href="{{ url('single_transaction', $transaction->transaction_id) }}">{{ $child->coa_name }}</a></td>
+                                            <td>
+                                                <a href="{{ url('single_transaction', $transaction->transaction_id) }}">
+                                                    {{ $child->coa_name }}
+                                                </a>
+                                                @foreach($get_transection as $key)
+                                                    @if($transaction->account->coa_name != $key->coa_name)
+                                                        <p>{{$key->coa_name}}</p>
+                                                    @endif
+                                                @endforeach
+                                            </td>
                                             <td>{{ $transaction->transaction->voucher_no }}</td>
                                             <td>{{ date('F d, Y', strtotime($transaction->transaction->transaction_date)) }}</td>
-                                            <th>{{ $transaction->debit_amount > 0 ? $transaction->debit_amount : '' }}</th>
-                                            <th>{{ $transaction->credit_amount > 0 ? $transaction->credit_amount : '' }}</th>
+                                            <td>{{ $transaction->debit_amount > 0 ? $transaction->debit_amount : '' }}</td>
+                                            <td>{{ $transaction->credit_amount > 0 ? $transaction->credit_amount : '' }}</td>
+                                            @php
+                                                $balence += $transaction->debit_amount - $transaction->credit_amount;
+                                            @endphp
+                                            <td>
+                                                {{$balence}}
+                                            </td>
                                         </tr>
                                     @endif
                                 @endforeach
                             @endforeach
                         @else
                             @foreach($transactions as $transaction)
+                                @php
+                                    $get_transection    = DB::table('erp_transaction_details')
+                                        ->leftjoin('erp_chart_of_accounts','erp_chart_of_accounts.id','erp_transaction_details.coa_id')
+                                        ->where('transaction_id',$transaction->transaction_id)
+                                        ->select('erp_chart_of_accounts.coa_name')
+                                        ->get();
+
+                                @endphp
                                 <tr style="font-size: larger" >
-                                    <td><a href="{{ url('single_transaction', $transaction->transaction_id) }}">{{ $transaction->account->coa_name }}</a></td>
+                                    <td>
+                                        <a href="{{ url('single_transaction', $transaction->transaction_id) }}">{{ $transaction->account->coa_name }}</a>
+                                        @foreach($get_transection as $key)
+                                            @if($transaction->account->coa_name != $key->coa_name)
+                                                <p>{{$key->coa_name}}</p>
+                                            @endif
+                                        @endforeach
+                                    </td>
                                     <td>{{ $transaction->transaction->voucher_no }}</td>
                                     <td>{{ date('F d, Y', strtotime($transaction->transaction->transaction_date)) }}</td>
                                     <th>{{ $transaction->debit_amount > 0 ? $transaction->debit_amount : '' }}</th>
                                     <th>{{ $transaction->credit_amount > 0 ? $transaction->credit_amount : '' }}</th>
+                                    <th>
+                                        {{$transaction->debit_amount }}
+                                    </th>
                                 </tr>
                             @endforeach
                         @endif
@@ -96,5 +171,13 @@
             window.print();
             history.go(0);
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            $('#example').DataTable( {
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            } );
+        } );
     </script>
 @endsection
