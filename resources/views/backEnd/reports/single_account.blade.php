@@ -138,7 +138,7 @@
                 <div class="text-bottom text-center pt-5 mt-5 footer" style="display: none" id="footer">
                     <div class="row">
                         <div class="col">
-                            <p style="font-size: 0.9rem; background-color: #ece7e4;" >ERP Version 1.1 | Developed by: White Paper | Printed By: {{ Auth::user()->name }} | <span id="datetime"> </p>
+                            <p style="font-size: 0.9rem; background-color: #ece7e4;" >ERP Version 1.1 | Developed by: White Paper | Printed By: {{ Auth::user()->name }} | <span id="datetime"/> </p>
                         </div>
                     </div>
                 </div>
