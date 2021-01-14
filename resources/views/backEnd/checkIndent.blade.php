@@ -67,7 +67,7 @@
                                             <td>
                                                 @if(Auth::user()->name == $value->accountant && $value->manager_action != 1)
                                                     <a class="" title="edit"  href="{{route('IndentEdit',['id' => $value->id])}}" target="_blank">
-                                                        <button type="button" class="btn btn-primary">Edit</button>
+                                                        <button type="button" class="btn btn-primary">Check</button>
                                                     </a>
                                                 @endif
                                                 <a href="#myModal" data-toggle="modal" data-target="#myModal_{{ $value->id}}" data-id="{{$value->id}}" >
