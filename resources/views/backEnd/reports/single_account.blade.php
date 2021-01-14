@@ -38,7 +38,7 @@
                     <div class="col-md-4" style="padding:3% 0 3% 5%;">
                         <img class="img-fluid" src="{{asset('public/assets/images/epc_logo.png')}}" height="10" width="120">
                     </div>
-                    <div class="col-md-4" style="text-align: center; margin-top: 25px; font-weight: bold; padding:3% 0 3% 5%;">
+                    <div class="col-md-4" style="text-align: center; margin-top: -100px; font-weight: bold; padding:3% 0 3% 5%;">
                         <p style="font-size: 26px; ">Transaction Records of Account</p>
                         <p style="font-size: 22px; ">{{ $coa->coa_reference_no }} . {{ $coa->coa_name }}</p>
                     </div>
