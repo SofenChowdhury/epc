@@ -58,10 +58,11 @@
                         <tbody>
 {{--                        @dd($coa);--}}
                         @php
-                            $balence = 0;
+                            $balence = $total_balance;
                         @endphp
                         @if($children != '')
                             @foreach( $children as $child)
+
                                 @foreach($transactions as $transaction)
                                     @php
                                         $get_transection    = DB::table('erp_transaction_details')

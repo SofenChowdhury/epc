@@ -16,24 +16,27 @@ use Illuminate\Support\Facades\DB;
 class ReportController extends Controller
 {
     public function singleAccountTransactions($id) {
-    
+        $trnDtl = ErpTransactionDetails::get();
         $coa = ErpChartOfAccounts::find($id);
-
+        
         if($coa->child == 1){
             $children = ErpChartOfAccounts::where('coa_parent', '=', $coa->coa_reference_no)->get();
             $transactions = ErpTransactionDetails::get();
         }else{
             $children = '';
-            $transactions = ErpTransactionDetails::where('erp_transaction_details.coa_id', $id)
+            $transactions = ErpTransactionDetails::where('erp_transaction_details.coa_id', 3)
                 ->get();
         }
         $setup = ErpSetup::latest()->first();
-
-        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id'));
+        $total_balance = 0;
+        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id','total_balance'));
     }
     public function single_account_date_range(Request $request) {
+        
         $id = $request->id;
         $form_date  = $request->start_date;
+        $prev_date = date('Y-m-d', strtotime($form_date .' -1 day'));
+        $st_date    = '2000-01-01';
         $to_date    = $request->end_date;
         
         $coa = ErpChartOfAccounts::find($id);
@@ -51,8 +54,18 @@ class ReportController extends Controller
                 ->get();
         }
         $setup = ErpSetup::latest()->first();
-        
-        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id'));
+        $child_id = $children[0]->id;
+        $debit_amount = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
+            ->whereBetween('transaction_date',array($st_date,$prev_date))
+            ->where('coa_id',$child_id)
+            ->sum('debit_amount');
+        $credit_amount = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
+            ->whereBetween('transaction_date',array($st_date,$prev_date))
+            ->where('coa_id',$child_id)
+            ->sum('credit_amount');
+    
+        $total_balance = $debit_amount - $credit_amount;
+        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id','total_balance'));
     }
     
     public function singleTransaction(Request $request, $id) {

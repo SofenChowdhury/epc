@@ -73,6 +73,7 @@
                                 </tr>
                                 @foreach($account->header as $header)
                                     @foreach($header->coa as $coa)
+
                                         @php
                                             $debit = null;
                                             $credit = null;
