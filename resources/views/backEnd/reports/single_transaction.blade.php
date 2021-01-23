@@ -13,7 +13,7 @@
                         <div class="col-md-4" style="padding:3% 0 3% 5%;">
                             <img class="img-fluid" src="{{asset('public/assets/images/epc_logo.png')}}" height="10" width="120">
                         </div>
-                        <div class="col-md-4" style="text-align: center; margin-top: 25px; font-weight: bold; padding:3% 0 3% 5%;">
+                        <div class="col-md-4" style="text-align: center; margin-top: -130px; font-weight: bold; padding:3% 0 3% 5%;">
                             <p style="font-size: 26px; ">Transaction Records of</p>
                             <p style="font-size: 22px; ">voucher Number {{ $transaction->voucher_no }}</p>
                         </div>
@@ -22,52 +22,55 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label style="color: #5e95ff"><b>Transaction date :</b></label>
-                                <h5 style="font-size: medium">{{ date('F d, Y', strtotime($transaction->transaction_date)) }}</h5>
+                                <label style="color: #5e95ff"><b>Transaction date : </b>{{ date('F d, Y', strtotime($transaction->transaction_date)) }}</label>
+{{--                                <h5 style="font-size: medium">{{ date('F d, Y', strtotime($transaction->transaction_date)) }}</h5>--}}
 {{--                                <input type="" class="form-control" name="transaction_date" readonly value="{{ date('F d, Y', strtotime($transaction->transaction_date)) }}">--}}
                             </div>
                             <div class="form-group col-md-4">
-                                <label style="color: #5e95ff"><b>Reference No :</b></label>
-                                <h5 style="font-size: medium">{{ $transaction->voucher_no }}</h5>
+                                <label style="color: #5e95ff"><b>Reference No : </b>{{ $transaction->voucher_no }}</label>
+{{--                                <h5 style="font-size: medium">{{ $transaction->voucher_no }}</h5>--}}
 {{--                                <input type="" class="form-control" name="voucher_no" readonly value="{{ $transaction->voucher_no }}">--}}
                             </div>
                             <div class="form-group col-md-4">
-                                <label style="color: #5e95ff"><b>Recorded By :</b></label>
+                                <label style="color: #5e95ff"><b>Recorded By : </b>
 {{--                                <input type="" class="form-control" name="voucher_no" readonly--}}
-                                @if(isset($users))
-                                    @foreach($users as $user)
-                                        @if($transaction->created_by == $user->id)
-                                            <h5 style="font-size: medium">{{ $user->name }}</h5>
-                                        @endif
-                                    @endforeach
-                                @endif
+                                    @if(isset($users))
+                                        @foreach($users as $user)
+                                            @if($transaction->created_by == $user->id)
+{{--                                                <h5 style="font-size: medium">{{ $user->name }}</h5>--}}
+                                                {{ $user->name }}
+                                </label>
+                                            @endif
+                                        @endforeach
+                                    @endif
 {{--                                >--}}
+
                             </div>
                         </div>
 
                         <div class="row">
+                            <div class="form-group col-md-4">
+                                <lable style="color: #5e95ff"><b>Recorded At : </b>{{ date('F d, Y H:i:s', strtotime($transaction->created_at)) }}</lable>
+                                {{--                                <h5 style="font-size: medium">{{ date('F d, Y H:i:s', strtotime($transaction->created_at)) }}</h5>--}}
+                                {{-- <input type="" class="form-control" name="transaction_date" readonly value="{{ date('F d, Y', strtotime($transaction->transaction_date)) }}">--}}
+                            </div>
                             <div class="form-group col-md-8">
-                                <label style="color: #5e95ff"><b>Description :</b></label>
+                                <label style="color: #5e95ff"><b>Description : </b></label>
                                 <h5 style="font-size: medium">{{ $transaction->description }}</h5>
 {{--                                <textarea class="form-control" readonly name="description">{{ $transaction->description }}</textarea>--}}
-                            </div>
-                            <div class="form-group col-md-4">
-                                <lable style="color: #5e95ff"><b>Recorded At :</b></lable>
-                                <h5 style="font-size: medium">{{ date('F d, Y H:i:s', strtotime($transaction->created_at)) }}</h5>
-                                {{-- <input type="" class="form-control" name="transaction_date" readonly value="{{ date('F d, Y', strtotime($transaction->transaction_date)) }}">--}}
                             </div>
                         </div>
                     </div>
                     <br><hr>
-                    <div class="table table-responsive">
-                        <table class="table" id="transaction_table">
+                    <div> {{--class="table table-responsive"--}}
+                        <table class="table"> {{--id="transaction_table"--}}
                             <thead>
-                            <tr class="table-info">
-                                <th scope="col">REFERENCE NO.</th>
-                                <th scope="col">ACCOUNT</th>
-                                <th scope="col">DEBIT</th>
-                                <th scope="col">CREDIT</th>
-                            </tr>
+                                <tr class="table-info">
+                                    <th scope="col">REFERENCE NO.</th>
+                                    <th scope="col">ACCOUNT</th>
+                                    <th scope="col">DEBIT</th>
+                                    <th scope="col">CREDIT</th>
+                                </tr>
                             </thead>
                             <tbody>
                             @foreach($transaction->transactionDetail as $transaction)

@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    public function singleAccountTransactions($id) {
+    public function singleAccountTransactions(Request $request,$id) {
+        $form_date = '';
+        $to_date = '';
         $trnDtl = ErpTransactionDetails::get();
         $coa = ErpChartOfAccounts::find($id);
         
@@ -29,7 +31,7 @@ class ReportController extends Controller
         }
         $setup = ErpSetup::latest()->first();
         $total_balance = 0;
-        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id','total_balance'));
+        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id','total_balance','form_date','to_date'));
     }
     public function single_account_date_range(Request $request) {
         
@@ -65,7 +67,7 @@ class ReportController extends Controller
             ->sum('credit_amount');
     
         $total_balance = $debit_amount - $credit_amount;
-        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id','total_balance'));
+        return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id','total_balance','form_date','to_date'));
     }
     
     public function singleTransaction(Request $request, $id) {

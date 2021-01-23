@@ -38,9 +38,10 @@
                     <div class="col-md-4" style="padding:3% 0 3% 5%;">
                         <img class="img-fluid" src="{{asset('public/assets/images/epc_logo.png')}}" height="10" width="120">
                     </div>
-                    <div class="col-md-4" style="text-align: center; margin-top: -100px; font-weight: bold; padding:3% 0 3% 5%;">
+                    <div class="col-md-4" style="text-align: center; margin-top: -130px; font-weight: bold; padding:3% 0 3% 5%;">
                         <p style="font-size: 26px; ">Transaction Records of Account</p>
                         <p style="font-size: 22px; ">{{ $coa->coa_reference_no }} . {{ $coa->coa_name }}</p>
+                        <p style="font-size: 22px; ">Form Date: {{ $form_date }} - To Date: {{ $to_date }}</p>
                     </div>
                 </div>
                 <div>
@@ -59,7 +60,17 @@
 {{--                        @dd($coa);--}}
                         @php
                             $balence = $total_balance;
+                            $total_debit = 0;
+                            $total_credit = 0;
                         @endphp
+                            <tr>
+                                <td>OPENING</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>{{$total_balance}}</td>
+                            </tr>
                         @if($children != '')
                             @foreach( $children as $child)
 
@@ -95,6 +106,8 @@
                                             <td>{{ $transaction->debit_amount > 0 ? $transaction->debit_amount : '' }}</td>
                                             <td>{{ $transaction->credit_amount > 0 ? $transaction->credit_amount : '' }}</td>
                                             @php
+                                                $total_debit += $transaction->debit_amount;
+                                                $total_credit += $transaction->credit_amount;
                                                 $balence += $transaction->debit_amount - $transaction->credit_amount;
                                             @endphp
                                             <td>
@@ -130,10 +143,24 @@
                                     <th>
                                         {{$transaction->debit_amount }}
                                     </th>
+                                    @php
+                                        $total_debit += $transaction->debit_amount;
+                                        $total_credit += $transaction->credit_amount;
+                                    @endphp
                                 </tr>
                             @endforeach
                         @endif
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col">Total Debit: {{$total_debit}}</th>
+                            <th scope="col">Total Credit: {{$total_credit}}</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <div class="text-bottom text-center pt-5 mt-5 footer" style="display: none" id="footer">
