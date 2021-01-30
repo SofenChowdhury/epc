@@ -94,31 +94,31 @@
 
                                                 <th>Gross Salary</th>
                                                 <th>Basic Salary</th>
-{{--                                                <th>Hourly Rate</th>--}}
-{{--                                                <th>Overtime Hourly Rate</th>--}}
+                                                <th>Hourly Rate</th>
+                                                <th>Overtime Hourly Rate</th>
 
-{{--                                                <th>Monthly Total Week Days</th>--}}
-{{--                                                <th>EPC Holidays</th>--}}
-{{--                                                <th>Calculated Working Days</th>--}}
-{{--                                                <th>Days Worked</th>--}}
-{{--                                                <th>Earned Leave</th>--}}
-{{--                                                <th>Sick leave</th>--}}
-{{--                                                <th>Special Leave</th>--}}
-{{--                                                <th>Leave W/O Pay</th>--}}
-{{--                                                <th>Net Working Days</th>--}}
-{{--                                                <th>Net Salary</th>--}}
+                                                <th>Monthly Total Week Days</th>
+                                                <th>EPC Holidays</th>
+                                                <th>Calculated Working Days</th>
+                                                <th>Days Worked</th>
+                                                <th>Earned Leave</th>
+                                                <th>Sick leave</th>
+                                                <th>Special Leave</th>
+                                                <th>Leave W/O Pay</th>
+                                                <th>Net Working Days</th>
+                                                <th>Net Salary</th>
 
-{{--                                                <th>Overtime Hrs</th>--}}
-{{--                                                <th>Overtime Conveyance</th>--}}
-{{--                                                <th>Overtime Food</th>--}}
-{{--                                                <th>Overtime Pay</th>--}}
-{{--                                                <th>Overtime Total</th>--}}
+                                                <th>Overtime Hrs</th>
+                                                <th>Overtime Conveyance</th>
+                                                <th>Overtime Food</th>
+                                                <th>Overtime Pay</th>
+                                                <th>Overtime Total</th>
 
-{{--                                                <th>Eid Bonus</th>--}}
-{{--                                                <th>Annual Bonus</th>--}}
-{{--                                                <th>Transport Allowance </th>--}}
-{{--                                                <th>Mobile Allowance </th>--}}
-{{--                                                <th>Other Bonus</th>--}}
+                                                <th>Eid Bonus</th>
+                                                <th>Annual Bonus</th>
+                                                <th>Transport Allowance </th>
+                                                <th>Mobile Allowance </th>
+                                                <th>Other Bonus</th>
                                                 <th>Total Bonus</th>
 
                                                 <th>Gross Payment</th>
@@ -127,7 +127,7 @@
                                                 <th>Advance Deduc</th>
                                                 <th>Net Payment</th>
 
-{{--                                                <th>Remarks</th>--}}
+                                                <th>Remarks</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -166,133 +166,133 @@
                                                                 </td>
                                                                 @php $hourly_rate = ceil(App\ErpEmployeeSalary::hourly_calc($employee->id)); @endphp
 
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($hourly_rate) )--}}
-{{--                                                                        {{ $hourly_rate }}--}}
-{{--                                                                    @else--}}
-{{--                                                                        0--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($hourly_rate) )--}}
-{{--                                                                        @php $overtime_rate = $hourly_rate * 1 @endphp--}}
-{{--                                                                        {{ $overtime_rate }}--}}
-{{--                                                                    @else--}}
-{{--                                                                        0--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($result->weekdays) )--}}
-{{--                                                                        {{ $result->weekdays }}--}}
-{{--                                                                    @else--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($result->holidays) )--}}
-{{--                                                                        {{ $result->holidays }}--}}
-{{--                                                                    @else--}}
-{{--                                                                        0--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($result))--}}
-{{--                                                                        @php $working = $result->weekdays - $result->holidays @endphp--}}
-{{--                                                                        {{ $working }}--}}
-{{--                                                                    @else--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @php $attended = App\ErpEmployeeAttendance::attendance_calc($employee->id, $salary_month); @endphp--}}
-{{--                                                                    @php $attended = $working @endphp --}}{{--comment_out_this_line--}}
-{{--                                                                    @if( isset($attended) )--}}
-{{--                                                                        {{ $attended }}--}}
-{{--                                                                        @php $working_with_leave = $attended @endphp--}}
-{{--                                                                    @else--}}
+                                                                <td>
+                                                                    @if( isset($hourly_rate) )
+                                                                        {{ $hourly_rate }}
+                                                                    @else
+                                                                        0
+                                                                    @endif
+                                                                </td>
 
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
+                                                                <td>
+                                                                    @if( isset($hourly_rate) )
+                                                                        @php $overtime_rate = $hourly_rate * 1 @endphp
+                                                                        {{ $overtime_rate }}
+                                                                    @else
+                                                                        0
+                                                                    @endif
+                                                                </td>
 
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($earned_leave) )--}}
-{{--                                                                        {{ $earned_leave }}--}}
-{{--                                                                        @php $working_with_leave -= $earned_leave @endphp--}}
-{{--                                                                    @else--}}
-{{--                                                                        0--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($sick_leave) )--}}
-{{--                                                                        {{ $sick_leave }}--}}
-{{--                                                                        @php $working_with_leave -= $sick_leave @endphp--}}
-{{--                                                                    @else--}}
-{{--                                                                        0--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($special_leave) )--}}
-{{--                                                                        {{ $special_leave }}--}}
-{{--                                                                        @php $working_with_leave -= $special_leave @endphp--}}
-{{--                                                                    @else--}}
-{{--                                                                        0--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($unpaid_leave) )--}}
-{{--                                                                        {{ $unpaid_leave }}--}}
-{{--                                                                        @php $working_with_leave -= $unpaid_leave @endphp--}}
-{{--                                                                    @else--}}
-{{--                                                                        0--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($working_with_leave) )--}}
-{{--                                                                        {{ $working_with_leave }}--}}
-{{--                                                                    @else--}}
+                                                                <td>
+                                                                    @if( isset($result->weekdays) )
+                                                                        {{ $result->weekdays }}
+                                                                    @else
+                                                                    @endif
+                                                                </td>
 
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($result))--}}
-{{--                                                                        {{ $result->present_salary }}--}}
-{{--                                                                    @else--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
+                                                                <td>
+                                                                    @if( isset($result->holidays) )
+                                                                        {{ $result->holidays }}
+                                                                    @else
+                                                                        0
+                                                                    @endif
+                                                                </td>
 
-{{--                                                                @php $overtime = App\ErpEmployeeAttendance::overtime_calc($employee->id, $salary_month); @endphp--}}
-{{--                                                                <td>--}}
-{{--                                                                    @if( isset($overtime) )--}}
-{{--                                                                        {{ $overtime->overtime_hours }}--}}
-{{--                                                                    @else--}}
-{{--                                                                    @endif--}}
-{{--                                                                </td>--}}
-{{--                                                            --}}
-{{--                                                                <td>{{ $result->ot_conveyance }}</td>--}}
-{{--                                                            --}}
-{{--                                                                <td>{{ $result->ot_food }}</td>--}}
-{{--                                                            --}}
-{{--                                                                <td>{{ $result->ot_pay }}</td>--}}
-{{--                                                            --}}
-{{--                                                                <td>{{ $result->overtime }}</td>--}}
+                                                                <td>
+                                                                    @if( isset($result))
+                                                                        @php $working = $result->weekdays - $result->holidays @endphp
+                                                                        {{ $working }}
+                                                                    @else
+                                                                    @endif
+                                                                </td>
 
-{{--                                                                <td>{{ $result->eid_bonus }}</td>--}}
-{{--                                                            --}}
-{{--                                                                <td>{{ $result->annual_bonus }}</td>--}}
-{{--                                                            --}}
-{{--                                                                <td>{{ $result->transport_allowance }}</td>--}}
-{{--                                                            --}}
-{{--                                                                <td>{{ $result->mobile_allowance }}</td>--}}
-{{--                                                            --}}
-{{--                                                                <td>{{ $result->other_allowance }}</td>--}}
+                                                                <td>
+                                                                    @php $attended = App\ErpEmployeeAttendance::attendance_calc($employee->id, $salary_month); @endphp
+                                                                    @php $attended = $working @endphp
+                                                                    @if( isset($attended) )
+                                                                        {{ $attended }}
+                                                                        @php $working_with_leave = $attended @endphp
+                                                                    @else
+
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>
+                                                                    @if( isset($earned_leave) )
+                                                                        {{ $earned_leave }}
+                                                                        @php $working_with_leave -= $earned_leave @endphp
+                                                                    @else
+                                                                        0
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>
+                                                                    @if( isset($sick_leave) )
+                                                                        {{ $sick_leave }}
+                                                                        @php $working_with_leave -= $sick_leave @endphp
+                                                                    @else
+                                                                        0
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>
+                                                                    @if( isset($special_leave) )
+                                                                        {{ $special_leave }}
+                                                                        @php $working_with_leave -= $special_leave @endphp
+                                                                    @else
+                                                                        0
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>
+                                                                    @if( isset($unpaid_leave) )
+                                                                        {{ $unpaid_leave }}
+                                                                        @php $working_with_leave -= $unpaid_leave @endphp
+                                                                    @else
+                                                                        0
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>
+                                                                    @if( isset($working_with_leave) )
+                                                                        {{ $working_with_leave }}
+                                                                    @else
+
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>
+                                                                    @if( isset($result))
+                                                                        {{ $result->present_salary }}
+                                                                    @else
+                                                                    @endif
+                                                                </td>
+
+                                                                @php $overtime = App\ErpEmployeeAttendance::overtime_calc($employee->id, $salary_month); @endphp
+                                                                <td>
+                                                                    @if( isset($overtime) )
+                                                                        {{ $overtime->overtime_hours }}
+                                                                    @else
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>{{ $result->ot_conveyance }}</td>
+
+                                                                <td>{{ $result->ot_food }}</td>
+
+                                                                <td>{{ $result->ot_pay }}</td>
+
+                                                                <td>{{ $result->overtime }}</td>
+
+                                                                <td>{{ $result->eid_bonus }}</td>
+
+                                                                <td>{{ $result->annual_bonus }}</td>
+
+                                                                <td>{{ $result->transport_allowance }}</td>
+
+                                                                <td>{{ $result->mobile_allowance }}</td>
+
+                                                                <td>{{ $result->other_allowance }}</td>
 
                                                                 <td>{{ $result->bonus }}</td>
 
@@ -311,7 +311,11 @@
                                                             @endphp
                                                             {{ $result->net_salary }}
                                                         </td>
-{{--                                                        <td></td>--}}
+{{--                                                        @foreach($employees as $employee)--}}
+{{--                                                            @if(isset($employee->employee_type))--}}
+                                                        <td></td>
+{{--                                                            @endif--}}
+{{--                                                        @endforeach--}}
                                                     </tr>
                                                 @endif
                                             @endforeach

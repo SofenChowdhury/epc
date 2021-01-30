@@ -542,16 +542,6 @@ class ErpEmployeeController extends Controller
     public function salaryStatement()
     {
         $salary_month =  Carbon::now()->format('Y-m-d');
-//        {--edit--}
-//        $employees = ErpEmployee::leftJoin('erp_project_employees as project_emp', function($join) {
-//                $join->on('project_emp.employee_id', '=', 'erp_employees.id')->where('project_emp.project_phase', '<=', 2);
-//            })
-//            ->where('erp_employees.employee_status', '=', 1)
-//            ->where('erp_employees.active_status', '=', 1)
-//            ->whereNull('project_emp.employee_id')
-//            ->orderBy('unique_id')
-//            ->distinct('erp_employees.id')
-//            ->get(['erp_employees.*']);
 
         $employees = ErpEmployee::where('employee_status', '=', 1)
             ->where('active_status', '=', 1)
