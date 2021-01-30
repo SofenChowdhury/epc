@@ -609,7 +609,7 @@ class ErpEmployeeController extends Controller
         $approver = ErpEmployeeSalaryPrint::where('salary_month', 'like',  date('Y-m', strtotime($salary_month)) . '%')->where('project_id', $request->project_id)->latest()->first();
 //        $setup = ErpSetup::latest()->first();
         $authorizes = ErpPayslipAuthorize::orderBy('serial_no')->get();
-        $activeDiv = 1;
+        $activeDiv = $request->active_div;
         return view('backEnd.employees.printStatement.index', compact('salary_month', 'employees', 'project_selected', 'projects', 'salaries', 'approver', 'authorizes', 'activeDiv'));
     }
 

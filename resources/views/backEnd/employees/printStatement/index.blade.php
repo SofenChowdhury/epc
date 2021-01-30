@@ -38,11 +38,11 @@
                     <div class="tab-header card">
                         <ul class="nav nav-tabs nav-fill tab-timeline" role="tablist" id="mytab">
                             <li class="nav-item">
-                                <a class="nav-link active tab_style" data-toggle="tab" href="#statement" role="tab">Salary Statement</a>
+                                <a class="nav-link active tab_style" data-toggle="tab" href="#statement" role="tab" onclick="actDiv('0')">Salary Statement</a>
                                 <div class="slide"></div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link tab_style" data-toggle="tab" href="#advice" role="tab">Salary Advice</a>
+                                <a class="nav-link tab_style" data-toggle="tab" href="#advice" role="tab" onclick="actDiv('1')">Salary Advice</a>
                             </li>
                         </ul>
                     </div>
@@ -78,6 +78,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-2 col-sm-6 pt-1">
+                                                <input type="hidden" name="active_div" value="0">
                                                 <button type="submit" class="btn btn-primary" style="float: right; padding: 6px 50px;">Filter</button>
                                             </div>
                                         </div>
@@ -192,7 +193,7 @@
 
                                                                 <td>
                                                                     @if( isset($result->holidays) )
-                                                                        {{ $result->holidays }}
+                                                                        1{{ $result->holidays }}
                                                                     @else
                                                                         0
                                                                     @endif
@@ -311,11 +312,7 @@
                                                             @endphp
                                                             {{ $result->net_salary }}
                                                         </td>
-{{--                                                        @foreach($employees as $employee)--}}
-{{--                                                            @if(isset($employee->employee_type))--}}
-                                                        <td></td>
-{{--                                                            @endif--}}
-{{--                                                        @endforeach--}}
+                                                        <td>{{$employee->type->type_name}}</td>
                                                     </tr>
                                                 @endif
                                             @endforeach
@@ -420,6 +417,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-2 col-sm-6 pt-1">
+                                                <input type="hidden" name="active_div" value="1" id="active_div">
                                                 <button type="submit" class="btn btn-primary" style="float: right; padding: 6px 50px;">Filter</button>
                                             </div>
                                         </div>
@@ -515,5 +513,8 @@
         $(document).ready(function() {
             $('#advice_table').DataTable();
         } );
+        // function actDiv(id){
+        //     $('#active_div').val(id);
+        // }
     </script>
 @endsection
