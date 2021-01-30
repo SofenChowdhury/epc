@@ -24,17 +24,18 @@ class ReportController extends Controller
         if($coa->child == 1){
             $children = ErpChartOfAccounts::where('coa_parent', '=', $coa->coa_reference_no)->get();
             $transactions = ErpTransactionDetails::get();
+            $total_balance = 0;
         }else{
-            $children = '';
-            $transactions = ErpTransactionDetails::where('erp_transaction_details.coa_id', 3)
+            $children = ErpChartOfAccounts::where('coa_reference_no', '=', $coa->coa_reference_no)->get();
+            $transactions = ErpTransactionDetails::where('erp_transaction_details.coa_id', $id)
                 ->get();
+            $total_balance = $children[0]->opening_debit_amount;
         }
         $setup = ErpSetup::latest()->first();
-        $total_balance = 0;
+        
         return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id','total_balance','form_date','to_date'));
     }
     public function single_account_date_range(Request $request) {
-        
         $id = $request->id;
         $form_date  = $request->start_date;
         $prev_date = date('Y-m-d', strtotime($form_date .' -1 day'));
@@ -48,25 +49,35 @@ class ReportController extends Controller
             $transactions = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
                 ->whereBetween('transaction_date',array($form_date,$to_date))
                 ->get();
+            $child_id = $children[0]->id;
+            $debit_amount = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
+                ->whereBetween('transaction_date',array($st_date,$prev_date))
+                ->where('coa_id',$child_id)
+                ->sum('debit_amount');
+            $credit_amount = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
+                ->whereBetween('transaction_date',array($st_date,$prev_date))
+                ->where('coa_id',$child_id)
+                ->sum('credit_amount');
         }else{
-            $children = '';
+            $children = ErpChartOfAccounts::where('id', '=', $id)->get();
             $transactions = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
                 ->whereBetween('transaction_date',array($form_date,$to_date))
                 ->where('erp_transaction_details.coa_id', $id)
                 ->get();
+            $child_id = $children[0]->id;
+            $debit_amount = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
+                ->whereBetween('transaction_date',array($st_date,$prev_date))
+                ->where('erp_transaction_details.coa_id',$child_id)
+                ->sum('debit_amount');
+            $credit_amount = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
+                ->whereBetween('transaction_date',array($st_date,$prev_date))
+                ->where('coa_id',$child_id)
+                ->sum('credit_amount');
         }
         $setup = ErpSetup::latest()->first();
-        $child_id = $children[0]->id;
-        $debit_amount = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
-            ->whereBetween('transaction_date',array($st_date,$prev_date))
-            ->where('coa_id',$child_id)
-            ->sum('debit_amount');
-        $credit_amount = ErpTransactionDetails::leftjoin('erp_transactions','erp_transactions.id','erp_transaction_details.transaction_id')
-            ->whereBetween('transaction_date',array($st_date,$prev_date))
-            ->where('coa_id',$child_id)
-            ->sum('credit_amount');
+        
     
-        $total_balance = $debit_amount - $credit_amount;
+        $total_balance = $children[0]->opening_debit_amount + $debit_amount - $credit_amount;
         return view('backEnd.reports.single_account', compact( 'transactions', 'coa', 'children', 'setup','id','total_balance','form_date','to_date'));
     }
     

@@ -23,7 +23,7 @@ class TransactionsController extends Controller
     }
 
     public function addTransactions(Request $request) {
-
+//        return $request;
         $transaction=new ErpTransaction;
         $transaction->transaction_date=$request->form['date'];
         $transaction->description=$request->form['description'];
