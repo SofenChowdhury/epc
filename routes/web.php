@@ -368,3 +368,15 @@ Route::post('approvalAction', 'NewIndentController@action');
 Route::get('IndentPrint/{id}', 'NewIndentController@IndentPrint')->name('IndentPrint');
 Route::get('IndentEdit/{id}', 'NewIndentController@edit')->name('IndentEdit');
 Route::post('IndentUpdate/{id}', 'NewIndentController@update')->name('IndentUpdate');
+
+//Inventory Indent Vue routs
+Route::get('add_indents_Inventory','InventoryIndentController@create');
+Route::post('insert_indents_Inventory','InventoryIndentController@insert');
+Route::get('check_indents_Inventory','InventoryIndentController@check')->name('check_indents_Inventory');
+Route::get('IndentEditInventory/{id}', 'InventoryIndentController@edit')->name('IndentEditInventory');
+Route::post('IndentUpdateInventory/{id}', 'InventoryIndentController@update')->name('IndentUpdateInventory');
+Route::get('show_indents_Inventory','InventoryIndentController@index')->name('showIndentInventory');
+Route::get('IndentDeleteViewInventory/{id}', 'InventoryIndentController@deleteView');
+Route::get('IndentDeleteInventory/{id}', 'InventoryIndentController@delete');
+Route::get('IndentPrintInventory/{id}', 'InventoryIndentController@IndentPrint')->name('IndentPrintInventory');
+Route::post('approvalActionInventory', 'InventoryIndentController@action');

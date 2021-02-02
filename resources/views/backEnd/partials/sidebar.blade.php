@@ -409,6 +409,50 @@
                 @endcanany
             </li>
 
+            <li class="pcoded-hasmenu indents">
+                @canany(['View Indent List','Add Indent List','View Inventory Indent List','Add Inventory Indent List'])
+                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="ti-layout"></i><b>P</b></span>
+                        <span class="pcoded-mtext">Indents</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                @endcanany
+                <ul class="pcoded-submenu">
+                    @canany(['View Indent List'])
+                        <li class="inventory">
+                            <a href="{{url('show_indents')}}" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                                <span class="pcoded-mtext">View Indents</span>
+                            </a>
+                        </li>
+                    @endcanany
+                    @canany(['Add Indent List'])
+                        <li class="inventory">
+                            <a href="{{url('add_indents')}}" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                                <span class="pcoded-mtext">Add Indents</span>
+                            </a>
+                        </li>
+                    @endcanany
+                    @canany(['View Inventory Indent List'])
+                        <li class="inventory">
+                            <a href="{{url('show_indents_Inventory')}}" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                                <span class="pcoded-mtext">View Inventory Indents</span>
+                            </a>
+                        </li>
+                    @endcanany
+                    @canany(['Add Inventory Indent List'])
+                        <li class="inventory">
+                            <a href="{{url('add_indents_Inventory')}}" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                                <span class="pcoded-mtext">Add Inventory Indents</span>
+                            </a>
+                        </li>
+                    @endcanany
+                </ul>
+            </li>
+
             <li class="pcoded-hasmenu settings">
                 @canany(['View User List','Edit User','Delete User','Add/Edit Role','Assign Permission by User','Assign Permission by Role'])
                     <a href="javascript:void(0)" class="waves-effect waves-dark">
@@ -433,33 +477,6 @@
                             <a href="{{url('role')}}" class="waves-effect waves-dark">
                                 <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
                                 <span class="pcoded-mtext">Role</span>
-                            </a>
-                        </li>
-                    @endcanany
-                </ul>
-            </li>
-            <li class="pcoded-hasmenu indents">
-                @canany(['View Indent List','Add Indent List'])
-                    <a href="javascript:void(0)" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="ti-layout"></i><b>P</b></span>
-                        <span class="pcoded-mtext">Indents</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                @endcanany
-                <ul class="pcoded-submenu">
-                    @canany(['View Indent List'])
-                        <li class="inventory">
-                            <a href="{{url('show_indents')}}" class="waves-effect waves-dark">
-                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
-                                <span class="pcoded-mtext">View Indents</span>
-                            </a>
-                        </li>
-                    @endcanany
-                    @canany(['Add Indent List'])
-                        <li class="inventory">
-                            <a href="{{url('add_indents')}}" class="waves-effect waves-dark">
-                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
-                                <span class="pcoded-mtext">Add Indents</span>
                             </a>
                         </li>
                     @endcanany

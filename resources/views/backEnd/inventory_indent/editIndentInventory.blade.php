@@ -37,16 +37,16 @@
         <div class="card-header">
             <h5>Indent List</h5>
         </div>
-        <form action="{{url('IndentUpdate',[$id])}}" method="post">@csrf
+        <form action="{{url('IndentUpdateInventory',[$id])}}" method="post">@csrf
             <div class="row">
                 <div class="col-md-12 table-responsive">
                     <table class="table table-sm voucher-table">
                         <thead>
                             <tr class="table-info">
-                                <th scope="col " >Name of vendor/Paid to</th>
-                                <th scope="col" >Purpose of Payment</th>
-                                <th scope="col" >Project Exp Code</th>
-                                <th scope="col" >Amount</th>
+                                <th scope="col " >Item No.</th>
+                                <th scope="col" >Description</th>
+                                <th scope="col" >Quantity</th>
+                                <th scope="col" >Price</th>
                             </tr>
                         </thead>
                         @foreach($indentDataChild as $data)
