@@ -4,17 +4,17 @@
         <div class="row">
             @can('Add Bonus and Advances')
                 <div class="col-xl-12">
-                    <div class="tab-header card">
-                        <ul class="nav nav-tabs nav-fill tab-timeline" role="tablist" id="mytab">
-                            <li class="nav-item">
-                                <a class="nav-link active tab_style" data-toggle="tab" href="#attendance" role="tab">Employee Attendance</a>
-                                <div class="slide"></div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link tab_style" data-toggle="tab" href="#holiday" role="tab">EPC Holiday</a>
-                            </li>
-                        </ul>
-                    </div>
+{{--                    <div class="tab-header card">--}}
+{{--                        <ul class="nav nav-tabs nav-fill tab-timeline" role="tablist" id="mytab">--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link active tab_style" data-toggle="tab" href="#attendance" role="tab">Employee Attendance</a>--}}
+{{--                                <div class="slide"></div>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link tab_style" data-toggle="tab" href="#holiday" role="tab">EPC Holiday</a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
                     <div class="tab-content">
                         <div class="tab-pane active" id="attendance" role="tabpanel">
                             <div class="card">
@@ -22,7 +22,7 @@
                                     <h5 class="card-header-text">Attendance  of {{ $month }}</h5>
                                 </div>
                                 <div class="card-block">
-{{--                                    @if( Auth::user()->getRoleNames()->first() == 'Super Admin' || Auth::user()->getRoleNames()->first() == 'HR Admin')--}}
+                                    @if( Auth::user()->getRoleNames()->first() == 'Super Admin' || Auth::user()->id == 27)
                                         {{ Form::open(['class' => '', 'files' => true, 'url' => 'employee/attendance/0', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'autocomplete' => 'off']) }}
                                         {{csrf_field()}}
                                         <div class="card printBtn">
@@ -83,7 +83,7 @@
                                             </div>
                                         </div>
                                         {{ Form::close()}}
-{{--                                    @endif--}}
+                                    @endif
                                     <div class="table-responsive">
                                         <table id="excel-bg" class="table table-striped table-bordered">
                                             <thead>
