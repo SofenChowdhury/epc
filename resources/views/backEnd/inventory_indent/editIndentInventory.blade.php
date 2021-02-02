@@ -55,7 +55,7 @@
                                 <td class="pb-0">
                                     @if(isset($data->id))
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="vendor[]" value="{{$data->vendor}}"/><br>
+                                            <input class="form-control" type="number" name="vendor[]" value="{{$data->vendor}}" required/><br>
                                             {{$data->vendor}}
                                         </div>
                                     @endif
@@ -63,7 +63,7 @@
                                 <td class="pb-0">
                                     @if(isset($data->id))
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="purpose[]" value="{{$data->purpose}}"/><br>
+                                            <input class="form-control" type="text" name="purpose[]" value="{{$data->purpose}}" required/><br>
                                             {{$data->purpose}}
                                         </div>
                                     @endif
@@ -71,7 +71,7 @@
                                 <td class="pb-0">
                                     @if(isset($data->id))
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="exp_code[]" value="{{$data->exp_code}}"/><br>
+                                            <input class="form-control" type="number" name="exp_code[]" value="{{$data->exp_code}}" required/><br>
                                             {{$data->exp_code}}
                                         </div>
                                     @endif
@@ -79,7 +79,7 @@
                                 <td class="pb-0">
                                     @if(isset($data->id))
                                         <div class="form-group">
-                                            <input class="form-control" type="number" name="amount[]" value="{{$data->amount}}"/><br>
+                                            <input class="form-control" type="number" name="amount[]" value="{{$data->amount}}" required/><br>
                                             {{$data->amount}}
                                         </div>
                                     @endif
