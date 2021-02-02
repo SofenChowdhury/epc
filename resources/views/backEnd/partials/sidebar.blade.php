@@ -422,7 +422,7 @@
                         <li class="inventory">
                             <a href="{{url('show_indents')}}" class="waves-effect waves-dark">
                                 <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
-                                <span class="pcoded-mtext">View Indents</span>
+                                <span class="pcoded-mtext">View Account Indents</span>
                             </a>
                         </li>
                     @endcanany
@@ -430,7 +430,7 @@
                         <li class="inventory">
                             <a href="{{url('add_indents')}}" class="waves-effect waves-dark">
                                 <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
-                                <span class="pcoded-mtext">Add Indents</span>
+                                <span class="pcoded-mtext">Add Account Indents</span>
                             </a>
                         </li>
                     @endcanany

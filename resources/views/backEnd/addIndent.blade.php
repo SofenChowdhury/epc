@@ -48,15 +48,15 @@
             <div class="row md-layout md-gutter">
                 <div class="col-md-3 md-layout-item">
                     <label for="" class="col-form-label">Indent Title:</label>
-                    <input type="text" class="form-control p-2" value="" name="title" id=""/>
+                    <input type="text" class="form-control p-2" value="" name="title" id="" required/>
                 </div>
                 <div class="col-md-3 md-layout-item">
                     <label for="" class="col-form-label">Project</label>
-                    <input type="text" class="form-control p-2" value="" name="project" id=""/>
+                    <input type="text" class="form-control p-2" value="" name="project" id="" required/>
                 </div>
                 <div class="col-md-3">
                     <label for="date" class="col-form-label">Indent date:</label>
-                    <input type="date" id="date" name="date">
+                    <input type="date" id="date" name="date" required>
                 </div>
                 <div class="col-md-3 md-layout-item">
                     <label for="voucher_no" class="col-form-label">Voucher No:</label>
