@@ -127,7 +127,7 @@
                                                 <th>Income Tax Deduc</th>
                                                 <th>Advance Deduc</th>
                                                 <th>Net Payment</th>
-
+                                                <th>Employee Type</th>
                                                 <th>Remarks</th>
                                             </tr>
                                             </thead>
@@ -313,6 +313,7 @@
                                                             {{ $result->net_salary }}
                                                         </td>
                                                         <td>{{$employee->type->type_name}}</td>
+                                                        <td></td>
                                                     </tr>
                                                 @endif
                                             @endforeach
