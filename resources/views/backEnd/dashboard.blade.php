@@ -138,7 +138,7 @@
             <div class="card-block">
                 <div class="row align-items-center m-l-0">
                     <div class="col-auto">
-                        <i class="fa fa-users f-30 text-c-black"></i>
+                        <i class="fa fa fa-wrench open-card-option"></i>
                     </div>
                     <div class="col-auto">
                         <h6 class="text-muted m-b-10"> History Log </h6>
