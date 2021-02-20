@@ -64,7 +64,7 @@
         <th>Initiator</th>
         <th>Manager (HR & Admin)</th>
         <th>Associate Director</th>
-        <th>Director-2</th>
+        <th>Director</th>
 {{--        <th>Director-1</th>--}}
         <th>Chairman</th>
     </tr>

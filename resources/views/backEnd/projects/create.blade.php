@@ -5,7 +5,7 @@
             <h5>Add Project</h5>
         </div>
         <div class="card-block">
-            {{ Form::open(['class' => '', 'files' => true, 'action' => 'ErpProjectController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'autocomplete' => 'off']) }}
+            {{ Form::open(['class' => '', 'files' => true, 'action' => 'ErpProjectController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'autocomplete' => 'on']) }}
             @csrf
             <div class="row">
                 <div class="form-group col-md-3">

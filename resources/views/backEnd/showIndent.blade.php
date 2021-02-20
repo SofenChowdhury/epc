@@ -56,8 +56,8 @@
                                     <th>Manager_remark</th>
                                     <th>Associate_director</th>
                                     <th>Associate_director_remark</th>
-                                    <th>Director_2</th>
-                                    <th>Director_2_remark</th>
+                                    <th>Director</th>
+                                    <th>Director_remark</th>
 {{--                                    <th>Director_1</th>--}}
 {{--                                    <th>Director_1_remark</th>--}}
                                     <th>Chairman</th>
