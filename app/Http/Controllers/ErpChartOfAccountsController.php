@@ -24,9 +24,6 @@ class ErpChartOfAccountsController extends Controller
     }
 
     public function addNewCoaHeader(){
-        DB::table('history_log')->insert(
-            array('user'=>Auth::user()->name,'history_type'=>'inserted','path'=>url()->current())
-        );
         $category = ErpCoaHeader::all();
         $coas = ErpChartOfAccounts::where('active_status', 1)->get();
         return view('backEnd.chart_of_accounts.addNewCoaHeader', compact('category', 'coas'));
